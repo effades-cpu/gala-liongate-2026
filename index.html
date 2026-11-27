@@ -233,6 +233,10 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-show .stage{position:absolute;left:0;right:0;top:200px;bottom:70px}
 .s-show .card{position:absolute;left:50%;top:50%;width:40%;height:100%;transform:translate(-50%,-50%) scale(.5);opacity:0;transition:transform .9s var(--ease),opacity .9s var(--ease)}
 .s-show .card.white{mix-blend-mode:multiply}
+.s-show .card.wide{width:60%}
+.s-show .card.wide.is-l{transform:translate(-126%,-50%) scale(.42)}
+.s-show .card.wide.is-r{transform:translate(26%,-50%) scale(.42)}
+body.flow .s-show .card.wide{width:80%}
 .s-show .card img{width:100%;height:100%;object-fit:contain;}
 .s-show .card.photo img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 97%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 97%,transparent);mask-composite:intersect}
 .s-show .card.is-c{transform:translate(-50%,-50%) scale(1);opacity:1;z-index:3}
@@ -668,7 +672,7 @@ body.flow .s-quote blockquote{font-size:80px}
         if (sn) sn.textContent = it.name || ""; if (sc) sc.textContent = `${k + 1} / ${n}`;
         const show = el.querySelector(".s-show");
         cards.forEach((c, i) => { const im = c.querySelector("img"); if (!im) return;
-          const tag = () => { const e = ((s.items || [])[i] || {}).white ? { bg: "", white: true } : edgeColour(im); c.classList.toggle("white", e.white); c.classList.toggle("photo", !e.white); if (i === k) show.style.backgroundColor = e.white ? "" : e.bg; };
+          const tag = () => { c.classList.toggle("wide", !!((s.items || [])[i] || {}).white && im.naturalWidth / Math.max(1, im.naturalHeight) > 1.4); const e = ((s.items || [])[i] || {}).white ? { bg: "", white: true } : edgeColour(im); c.classList.toggle("white", e.white); c.classList.toggle("photo", !e.white); if (i === k) show.style.backgroundColor = e.white ? "" : e.bg; };
           if (im.complete && im.naturalWidth) tag(); else im.addEventListener("load", tag, { once: true }); });
       }
     }
@@ -713,7 +717,7 @@ body.flow .s-quote blockquote{font-size:80px}
       if (n < 18) return (edgeCache[img.src] = { bg: "", white: true });            // transparent cut-out
       r = Math.round(r / n); g = Math.round(g / n); b = Math.round(b / n);
       return (edgeCache[img.src] = { bg: `rgb(${r},${g},${b})`, white: Math.min(r, g, b) > 246 });
-    } catch (e) { return ""; }
+    } catch (e) { return { bg: "", white: true }; }
   }
 
   function fitSlide() {
