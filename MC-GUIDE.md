@@ -30,7 +30,7 @@ Le site ignore de toute façon les « début réel » et la « pause en cours »
 | **Étape suivante** | Termine l'étape en cours **maintenant** et lance celle indiquée sous le bouton. |
 | **Pause** | Fige l'étape en cours : le compte à rebours s'arrête (sur l'écran de la salle aussi, avec « En pause »), rien n'avance tout seul. Les étapes suivantes sont décalées d'autant. |
 | **Reprendre** | Relance l'étape ; les étapes suivantes sont décalées de la durée de la pause. |
-| **−5 min / −1 min / +1 min / +5 min** | Raccourcit ou allonge l'étape en cours (avant le début : l'Accueil). La suite se décale. Si −5 min ramène l'étape à 0, le panneau demande confirmation : l'étape se termine alors tout de suite. |
+| **−5 min / −1 min / +1 min / +5 min** | Raccourcit ou allonge l'étape en cours (avant le début : l'Accueil). La suite se décale. S'il reste moins de 5 min, −5 min termine l'étape tout de suite : le panneau demande alors confirmation. |
 | **Revenir au plan** | Efface toutes les corrections d'horaires et les pauses, garde les durées. Confirmation demandée. |
 
 ## Cas concrets

@@ -5,66 +5,66 @@
 <meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ox:#441212;--ox2:#5c1c1c;--sand:#f1d7a1;--ochre:#ce943c;--ground:#f2eee9;--ink:#2a1a14;--mute:#7a6a60;--line:#e2d9cf;--amber:#b86a0c;--ok:#2f6b3a;--r:16px}
+:root{--ox:#0e0d0c;--ox2:#211e1b;--sand:#f7ebc6;--ochre:#f2aa1e;--ground:#f7f3ea;--ink:#151311;--mute:#5f5950;--line:#e4ddd0;--amber:#a86a00;--ok:#2f6b3a;--r:6px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.4 Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 body{padding:0 0 calc(24px + env(safe-area-inset-bottom))}
-button{font:inherit;cursor:pointer;border:0;border-radius:12px;min-height:52px;touch-action:manipulation}
+button{font:inherit;cursor:pointer;border:0;border-radius:4px;min-height:52px;touch-action:manipulation}
 button:focus-visible,input:focus-visible{outline:3px solid var(--ochre);outline-offset:2px}
 button:disabled{opacity:.45;cursor:not-allowed}
 .top{position:sticky;top:0;z-index:5;background:var(--ox);color:var(--sand);padding:12px 16px calc(12px);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-family:"EB Garamond",Georgia,serif;font-size:20px;font-weight:600;letter-spacing:.02em}
-.brand small{display:block;font-family:Manrope,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);font-weight:700}
+.brand{font-size:18px;font-weight:800;letter-spacing:.02em}
+.brand small{display:block;font-size:13px;color:var(--ochre);font-weight:700}
 .clock{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:20px}
 .clock small{display:block;font-size:11px;font-weight:600;color:var(--sand);opacity:.8}
 .clock small.bad{color:#ffb4a0;opacity:1}
 main{max-width:640px;margin:0 auto;padding:14px}
-.card{background:#fff;border-radius:var(--r);padding:16px;box-shadow:0 1px 0 var(--line),0 6px 20px rgba(68,18,18,.06);margin-bottom:14px}
+.card{background:#fff;border-radius:var(--r);padding:16px;border:1px solid var(--line);margin-bottom:14px}
 .pin label{display:block;font-weight:700;margin-bottom:8px}
 .pin .row{display:flex;gap:8px}
-.pin input{flex:1;min-width:0;font:inherit;font-size:22px;letter-spacing:.3em;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--ground)}
+.pin input{flex:1;min-width:0;font:inherit;font-size:22px;letter-spacing:.3em;padding:10px 14px;border:2px solid var(--line);border-radius:4px;background:var(--ground)}
 .pin p{margin:8px 0 0;color:var(--mute);font-size:14px}
 .now{background:var(--ox);color:var(--sand)}
-.now .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--ochre)}
-.now h1{font-family:"EB Garamond",Georgia,serif;font-weight:600;font-size:28px;line-height:1.15;margin:6px 0 10px;color:#fff}
+.now .lbl{font-size:14px;font-weight:800;color:var(--ochre)}
+.now h1{font-weight:800;font-size:26px;letter-spacing:-.01em;line-height:1.15;margin:6px 0 10px;color:#fff}
 .now .big{font-size:52px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;color:#fff}
 .now .big.over{color:#ffc46b}
 .now .sub{margin-top:8px;font-size:15px;opacity:.92}
-.badge{display:inline-block;background:var(--ochre);color:var(--ox);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-left:6px;vertical-align:middle}
+.badge{display:inline-block;background:var(--ochre);color:var(--ox);font-weight:800;font-size:13px;border-radius:4px;padding:3px 8px;margin-left:6px;vertical-align:middle}
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.btn-next{grid-column:1/-1;background:var(--ox);color:var(--sand);font-size:20px;font-weight:800;min-height:68px}
+.btn-next{grid-column:1/-1;background:var(--ox);color:#fff;font-size:20px;font-weight:800;min-height:68px}
 .btn-next span{display:block;font-size:13px;font-weight:600;color:#fff;opacity:.85}
 .btn-pause{grid-column:1/-1;background:var(--ochre);color:var(--ox);font-size:19px;font-weight:800;min-height:60px}
 .btn-pause.on{background:var(--ok);color:#fff}
 .adj{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .adj button{background:#fff;color:var(--ox);border:2px solid var(--ox);font-weight:800;font-size:18px}
-h2{font-family:"EB Garamond",Georgia,serif;font-weight:600;font-size:22px;margin:22px 2px 10px;color:var(--ox)}
+h2{font-weight:800;font-size:20px;margin:22px 2px 10px;color:var(--ink)}
 .list{list-style:none;margin:0;padding:0}
-.list li{background:#fff;border-radius:14px;padding:12px 12px 12px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;border-left:6px solid transparent}
+.list li{background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:12px 12px 12px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;border-left:6px solid transparent}
 .list li.sub{margin-left:18px}
 .list li.past{opacity:.6}
-.list li.cur{border-left-color:var(--ochre);box-shadow:0 0 0 2px var(--ochre) inset}
+.list li.cur{border-left-color:var(--ochre);background:#fff8e6}
 .list .t{font-weight:700;line-height:1.25}
-.list .t b{color:var(--ochre);margin-right:6px;font-variant-numeric:tabular-nums}
+.list .t b{color:var(--amber);margin-right:6px;font-variant-numeric:tabular-nums}
 .list .h{grid-column:1;color:var(--mute);font-size:14px;font-variant-numeric:tabular-nums}
 .list .h em{font-style:normal;font-weight:700;color:var(--ox)}
-.list button{grid-row:1/3;grid-column:2;background:var(--sand);color:var(--ox);font-weight:800;font-size:14px;padding:0 12px;min-height:48px;max-width:132px;line-height:1.15}
+.list button{grid-row:1/3;grid-column:2;background:var(--ox);color:#fff;font-weight:800;font-size:14px;padding:0 12px;min-height:48px;max-width:132px;line-height:1.15}
 .plan{display:block;width:100%;margin-top:18px;background:transparent;color:#8a1c1c;border:2px solid #8a1c1c;font-weight:800}
 .foot{color:var(--mute);font-size:13px;text-align:center;margin-top:14px}
 .foot a{color:var(--ox)}
-.toast{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;background:var(--ink);color:#fff;border-radius:14px;padding:14px 16px;font-weight:600;z-index:20;transform:translateY(160%);transition:transform .25s ease}
+.toast{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;background:var(--ink);color:#fff;border-radius:var(--r);padding:14px 16px;font-weight:600;z-index:20;transform:translateY(160%);transition:transform .25s ease}
 .toast.show{transform:none}
 .toast.err{background:#8a1c1c}
 .busy{position:fixed;inset:0;background:rgba(242,238,233,.55);z-index:15;display:none;align-items:center;justify-content:center;font-weight:800;color:var(--ox)}
 .busy.show{display:flex}
 .modal{position:fixed;inset:0;background:rgba(42,26,20,.55);z-index:30;display:none;align-items:flex-end;justify-content:center;padding:12px}
 .modal.show{display:flex}
-.modal .box{background:#fff;border-radius:18px;padding:18px;max-width:520px;width:100%}
+.modal .box{background:#fff;border-radius:var(--r);padding:18px;max-width:520px;width:100%}
 .modal p{font-size:18px;font-weight:600;margin:0 0 16px}
 .modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.modal .yes{background:var(--ox);color:var(--sand);font-weight:800}
+.modal .yes{background:var(--ox);color:#fff;font-weight:800}
 .modal .no{background:var(--ground);color:var(--ink);font-weight:700}
 .hide{display:none!important}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
@@ -299,7 +299,7 @@ galaEngineFactory_(window);
   $("bPause").onclick = function () { act(state && state.paused ? "resume" : "pause"); };
   $("bM5").onclick = function () {
     var sc = compute(), u = sc.current >= 0 ? sc.units[sc.current] : null;
-    if (u && u.duration <= 5 * 60000) ask("Cette étape ne dure que " + Math.round(u.duration / 60000) + " min : −5 min la termine tout de suite (comme « Étape suivante »). Continuer ?", function () { act("adjust", -5); });
+    if (u && u.end - now() <= 5 * 60000) ask("Il reste moins de 5 min sur cette étape : −5 min la termine tout de suite (comme « Étape suivante »). Continuer ?", function () { act("adjust", -5); });
     else act("adjust", -5);
   };
   $("bM1").onclick = function () { act("adjust", -1); };

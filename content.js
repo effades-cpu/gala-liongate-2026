@@ -107,7 +107,7 @@ window.GALA = {
       images: ["assets/photos/dsc08156-5.webp", "assets/photos/dsc08022.webp", "assets/photos/dsc09008.webp", "assets/photos/dsc08053.webp", "assets/photos/dsc08127.webp"],
     },
     {
-      id: "vision", kind: "talk", duration: 8,
+      id: "vision", kind: "talk", duration: 8, brand: "drc",   // sections en Playfair Display + Lato
       title: { fr: "Vision DRC & Présentation de la marque", en: "DRC vision & brand presentation" },
       presenter: { name: "Mme Dorothy Roffat", role: { fr: "Fondatrice de Dorothy Roffat Cosmetics", en: "Founder, Dorothy Roffat Cosmetics" }, org: "Dorothy Roffat Cosmetics" },
       // À COMPLÉTER avec le texte et les indications du propriétaire
@@ -170,7 +170,7 @@ window.GALA = {
     {
       id: "cloture", kind: "talk", duration: 5,
       title: { fr: "Clôture", en: "Closing words" },
-      presenter: { name: "M. le Gouverneur de la Région du Littoral", monogram: "✦", role: { fr: "Gouverneur de la Région du Littoral", en: "Governor of the Littoral Region" }, org: "Région du Littoral" },
+      presenter: { name: "M. le Gouverneur de la Région du Littoral", monogram: "", role: { fr: "Gouverneur de la Région du Littoral", en: "Governor of the Littoral Region" }, org: "Région du Littoral" },
       sections: [
         { layout: "logos", logos: ["liongate", "drc"], title: { fr: "Merci de votre présence", en: "Thank you for being with us" } },
       ],
