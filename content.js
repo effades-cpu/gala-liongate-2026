@@ -72,18 +72,46 @@ window.GALA = {
       ],
     },
     {
-      id: "expansion", kind: "talk", duration: 2,
+      id: "expansion", kind: "talk", duration: 5, hold: true,   // discours de 5 min : les sections ne bouclent pas
       title: { fr: "Pôle Expansion de marchés", en: "Market Expansion division" },
       presenter: { name: "Dr NKONDOCK Hermosa", role: { fr: "Directrice du pôle Expansion de marchés", en: "Director, Market Expansion" }, org: "LIONGATE" },
-      // À REMPLACER par les indications de section envoyées par le propriétaire
+      // Source : « Discours final DRc Couloured.docx » (paragraphes en couleur = diapositives)
       sections: [
-        {
-          layout: "text-image",
-          title: { fr: "Pôle Expansion de marchés", en: "Market Expansion" },
-          text: { fr: "On accompagne les marques qui veulent s'installer sur les marchés africains, de l'étude de marché jusqu'au rayon.", en: "We help brands enter African markets, from market research to the shelf." },
-          points: { fr: ["Analyse du marché", "Conformité", "Distribution", "Animation"], en: ["Market analysis", "Compliance", "Distribution", "Activation"] },
-          image: "",
-        },
+        { layout: "logos", logos: ["liongate", "drc"], duration: 75,
+          title: { fr: "L'entrée de Dorothy Roffat Cosmetics sur le marché camerounais", en: "Dorothy Roffat Cosmetics enters the Cameroonian market" },
+          text: { fr: "Ouvrir des marchés aux marques et les accompagner sur le continent africain. DRC est le premier client du pôle.", en: "Opening markets to brands and supporting them across Africa. DRC is the division's first client." } },
+        { layout: "showcase", brand: "drc", duration: 60, every: 7,
+          title: { fr: "My Secret Skin", en: "My Secret Skin" },
+          text: { fr: "Soins formulés et fabriqués en Allemagne. Trois essentiels.", en: "Skincare formulated and made in Germany. Three essentials." },
+          items: [
+            { image: "assets/products/my-secret-skin/pro-primer.webp", name: "Ma Base Secrète Pro Primer" },
+            { image: "assets/products/my-secret-skin/secret-jour.webp", name: "Mon Secret Jour" },
+            { image: "assets/products/my-secret-skin/secret-nuit.webp", name: "Mon Secret Nuit" },
+          ] },
+        { layout: "showcase", brand: "drc", duration: 55, every: 5,
+          title: { fr: "Inception", en: "Inception" },
+          text: { fr: "Maquillage conçu et fabriqué en Italie. Fond de teint en 15 nuances.", en: "Make-up designed and made in Italy. Foundation in 15 shades." },
+          items: [
+            { image: "assets/products/inception/c040-fluid-foundation.webp", name: "Fond de teint fluide" },
+            { image: "assets/products/inception/loose-powder-packaging.webp", name: "Poudre libre" },
+            { image: "assets/products/inception/pool-eyeliner.webp", name: "Pool Liner" },
+            { image: "assets/products/inception/splash-mascara.webp", name: "Splash Mascara" },
+            { image: "assets/products/inception/paris-lipgloss.webp", name: "Gloss" },
+            { image: "assets/products/inception/liyah-lippenstift.webp", name: "Rouge à lèvres" },
+            { image: "assets/products/inception/love-blush-rouche.webp", name: "Blush" },
+            { image: "assets/products/inception/lidschatten-profi-palette-open.webp", name: "Palette" },
+          ] },
+        { layout: "showcase", brand: "drc", duration: 45, every: 6,
+          title: { fr: "Écrins en bambou, formats rechargeables", en: "Bamboo cases, refillable formats" },
+          text: { fr: "Élégance, fonctionnalité et attention portée à l'environnement.", en: "Elegance, function and care for the environment." },
+          items: [
+            { image: "assets/products/inception/dsc-5127.webp" },
+            { image: "assets/products/inception/lidschatten-profi-palette-packaging.webp" },
+            { image: "assets/products/inception/dsc-5119.webp" },
+            { image: "assets/products/inception/lidschatten-refill.webp" },
+            { image: "assets/products/inception/dsc-5116.webp" },
+          ] },
+        { layout: "quote", brand: "drc", duration: 65, text: { fr: "Beauty is your nature", en: "Beauty is your nature" }, by: { fr: "La beauté est déjà en vous.", en: "Beauty is already within you." } },
       ],
     },
     {

@@ -96,7 +96,7 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 
 /* Open step: title in a solid band at the foot of the picture */
 .open-copy{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:flex-end;justify-content:space-between;gap:48px;padding:44px 88px 52px;background:var(--black);border-top:1px solid var(--line)}
-.open-copy h1{font-weight:800;font-size:88px;line-height:1;letter-spacing:-.03em;max-width:16ch;animation:rise var(--slow) var(--ease) both}
+.open-copy h1{font-weight:800;font-size:80px;line-height:1;letter-spacing:-.03em;max-width:16ch;animation:rise var(--slow) var(--ease) both}
 .open-copy p{font-size:26px;color:var(--text-2);margin-top:16px;max-width:42ch}
 .upnext{flex:none;min-width:420px;padding:22px 26px;border-left:2px solid var(--gold);background:var(--black-2)}
 .upnext small{display:block;font-size:17px;font-weight:700;color:var(--gold)}
@@ -148,12 +148,13 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .dots{display:none}
 
 /* ---- Sections (designed at 1264×856) ---- */
-.s-logos{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:64px;text-align:center}
+.s-logos{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;text-align:center;padding:56px 72px;overflow:hidden}
+.s-logos p{font-size:26px;line-height:1.4;color:var(--text-2);max-width:44ch;margin-top:-24px}
 .duo{display:flex;align-items:center;gap:72px}
 .duo img{height:300px;width:auto;object-fit:contain;animation:rise 900ms var(--ease) both}
 .duo img.drc{height:220px;animation-delay:.2s}
 .duo .sep{width:1px;height:240px;background:var(--line)}
-.s-logos h2{font-weight:700;font-size:56px;line-height:1.12;letter-spacing:-.02em;max-width:22ch;animation:rise 900ms var(--ease) .35s both}
+.s-logos h2{font-weight:700;font-size:46px;line-height:1.12;letter-spacing:-.02em;max-width:22ch;animation:rise 900ms var(--ease) .35s both}
 
 .s-alt{display:grid;place-items:center;background:var(--paper);animation:altbg 12s ease-in-out infinite}
 @keyframes altbg{0%,40%{background:var(--paper)}50%,90%{background:var(--black)}100%{background:var(--paper)}}
@@ -166,24 +167,24 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-alt .cap{position:absolute;bottom:56px;left:0;right:0;text-align:center;font-size:24px;font-weight:700;color:var(--ink);animation:altcap 12s ease-in-out infinite}
 @keyframes altcap{0%,40%{color:var(--ink)}50%,90%{color:var(--text)}100%{color:var(--ink)}}
 
-.s-title{background:var(--black);display:flex;flex-direction:column;justify-content:center;padding:96px}
+.s-title{background:var(--black);display:flex;flex-direction:column;justify-content:center;padding:88px;overflow:hidden}
 .s-title small{font-size:22px;font-weight:700;color:var(--gold)}
-.s-title h2{font-weight:800;font-size:84px;line-height:1.02;letter-spacing:-.03em;margin-top:20px;max-width:16ch}
-.s-title p{font-size:32px;color:var(--text-2);margin-top:26px;max-width:44ch;line-height:1.4}
+.s-title h2{font-weight:800;font-size:72px;line-height:1.02;letter-spacing:-.03em;margin-top:20px;max-width:16ch}
+.s-title p{font-size:28px;color:var(--text-2);margin-top:26px;max-width:44ch;line-height:1.4}
 
 .s-ti{background:var(--paper);color:var(--ink);display:grid;grid-template-columns:1fr 1fr}
-.s-ti .txt{padding:72px 64px;display:flex;flex-direction:column;justify-content:center}
-.s-ti h2{font-weight:800;font-size:60px;line-height:1.05;letter-spacing:-.025em}
-.s-ti p{font-size:32px;line-height:1.42;color:var(--ink-2);margin-top:24px}
+.s-ti .txt{padding:64px 56px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.s-ti h2{font-weight:800;font-size:52px;line-height:1.05;letter-spacing:-.025em}
+.s-ti p{font-size:28px;line-height:1.42;color:var(--ink-2);margin-top:24px}
 .s-ti .img{position:relative;background:var(--black)}
 .s-ti .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .steps{list-style:none;counter-reset:s;display:grid}
 .s-ti .img .steps{position:absolute;inset:0;padding:72px 64px;align-content:center}
-.steps li{counter-increment:s;display:flex;align-items:baseline;gap:22px;padding:22px 0;border-bottom:1px solid var(--line);font-size:34px;font-weight:600;color:var(--text);animation:rise 700ms var(--ease) both}
+.steps li{counter-increment:s;display:flex;align-items:baseline;gap:22px;padding:22px 0;border-bottom:1px solid var(--line);font-size:30px;font-weight:600;color:var(--text);animation:rise 700ms var(--ease) both}
 .steps li:first-child{border-top:1px solid var(--line)}
 .steps li::before{content:counter(s,decimal-leading-zero);flex:none;font-size:22px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
 .s-ti .txt .steps{margin-top:30px}
-.s-ti .txt .steps li{color:var(--ink);font-size:26px;border-color:var(--line-ink);padding:14px 0}
+.s-ti .txt .steps li{color:var(--ink);font-size:24px;border-color:var(--line-ink);padding:14px 0}
 .s-ti .txt .steps li::before{color:var(--ink-2)}
 
 .s-car{background:var(--black)}
@@ -192,7 +193,7 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-car img.contain{object-fit:contain;padding:64px;background:var(--white)}
 .s-car .cap{position:absolute;left:0;bottom:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 32px 28px}
 .s-car.fit .cap{top:28px;bottom:auto;align-items:flex-start}
-.s-car .cap b{font-weight:700;font-size:36px;line-height:1.15;padding:14px 20px;background:var(--black);color:var(--text);max-width:24ch;border-radius:4px}
+.s-car .cap b{font-weight:700;font-size:32px;line-height:1.15;padding:14px 20px;background:var(--black);color:var(--text);max-width:24ch;border-radius:4px}
 .s-car .cap span{font-size:20px;font-weight:700;padding:8px 14px;background:var(--black);color:var(--text);border-radius:4px}
 
 /* ---- Dorothy Roffat sections: Playfair Display + Lato ---- */
@@ -201,27 +202,49 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-prod .pv{position:relative;background:var(--paper);border-right:1px solid var(--line-ink)}
 .s-prod .pv img{position:absolute;left:50%;top:50%;width:80%;height:76%;object-fit:contain;transform:translate(-50%,-50%);opacity:0;transition:opacity .8s var(--ease)}
 .s-prod .pv img.on{opacity:1}
-.s-prod .pd{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+.s-prod .pd{padding:56px 52px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .s-prod small{font-size:22px;font-weight:700;color:var(--drc-ink)}
-.s-prod h2{font-family:var(--drc-serif);font-weight:500;font-size:62px;line-height:1.06;margin-top:16px}
-.s-prod p{font-size:32px;line-height:1.4;color:var(--ink-2);margin-top:20px}
+.s-prod h2{font-family:var(--drc-serif);font-weight:500;font-size:52px;line-height:1.06;margin-top:16px}
+.s-prod p{font-size:28px;line-height:1.4;color:var(--ink-2);margin-top:20px}
 .s-prod ul{list-style:none;margin-top:28px;border-top:1px solid var(--line-ink)}
-.s-prod li{padding:12px 0;border-bottom:1px solid var(--line-ink);font-size:26px;color:var(--ink)}
+.s-prod li{padding:10px 0;border-bottom:1px solid var(--line-ink);font-size:24px;color:var(--ink)}
 .s-prod .swap{animation:rise 600ms var(--ease) both}
 .s-prod .pdots{margin-top:28px;font-size:20px;color:var(--ink-2)}
 .s-prod .pdots i{display:none}
 
-.s-tl{background:var(--white);color:var(--ink);padding:88px 80px;display:flex;flex-direction:column;justify-content:center}
-.s-tl h2{font-family:var(--drc-serif);font-weight:500;font-size:54px;line-height:1.12;max-width:22ch}
+.s-tl{background:var(--white);color:var(--ink);padding:80px 72px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.s-tl h2{font-family:var(--drc-serif);font-weight:500;font-size:46px;line-height:1.12;max-width:22ch}
 .s-tl .row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:2px solid var(--drc)}
 .s-tl .row div{position:relative;padding:34px 24px 0 0;animation:rise 700ms var(--ease) both}
-.s-tl b{display:block;font-family:var(--drc-serif);font-weight:500;font-size:72px;color:var(--drc-ink);line-height:1}
-.s-tl span{display:block;margin-top:14px;font-size:28px;color:var(--ink-2)}
+.s-tl b{display:block;font-family:var(--drc-serif);font-weight:500;font-size:62px;color:var(--drc-ink);line-height:1}
+.s-tl span{display:block;margin-top:14px;font-size:24px;color:var(--ink-2)}
 
-.s-quote{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+.s-quote{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px;overflow:hidden}
 .s-quote img{height:120px;width:auto;margin-bottom:48px}
-.s-quote blockquote{font-family:var(--drc-serif);font-style:italic;font-weight:400;font-size:92px;line-height:1.05;color:var(--cream);max-width:16ch}
-.s-quote p{font-family:var(--drc-sans);font-size:26px;color:var(--drc);margin-top:36px}
+.s-quote blockquote{font-family:var(--drc-serif);font-style:italic;font-weight:400;font-size:84px;line-height:1.05;color:var(--cream);max-width:16ch}
+.s-quote p{font-family:var(--drc-sans);font-size:26px;max-width:40ch;line-height:1.4;color:var(--drc);margin-top:36px}
+
+/* Product showcase: the current product in front, the previous and next at the sides */
+.s-show{background:#f7f6f3;color:var(--ink);transition:background-color .9s var(--ease)}
+.s-show .head{position:absolute;left:56px;right:56px;top:44px;height:150px;overflow:hidden}
+.s-show .head h2{font-weight:800;font-size:46px;line-height:1.08;letter-spacing:-.02em}
+.slide.drc .s-show .head h2{font-family:var(--drc-serif);font-weight:500;letter-spacing:0}
+.s-show .head p{font-size:26px;line-height:1.35;color:var(--ink-2);margin-top:10px;max-width:46ch}
+.s-show .stage{position:absolute;left:0;right:0;top:200px;bottom:70px}
+.s-show .card{position:absolute;left:50%;top:50%;width:48%;height:100%;transform:translate(-50%,-50%) scale(.5);opacity:0;transition:transform .9s var(--ease),opacity .9s var(--ease);mix-blend-mode:multiply}
+.s-show .card img{width:100%;height:100%;object-fit:contain;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);mask-composite:intersect}
+.s-show .card.is-c{transform:translate(-50%,-50%) scale(1);opacity:1;z-index:3}
+.s-show .card.is-l{transform:translate(-122%,-50%) scale(.6);opacity:.55;z-index:2}
+.s-show .card.is-r{transform:translate(22%,-50%) scale(.6);opacity:.55;z-index:2}
+.s-show .card.is-l2{transform:translate(-160%,-50%) scale(.4);opacity:0}
+.s-show .card.is-r2{transform:translate(60%,-50%) scale(.4);opacity:0}
+.s-show .name{position:absolute;left:56px;right:56px;bottom:24px;display:flex;justify-content:space-between;font-size:22px;color:var(--ink-2)}
+.slide.drc .s-show .name b{font-family:var(--drc-serif);font-weight:500;font-size:26px;color:var(--ink)}
+body.flow .s-show .head{left:40px;right:40px;top:36px;height:190px}
+body.flow .s-show .stage{top:240px;bottom:80px}
+body.flow .s-show .card{width:62%}
+body.flow .s-show .card.is-l{transform:translate(-112%,-50%) scale(.5)}
+body.flow .s-show .card.is-r{transform:translate(12%,-50%) scale(.5)}
 
 .s-spot{background:#000}
 .s-spot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
@@ -552,7 +575,7 @@ body.flow .s-quote blockquote{font-size:80px}
   function currentSection(u, unitSched, nowMs) {
     const sp = sectionPlan(u, unitSched.duration);
     if (!sp.list.length) return null;
-    const n = sp.list.length, hold = n === 1 || sp.list.every(x => !(x.s.duration > 0));
+    const n = sp.list.length, hold = !!u.hold || n === 1 || sp.list.every(x => !(x.s.duration > 0));
     // Operator pressed next/previous: run from the chosen section, timed from the key press
     if (manual.id === u.id && typeof manual.k === "number") {
       let k = ((manual.k % n) + n) % n, e = Math.max(0, nowMs - manual.at), base = manual.at, guard = 0;
@@ -572,28 +595,30 @@ body.flow .s-quote blockquote{font-size:80px}
     const s = sec.s, box = $("#slidebox"); if (!box) return;
     const old = box.querySelector(".slide"); if (old) { old.classList.add("leave"); setTimeout(() => old.remove(), 420); }
     document.body.classList.toggle("spotfull", s.layout === "spots"); fitSlide();
-    const d = document.createElement("div"); d.className = "slide" + (isDrc(u) ? " drc" : "");
+    const d = document.createElement("div"); d.className = "slide" + (isDrc(u) || s.brand === "drc" ? " drc" : "");
     d.innerHTML = sectionHTML(s, u);
     box.appendChild(d);
     slideState = { s, el: d, k: -1 };
+    fitText(d);
     if (s.layout === "spots") wireSpots(d);
     applySound();
   }
 
   function sectionHTML(s, u) {
     switch (s.layout) {
-      case "logos": return `<div class="slide-in s-logos" style="position:absolute;inset:0"><div class="duo">${(s.logos || ["liongate", "drc"]).map((k, i) => (i ? `<span class="sep"></span>` : "") + imgTag(logoSrc(k), k, /drc/.test(k) ? "drc" : "")).join("")}</div>${s.title ? `<h2>${brandify(L(s.title))}</h2>` : ""}</div>`;
+      case "logos": return `<div class="slide-in s-logos" data-fit style="position:absolute;inset:0"><div class="duo">${(s.logos || ["liongate", "drc"]).map((k, i) => (i ? `<span class="sep"></span>` : "") + imgTag(logoSrc(k), k, /drc/.test(k) ? "drc" : "")).join("")}</div>${s.title ? `<h2>${brandify(L(s.title))}</h2>` : ""}${s.text ? `<p>${brandify(L(s.text))}</p>` : ""}</div>`;
       case "logo-alternate": return `<div class="s-alt" style="position:absolute;inset:0"><div class="logo">${imgTag(logoSrc("liongateBlack"), "LIONGATE", "k")}${imgTag(logoSrc("liongate"), "", "c", ' aria-hidden="true"')}</div><div class="cap">${esc(L(s.caption) || L(u.title))}</div></div>`;
-      case "title": return `<div class="s-title" style="position:absolute;inset:0">${s.kicker ? `<small>${esc(L(s.kicker))}</small>` : ""}<h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div>`;
+      case "title": return `<div class="s-title" data-fit style="position:absolute;inset:0">${s.kicker ? `<small>${esc(L(s.kicker))}</small>` : ""}<h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div>`;
       case "text-image": {
         const pts = L(s.points) || [];
         const steps = pts.length ? `<ol class="steps">${pts.map(p => `<li>${esc(p)}</li>`).join("")}</ol>` : "";
-        return `<div class="s-ti" style="position:absolute;inset:0"><div class="txt"><h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}${s.image ? steps : ""}</div><div class="img">${s.image ? imgTag(s.image, L(s.title)) : steps}</div></div>`;
+        return `<div class="s-ti" style="position:absolute;inset:0"><div class="txt" data-fit><h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}${s.image ? steps : ""}</div><div class="img">${s.image ? imgTag(s.image, L(s.title)) : steps}</div></div>`;
       }
       case "carousel": return `<div class="s-car${s.fit === "contain" ? " fit" : ""}" style="position:absolute;inset:0">${(s.images || []).map((src, k) => imgTag(src, "", (k === 0 ? "on" : "") + (s.fit === "contain" ? " contain" : ""))).join("")}<div class="cap">${s.title ? `<b>${esc(L(s.title))}</b>` : "<span></span>"}<span class="num" data-car></span></div></div>`;
-      case "products": return `<div class="s-prod" style="position:absolute;inset:0"><div class="pv">${(s.items || []).map((p, k) => imgTag(p.image, p.name, k === 0 ? "on" : "")).join("")}</div><div class="pd"><small>${esc(L(s.title))}</small><div class="swap" data-pd></div><div class="pdots num" data-pc>1 / ${(s.items || []).length}</div></div></div>`;
-      case "timeline": return `<div class="s-tl" style="position:absolute;inset:0"><h2>${esc(L(s.title))}</h2><div class="row num">${(s.items || []).map(t => `<div><b>${esc(t.year)}</b><span>${esc(L(t.text))}</span></div>`).join("")}</div></div>`;
-      case "quote": return `<div class="s-quote" style="position:absolute;inset:0">${imgTag(logoSrc("drcSignature"), "")}<blockquote>${esc(L(s.text))}</blockquote>${s.by ? `<p>${esc(s.by)}</p>` : ""}</div>`;
+      case "products": return `<div class="s-prod" style="position:absolute;inset:0"><div class="pv">${(s.items || []).map((p, k) => imgTag(p.image, p.name, k === 0 ? "on" : "")).join("")}</div><div class="pd" data-fit><small>${esc(L(s.title))}</small><div class="swap" data-pd></div><div class="pdots num" data-pc>1 / ${(s.items || []).length}</div></div></div>`;
+      case "timeline": return `<div class="s-tl" data-fit style="position:absolute;inset:0"><h2>${esc(L(s.title))}</h2><div class="row num">${(s.items || []).map(t => `<div><b>${esc(t.year)}</b><span>${esc(L(t.text))}</span></div>`).join("")}</div></div>`;
+      case "quote": return `<div class="s-quote" data-fit style="position:absolute;inset:0">${imgTag(logoSrc("drcSignature"), "")}<blockquote>${esc(L(s.text))}</blockquote>${s.by ? `<p>${esc(L(s.by))}</p>` : ""}</div>`;
+      case "showcase": return `<div class="s-show" style="position:absolute;inset:0"><div class="head" data-fit><h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div><div class="stage">${(s.items || []).map((p, k) => `<div class="card" data-k="${k}">${imgTag(p.image, p.name || L(s.title))}</div>`).join("")}</div><div class="name"><b data-sn>${esc((s.items && s.items[0] && s.items[0].name) || "")}</b><span class="num" data-sc>1 / ${(s.items || []).length}</span></div></div>`;
       case "spots": return `<div class="s-spot" style="position:absolute;inset:0"><video playsinline preload="auto"></video><span class="vlabel" data-vlabel></span><div class="vctl"><button class="tbtn" type="button" data-vplay aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button></div><div class="endcard">${imgTag(logoSrc("drc"), "Dorothy Roffat Cosmetics")}</div></div>`;
       default: return `<div class="s-title" style="position:absolute;inset:0"><h2>${esc(L(s.title) || L(u.title))}</h2></div>`;
     }
@@ -624,6 +649,19 @@ body.flow .s-quote blockquote{font-size:80px}
       const k = Math.floor(sec.el / every) % imgs.length;
       if (k !== slideState.k) { imgs.forEach((im, i) => im.classList.toggle("on", i === k)); slideState.k = k; const c = el.querySelector("[data-car]"); if (c) c.textContent = `${k + 1} / ${imgs.length}`; }
     }
+    if (s.layout === "showcase") {
+      const cards = [...el.querySelectorAll(".s-show .card")], n = cards.length; if (!n) return;
+      const k = Math.floor(sec.el / every) % n;
+      if (k !== slideState.k) {
+        slideState.k = k;
+        cards.forEach((c, i) => { const r = ((i - k) % n + n) % n; c.className = "card " + (r === 0 ? "is-c" : r === 1 ? "is-r" : r === n - 1 ? "is-l" : r <= n / 2 ? "is-r2" : "is-l2"); });
+        const it = (s.items || [])[k] || {}, sn = el.querySelector("[data-sn]"), sc = el.querySelector("[data-sc]");
+        if (sn) sn.textContent = it.name || ""; if (sc) sc.textContent = `${k + 1} / ${n}`;
+        const img = cards[k].querySelector("img"), show = el.querySelector(".s-show");
+        const paint = () => { const bg = edgeColour(img); show.style.backgroundColor = bg || ""; };
+        if (img) { if (img.complete && img.naturalWidth) paint(); else img.addEventListener("load", paint, { once: true }); }
+      }
+    }
     if (s.layout === "products") {
       const items = s.items || [], k = Math.floor(sec.el / every) % Math.max(1, items.length);
       if (k !== slideState.k && items[k]) {
@@ -632,8 +670,37 @@ body.flow .s-quote blockquote{font-size:80px}
         const pc = el.querySelector("[data-pc]"); if (pc) pc.textContent = `${k + 1} / ${items.length}`;
         const pd = el.querySelector("[data-pd]"); pd.classList.remove("swap"); void pd.offsetWidth; pd.classList.add("swap");
         pd.innerHTML = `<h2>${esc(p.name)}</h2><p>${esc(L(p.text))}</p><ul>${(L(p.actives) || []).map(a => `<li>${esc(a)}</li>`).join("")}</ul>`;
+        fitText(el);
       }
     }
+  }
+
+  // Text fit: shrink a block's text until it fits the space it has (owner: "match the real space")
+  function fitText(root) {
+    if (!root) return;
+    const boxes = root.matches && root.matches("[data-fit]") ? [root] : [...root.querySelectorAll("[data-fit]")];
+    boxes.forEach(box => {
+      const els = [...box.querySelectorAll("h2,p,blockquote,li,b,span,small")].filter(e => e.textContent.trim());
+      els.forEach(e => { e.style.fontSize = ""; });
+      const over = () => box.scrollHeight > box.clientHeight + 2 || box.scrollWidth > box.clientWidth + 2;
+      for (let i = 0; i < 16 && over(); i++) {
+        const sizes = els.map(e => parseFloat(getComputedStyle(e).fontSize));
+        els.forEach((e, k) => { e.style.fontSize = (sizes[k] * 0.93).toFixed(1) + "px"; });
+      }
+    });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => document.querySelectorAll(".slide").forEach(fitText));
+
+  // Product showcase background: take the colour of the photo's own edges so it sits seamlessly
+  const edgeCache = {};
+  function edgeColour(img) {
+    if (edgeCache[img.src]) return edgeCache[img.src];
+    try {
+      const c = document.createElement("canvas"); c.width = c.height = 24; const x = c.getContext("2d", { willReadFrequently: true });
+      x.drawImage(img, 0, 0, 24, 24); const d = x.getImageData(0, 0, 24, 24).data; let r = 0, g = 0, b = 0, n = 0, a = 0;
+      for (let i = 0; i < 24; i++) for (const [px, py] of [[i, 0], [i, 23], [0, i], [23, i]]) { const o = (py * 24 + px) * 4; a += d[o + 3]; if (d[o + 3] > 200) { r += d[o]; g += d[o + 1]; b += d[o + 2]; n++; } }
+      return (edgeCache[img.src] = n > 40 ? `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})` : "");
+    } catch (e) { return ""; }
   }
 
   function fitSlide() {
