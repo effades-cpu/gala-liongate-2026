@@ -149,7 +149,7 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 
 /* ---- Sections (designed at 1264×856) ---- */
 .s-logos{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;text-align:center;padding:56px 72px;overflow:hidden}
-.s-logos p{font-size:26px;line-height:1.4;color:var(--text-2);max-width:44ch;margin-top:-24px}
+.s-logos p{font-size:28px;line-height:1.4;color:var(--text-2);max-width:48ch;margin-top:-24px;text-wrap:balance}
 .duo{display:flex;align-items:center;gap:72px}
 .duo img{height:300px;width:auto;object-fit:contain;animation:rise 900ms var(--ease) both}
 .duo img.drc{height:220px;animation-delay:.2s}
@@ -217,7 +217,7 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-tl .row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:2px solid var(--drc)}
 .s-tl .row div{position:relative;padding:34px 24px 0 0;animation:rise 700ms var(--ease) both}
 .s-tl b{display:block;font-family:var(--drc-serif);font-weight:500;font-size:62px;color:var(--drc-ink);line-height:1}
-.s-tl span{display:block;margin-top:14px;font-size:24px;color:var(--ink-2)}
+.s-tl span{display:block;margin-top:14px;font-size:28px;color:var(--ink-2)}
 
 .s-quote{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px;overflow:hidden}
 .s-quote img{height:120px;width:auto;margin-bottom:48px}
@@ -229,17 +229,20 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-show .head{position:absolute;left:56px;right:56px;top:44px;height:150px;overflow:hidden}
 .s-show .head h2{font-weight:800;font-size:46px;line-height:1.08;letter-spacing:-.02em}
 .slide.drc .s-show .head h2{font-family:var(--drc-serif);font-weight:500;letter-spacing:0}
-.s-show .head p{font-size:26px;line-height:1.35;color:var(--ink-2);margin-top:10px;max-width:46ch}
+.s-show .head p{font-size:28px;line-height:1.35;color:var(--ink-2);margin-top:10px;max-width:60ch;text-wrap:balance}
 .s-show .stage{position:absolute;left:0;right:0;top:200px;bottom:70px}
-.s-show .card{position:absolute;left:50%;top:50%;width:48%;height:100%;transform:translate(-50%,-50%) scale(.5);opacity:0;transition:transform .9s var(--ease),opacity .9s var(--ease);mix-blend-mode:multiply}
-.s-show .card img{width:100%;height:100%;object-fit:contain;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);mask-composite:intersect}
+.s-show .card{position:absolute;left:50%;top:50%;width:40%;height:100%;transform:translate(-50%,-50%) scale(.5);opacity:0;transition:transform .9s var(--ease),opacity .9s var(--ease)}
+.s-show .card.white{mix-blend-mode:multiply}
+.s-show .card img{width:100%;height:100%;object-fit:contain;}
+.s-show .card.photo img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 97%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 97%,transparent);mask-composite:intersect}
 .s-show .card.is-c{transform:translate(-50%,-50%) scale(1);opacity:1;z-index:3}
-.s-show .card.is-l{transform:translate(-122%,-50%) scale(.6);opacity:.55;z-index:2}
-.s-show .card.is-r{transform:translate(22%,-50%) scale(.6);opacity:.55;z-index:2}
-.s-show .card.is-l2{transform:translate(-160%,-50%) scale(.4);opacity:0}
-.s-show .card.is-r2{transform:translate(60%,-50%) scale(.4);opacity:0}
-.s-show .name{position:absolute;left:56px;right:56px;bottom:24px;display:flex;justify-content:space-between;font-size:22px;color:var(--ink-2)}
-.slide.drc .s-show .name b{font-family:var(--drc-serif);font-weight:500;font-size:26px;color:var(--ink)}
+.s-show .card.is-l{transform:translate(-138%,-50%) scale(.5);opacity:.5;z-index:2}
+.s-show .card.is-r{transform:translate(38%,-50%) scale(.5);opacity:.5;z-index:2}
+.s-show .card.is-l2{transform:translate(-170%,-50%) scale(.35);opacity:0}
+.s-show .card.is-r2{transform:translate(70%,-50%) scale(.35);opacity:0}
+.s-show .name{position:absolute;left:56px;right:56px;bottom:22px;display:flex;justify-content:space-between;align-items:baseline;font-size:22px;color:var(--ink-2)}
+.s-show .name b{font-size:32px;color:var(--ink)}
+.slide.drc .s-show .name b{font-family:var(--drc-serif);font-weight:500;font-size:32px;color:var(--ink)}
 body.flow .s-show .head{left:40px;right:40px;top:36px;height:190px}
 body.flow .s-show .stage{top:240px;bottom:80px}
 body.flow .s-show .card{width:62%}
@@ -654,12 +657,19 @@ body.flow .s-quote blockquote{font-size:80px}
       const k = Math.floor(sec.el / every) % n;
       if (k !== slideState.k) {
         slideState.k = k;
-        cards.forEach((c, i) => { const r = ((i - k) % n + n) % n; c.className = "card " + (r === 0 ? "is-c" : r === 1 ? "is-r" : r === n - 1 ? "is-l" : r <= n / 2 ? "is-r2" : "is-l2"); });
+        cards.forEach((c, i) => {
+          const r = ((i - k) % n + n) % n, pos = r === 0 ? "is-c" : r === 1 ? "is-r" : r === n - 1 ? "is-l" : r <= n / 2 ? "is-r2" : "is-l2";
+          const was = (c.className.match(/is-\w+/) || [""])[0], jump = (was === "is-l" || was === "is-l2") && (pos === "is-r" || pos === "is-r2");
+          if (jump) { c.style.transition = "none"; c.style.opacity = "0"; }
+          c.classList.remove("is-c", "is-l", "is-r", "is-l2", "is-r2"); c.classList.add(pos);
+          if (jump) { void c.offsetWidth; requestAnimationFrame(() => { c.style.transition = ""; c.style.opacity = ""; }); }
+        });
         const it = (s.items || [])[k] || {}, sn = el.querySelector("[data-sn]"), sc = el.querySelector("[data-sc]");
         if (sn) sn.textContent = it.name || ""; if (sc) sc.textContent = `${k + 1} / ${n}`;
-        const img = cards[k].querySelector("img"), show = el.querySelector(".s-show");
-        const paint = () => { const bg = edgeColour(img); show.style.backgroundColor = bg || ""; };
-        if (img) { if (img.complete && img.naturalWidth) paint(); else img.addEventListener("load", paint, { once: true }); }
+        const show = el.querySelector(".s-show");
+        cards.forEach((c, i) => { const im = c.querySelector("img"); if (!im) return;
+          const tag = () => { const e = ((s.items || [])[i] || {}).white ? { bg: "", white: true } : edgeColour(im); c.classList.toggle("white", e.white); c.classList.toggle("photo", !e.white); if (i === k) show.style.backgroundColor = e.white ? "" : e.bg; };
+          if (im.complete && im.naturalWidth) tag(); else im.addEventListener("load", tag, { once: true }); });
       }
     }
     if (s.layout === "products") {
@@ -689,7 +699,8 @@ body.flow .s-quote blockquote{font-size:80px}
       }
     });
   }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => document.querySelectorAll(".slide").forEach(fitText));
+  const refitAll = () => document.querySelectorAll(".slide").forEach(fitText);
+  if (document.fonts) { if (document.fonts.ready) document.fonts.ready.then(refitAll); if (document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", refitAll); }
 
   // Product showcase background: take the colour of the photo's own edges so it sits seamlessly
   const edgeCache = {};
@@ -698,8 +709,10 @@ body.flow .s-quote blockquote{font-size:80px}
     try {
       const c = document.createElement("canvas"); c.width = c.height = 24; const x = c.getContext("2d", { willReadFrequently: true });
       x.drawImage(img, 0, 0, 24, 24); const d = x.getImageData(0, 0, 24, 24).data; let r = 0, g = 0, b = 0, n = 0, a = 0;
-      for (let i = 0; i < 24; i++) for (const [px, py] of [[i, 0], [i, 23], [0, i], [23, i]]) { const o = (py * 24 + px) * 4; a += d[o + 3]; if (d[o + 3] > 200) { r += d[o]; g += d[o + 1]; b += d[o + 2]; n++; } }
-      return (edgeCache[img.src] = n > 40 ? `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})` : "");
+      for (const [cx, cy] of [[0, 0], [21, 0], [0, 21], [21, 21]]) for (let dy = 0; dy < 3; dy++) for (let dx = 0; dx < 3; dx++) { const o = ((cy + dy) * 24 + cx + dx) * 4; a += d[o + 3]; if (d[o + 3] > 200) { r += d[o]; g += d[o + 1]; b += d[o + 2]; n++; } }
+      if (n < 18) return (edgeCache[img.src] = { bg: "", white: true });            // transparent cut-out
+      r = Math.round(r / n); g = Math.round(g / n); b = Math.round(b / n);
+      return (edgeCache[img.src] = { bg: `rgb(${r},${g},${b})`, white: Math.min(r, g, b) > 246 });
     } catch (e) { return ""; }
   }
 
@@ -797,7 +810,7 @@ body.flow .s-quote blockquote{font-size:80px}
     document.body.classList.toggle("flow", flow);
     const st = $("#stage");
     st.style.transform = flow ? "" : `scale(${Math.min(w / 1920, h / 1080)})`;
-    fitSlide();
+    fitSlide(); if (typeof refitAll === "function") refitAll();
   }
   addEventListener("resize", layout);
 
@@ -842,7 +855,7 @@ body.flow .s-quote blockquote{font-size:80px}
     const fwd = ["ArrowRight", "PageDown", "ArrowDown", " "].includes(e.key), back = ["ArrowLeft", "PageUp", "ArrowUp"].includes(e.key);
     if ((fwd || back) && document.body.classList.contains("s-talk")) {
       e.preventDefault(); const sch = schedule(), cur = units[sch.current];
-      if (cur) { const sec = currentSection(cur, sch.units[sch.current], now()); if (sec && sec.n > 1) { manual = { id: cur.id, k: sec.k + (fwd ? 1 : -1), at: now() }; tick(); } }
+      if (cur) { const sec = currentSection(cur, sch.units[sch.current], now()); if (sec && sec.n > 1) { let k = sec.k + (fwd ? 1 : -1); if (cur.hold) k = Math.max(0, Math.min(sec.n - 1, k)); manual = { id: cur.id, k, at: now() }; tick(); } }
     }
   });
 

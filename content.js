@@ -77,10 +77,10 @@ window.GALA = {
       presenter: { name: "Dr NKONDOCK Hermosa", role: { fr: "Directrice du pôle Expansion de marchés", en: "Director, Market Expansion" }, org: "LIONGATE" },
       // Source : « Discours final DRc Couloured.docx » (paragraphes en couleur = diapositives)
       sections: [
-        { layout: "logos", logos: ["liongate", "drc"], duration: 75,
+        { layout: "logos", logos: ["liongate", "drc"], duration: 125,
           title: { fr: "L'entrée de Dorothy Roffat Cosmetics sur le marché camerounais", en: "Dorothy Roffat Cosmetics enters the Cameroonian market" },
           text: { fr: "Ouvrir des marchés aux marques et les accompagner sur le continent africain. DRC est le premier client du pôle.", en: "Opening markets to brands and supporting them across Africa. DRC is the division's first client." } },
-        { layout: "showcase", brand: "drc", duration: 60, every: 7,
+        { layout: "showcase", brand: "drc", duration: 45, every: 7,
           title: { fr: "My Secret Skin", en: "My Secret Skin" },
           text: { fr: "Soins formulés et fabriqués en Allemagne. Trois essentiels.", en: "Skincare formulated and made in Germany. Three essentials." },
           items: [
@@ -88,7 +88,7 @@ window.GALA = {
             { image: "assets/products/my-secret-skin/secret-jour.webp", name: "Mon Secret Jour" },
             { image: "assets/products/my-secret-skin/secret-nuit.webp", name: "Mon Secret Nuit" },
           ] },
-        { layout: "showcase", brand: "drc", duration: 55, every: 5,
+        { layout: "showcase", brand: "drc", duration: 40, every: 5,
           title: { fr: "Inception", en: "Inception" },
           text: { fr: "Maquillage conçu et fabriqué en Italie. Fond de teint en 15 nuances.", en: "Make-up designed and made in Italy. Foundation in 15 shades." },
           items: [
@@ -101,17 +101,16 @@ window.GALA = {
             { image: "assets/products/inception/love-blush-rouche.webp", name: "Blush" },
             { image: "assets/products/inception/lidschatten-profi-palette-open.webp", name: "Palette" },
           ] },
-        { layout: "showcase", brand: "drc", duration: 45, every: 6,
+        { layout: "showcase", brand: "drc", duration: 35, every: 6,
           title: { fr: "Écrins en bambou, formats rechargeables", en: "Bamboo cases, refillable formats" },
           text: { fr: "Élégance, fonctionnalité et attention portée à l'environnement.", en: "Elegance, function and care for the environment." },
           items: [
-            { image: "assets/products/inception/dsc-5127.webp" },
-            { image: "assets/products/inception/lidschatten-profi-palette-packaging.webp" },
-            { image: "assets/products/inception/dsc-5119.webp" },
-            { image: "assets/products/inception/lidschatten-refill.webp" },
-            { image: "assets/products/inception/dsc-5116.webp" },
+            { image: "assets/products/inception/dsc-5127-flat.webp", white: true },
+            { image: "assets/products/inception/dsc-5119-flat.webp", white: true },
+            { image: "assets/products/inception/dsc-5116-flat.webp", white: true },
+            { image: "assets/products/inception/dsc-5113-flat.webp", white: true },
           ] },
-        { layout: "quote", brand: "drc", duration: 65, text: { fr: "Beauty is your nature", en: "Beauty is your nature" }, by: { fr: "La beauté est déjà en vous.", en: "Beauty is already within you." } },
+        { layout: "quote", brand: "drc", duration: 55, text: { fr: "Beauty is your nature", en: "Beauty is your nature" }, by: { fr: "La beauté est déjà en vous.", en: "Beauty is already within you." } },
       ],
     },
     {
