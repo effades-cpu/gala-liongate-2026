@@ -77,12 +77,12 @@ Le PIN n'est jamais dans le dépôt GitHub ni dans le Sheet. Sans cette proprié
 Les essais de la veille laissent des traces dans le Sheet (« début réel », pause, durées modifiées). Avant l'arrivée des invités :
 
 1. Dans le panneau, appuyer sur **Revenir au plan**.
-2. Dans l'onglet **Programme**, vérifier la colonne `durée (min)` : 30 · 4 · 4 · 2 · 5 · 3 · 8 · 4 · 5 · 145 (ou les durées décidées le jour même). La colonne « début réel » doit être vide.
+2. Dans l'onglet **Programme**, vérifier la colonne `durée (min)` : 30 · 4 · 4 · 2 · 5 · 3 · 8 · 4 · 5 · 145 (ou les durées décidées le jour même). Les colonnes « début réel » et « pause cumulée » doivent être vides.
 3. Dans l'onglet **Réglages**, vérifier `début prévu` = 28/11/2026 17:30 et que `pause en cours` est vide.
 4. Ouvrir le site : l'en-tête doit afficher **Bientôt** et le compte à rebours.
 5. Sur l'ordinateur de la salle, ouvrir `…/?ecran=1`, cliquer **Plein écran** (ce clic active le son). De préférence une connexion filaire ou 4G pour cet ordinateur.
 
-Le site ignore de toute façon les « début réel » et pauses enregistrés plus de 12 h avant le début prévu, mais les durées modifiées restent appliquées : d'où l'étape 2.
+Le site ignore de toute façon les « début réel » et la « pause en cours » enregistrés plus de 12 h avant le début prévu. En revanche, les durées modifiées et la colonne « pause cumulée » restent appliquées, et une répétition le jour même n'est pas filtrée : après **toute** répétition, appuyer sur « Revenir au plan » (étape 1) et vérifier que la colonne « pause cumulée » est vide (étape 2).
 
 ## 8. Brancher le site (1 min)
 

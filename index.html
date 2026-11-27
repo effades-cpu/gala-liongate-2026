@@ -288,6 +288,13 @@ body.flow .s-prod .pd{padding:40px 48px;justify-content:flex-start}
 body.flow .s-tl{padding:56px 48px}
 body.flow .s-tl .row{grid-template-columns:1fr 1fr;row-gap:48px;margin-top:56px}
 body.flow .s-quote blockquote{font-size:84px}
+body.flow .chip{height:auto;min-height:28px;padding:4px 12px;font-size:12px;line-height:1.3}
+body.flow .s-prod{grid-template-rows:330px 1fr}
+body.flow .s-prod .pd{padding:32px 44px}
+body.flow .s-prod h2{font-size:52px}
+body.flow .s-prod p{font-size:30px;margin-top:14px}
+body.flow .s-prod ul{margin-top:18px}
+body.flow .s-prod .pdots{margin-top:24px}
 
 /* ===== Flow mode: phones / portrait (no scaling, page scrolls) ===== */
 body.flow{overflow:auto}
@@ -325,7 +332,7 @@ body.flow .pcard{order:1;padding:18px;border-radius:20px}
 body.flow .medal{width:64px;height:64px;font-size:28px}
 body.flow .pcard .name{font-size:26px}.flow .pcard .role{font-size:14px}.flow .pcard .topic b{font-size:20px}
 body.flow .main{order:2}
-body.flow .frame{flex:none;aspect-ratio:1264/856;border-radius:18px}
+body.flow .frame{flex:none;border-radius:18px}
 body.flow .foot{font-size:13px}
 body.flow .runlist{order:3;overflow:visible;padding:6px}
 body.flow .runlist li{grid-template-columns:54px 1fr auto;font-size:14px;padding:9px 10px}
@@ -759,7 +766,7 @@ body.flow .sound-cta{position:fixed;right:16px;bottom:16px;height:50px;font-size
     const fwd = ["ArrowRight", "PageDown", "ArrowDown", " "].includes(e.key), back = ["ArrowLeft", "PageUp", "ArrowUp"].includes(e.key);
     if ((fwd || back) && document.body.classList.contains("s-talk")) {
       e.preventDefault(); const sch = schedule(), cur = units[sch.current];
-      if (cur) { const sec = currentSection(cur, sch.units[sch.current], now()); if (sec) { manual = { id: cur.id, k: sec.k + (fwd ? 1 : -1), at: now() }; tick(); } }
+      if (cur) { const sec = currentSection(cur, sch.units[sch.current], now()); if (sec && sec.n > 1) { manual = { id: cur.id, k: sec.k + (fwd ? 1 : -1), at: now() }; tick(); } }
     }
   });
 

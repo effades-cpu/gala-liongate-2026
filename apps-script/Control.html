@@ -297,7 +297,11 @@ galaEngineFactory_(window);
 
   $("bNext").onclick = function () { act("next", nextId); };
   $("bPause").onclick = function () { act(state && state.paused ? "resume" : "pause"); };
-  $("bM5").onclick = function () { act("adjust", -5); };
+  $("bM5").onclick = function () {
+    var sc = compute(), u = sc.current >= 0 ? sc.units[sc.current] : null;
+    if (u && u.duration <= 5 * 60000) ask("Cette étape ne dure que " + Math.round(u.duration / 60000) + " min : −5 min la termine tout de suite (comme « Étape suivante »). Continuer ?", function () { act("adjust", -5); });
+    else act("adjust", -5);
+  };
   $("bM1").onclick = function () { act("adjust", -1); };
   $("bP1").onclick = function () { act("adjust", 1); };
   $("bP5").onclick = function () { act("adjust", 5); };
