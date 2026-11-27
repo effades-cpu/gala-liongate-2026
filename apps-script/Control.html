@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ox:#441212;--ox2:#5c1c1c;--sand:#f1d7a1;--ochre:#ce943c;--ground:#f2eee9;--ink:#2a1a14;--mute:#7a6a60;--line:#e2d9cf;--amber:#b86a0c;--ok:#2f6b3a;--r:16px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.4 Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{padding:0 0 calc(24px + env(safe-area-inset-bottom))}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;min-height:52px;touch-action:manipulation}
+button:focus-visible,input:focus-visible{outline:3px solid var(--ochre);outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.top{position:sticky;top:0;z-index:5;background:var(--ox);color:var(--sand);padding:12px 16px calc(12px);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-family:"EB Garamond",Georgia,serif;font-size:20px;font-weight:600;letter-spacing:.02em}
+.brand small{display:block;font-family:Manrope,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);font-weight:700}
+.clock{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:20px}
+.clock small{display:block;font-size:11px;font-weight:600;color:var(--sand);opacity:.8}
+.clock small.bad{color:#ffb4a0;opacity:1}
+main{max-width:640px;margin:0 auto;padding:14px}
+.card{background:#fff;border-radius:var(--r);padding:16px;box-shadow:0 1px 0 var(--line),0 6px 20px rgba(68,18,18,.06);margin-bottom:14px}
+.pin label{display:block;font-weight:700;margin-bottom:8px}
+.pin .row{display:flex;gap:8px}
+.pin input{flex:1;min-width:0;font:inherit;font-size:22px;letter-spacing:.3em;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--ground)}
+.pin p{margin:8px 0 0;color:var(--mute);font-size:14px}
+.now{background:var(--ox);color:var(--sand)}
+.now .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--ochre)}
+.now h1{font-family:"EB Garamond",Georgia,serif;font-weight:600;font-size:28px;line-height:1.15;margin:6px 0 10px;color:#fff}
+.now .big{font-size:52px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;color:#fff}
+.now .big.over{color:#ffc46b}
+.now .sub{margin-top:8px;font-size:15px;opacity:.92}
+.badge{display:inline-block;background:var(--ochre);color:var(--ox);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-left:6px;vertical-align:middle}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.btn-next{grid-column:1/-1;background:var(--ox);color:var(--sand);font-size:20px;font-weight:800;min-height:68px}
+.btn-next span{display:block;font-size:13px;font-weight:600;color:#fff;opacity:.85}
+.btn-pause{grid-column:1/-1;background:var(--ochre);color:var(--ox);font-size:19px;font-weight:800;min-height:60px}
+.btn-pause.on{background:var(--ok);color:#fff}
+.adj{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.adj button{background:#fff;color:var(--ox);border:2px solid var(--ox);font-weight:800;font-size:18px}
+h2{font-family:"EB Garamond",Georgia,serif;font-weight:600;font-size:22px;margin:22px 2px 10px;color:var(--ox)}
+.list{list-style:none;margin:0;padding:0}
+.list li{background:#fff;border-radius:14px;padding:12px 12px 12px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;border-left:6px solid transparent}
+.list li.sub{margin-left:18px}
+.list li.past{opacity:.6}
+.list li.cur{border-left-color:var(--ochre);box-shadow:0 0 0 2px var(--ochre) inset}
+.list .t{font-weight:700;line-height:1.25}
+.list .t b{color:var(--ochre);margin-right:6px;font-variant-numeric:tabular-nums}
+.list .h{grid-column:1;color:var(--mute);font-size:14px;font-variant-numeric:tabular-nums}
+.list .h em{font-style:normal;font-weight:700;color:var(--ox)}
+.list button{grid-row:1/3;grid-column:2;background:var(--sand);color:var(--ox);font-weight:800;font-size:14px;padding:0 12px;min-height:48px;max-width:132px;line-height:1.15}
+.plan{display:block;width:100%;margin-top:18px;background:transparent;color:#8a1c1c;border:2px solid #8a1c1c;font-weight:800}
+.foot{color:var(--mute);font-size:13px;text-align:center;margin-top:14px}
+.foot a{color:var(--ox)}
+.toast{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;background:var(--ink);color:#fff;border-radius:14px;padding:14px 16px;font-weight:600;z-index:20;transform:translateY(160%);transition:transform .25s ease}
+.toast.show{transform:none}
+.toast.err{background:#8a1c1c}
+.busy{position:fixed;inset:0;background:rgba(242,238,233,.55);z-index:15;display:none;align-items:center;justify-content:center;font-weight:800;color:var(--ox)}
+.busy.show{display:flex}
+.modal{position:fixed;inset:0;background:rgba(42,26,20,.55);z-index:30;display:none;align-items:flex-end;justify-content:center;padding:12px}
+.modal.show{display:flex}
+.modal .box{background:#fff;border-radius:18px;padding:18px;max-width:520px;width:100%}
+.modal p{font-size:18px;font-weight:600;margin:0 0 16px}
+.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal .yes{background:var(--ox);color:var(--sand);font-weight:800}
+.modal .no{background:var(--ground);color:var(--ink);font-weight:700}
+.hide{display:none!important}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><small>Régie MC</small>Gala LIONGATE</div>
+  <div class="clock"><span id="clock">--:--:--</span><small id="sync">connexion…</small></div>
+</header>
+
+<main>
+  <section class="card pin hide" id="pinCard" aria-labelledby="pinLbl">
+    <label id="pinLbl" for="pin">Code PIN de la régie</label>
+    <div class="row">
+      <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••">
+      <button id="pinOk" style="background:var(--ox);color:var(--sand);font-weight:800;padding:0 18px">Valider</button>
+    </div>
+    <p id="pinMsg">Saisi une seule fois : il est mémorisé sur ce téléphone.</p>
+  </section>
+
+  <section class="card now" aria-live="polite">
+    <div class="lbl" id="nowLbl">Chargement…</div>
+    <h1 id="nowTitle">&nbsp;</h1>
+    <div class="big" id="nowBig">--:--</div>
+    <div class="sub" id="nowSub">&nbsp;</div>
+  </section>
+
+  <section class="controls" aria-label="Commandes">
+    <button class="btn-next" id="bNext">Étape suivante<span id="bNextSub">&nbsp;</span></button>
+    <button class="btn-pause" id="bPause">Pause</button>
+    <div class="adj">
+      <button id="bM5" aria-label="Retirer cinq minutes à l'étape en cours">−5 min</button>
+      <button id="bM1" aria-label="Retirer une minute à l'étape en cours">−1 min</button>
+      <button id="bP1" aria-label="Ajouter une minute à l'étape en cours">+1 min</button>
+      <button id="bP5" aria-label="Ajouter cinq minutes à l'étape en cours">+5 min</button>
+    </div>
+  </section>
+
+  <h2>Déroulé</h2>
+  <ul class="list" id="list"></ul>
+
+  <button class="plan" id="bPlan">Revenir au plan</button>
+  <p class="foot">Fin de soirée prévue : <b id="endAt">--:--</b> · <a href="#" id="forget">Changer de code PIN</a></p>
+</main>
+
+<div class="busy" id="busy">Envoi…</div>
+<div class="toast" id="toast" role="status" aria-live="assertive"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTxt">
+  <div class="box"><p id="modalTxt"></p><div class="row"><button class="no" id="mNo">Annuler</button><button class="yes" id="mYes">Confirmer</button></div></div>
+</div>
+
+<script>
+<?!= engineSrc ?>
+galaEngineFactory_(window);
+</script>
+<script>
+(function () {
+  var PIN_KEY = "gala-mc-pin", OFF = 3600000;  // heure de Douala = UTC+1
+  var state = null, offset = 0, lastOk = 0, busy = false, polling = false, pin = "", nextId = null;
+  var ids = [], rows = {};
+  function $(id) { return document.getElementById(id); }
+  try { pin = localStorage.getItem(PIN_KEY) || ""; } catch (e) { pin = ""; }
+
+  function now() { return Date.now() + offset; }
+  function hm(ms) { return new Date(ms + OFF).toISOString().slice(11, 16); }
+  function hms(ms) { return new Date(ms + OFF).toISOString().slice(11, 19); }
+  function mmss(ms) {
+    var t = Math.max(0, Math.round(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), s = t % 60;
+    return (h ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+  function savePin(p) { pin = p; try { localStorage.setItem(PIN_KEY, p); } catch (e) {} }
+  function forgetPin() { pin = ""; try { localStorage.removeItem(PIN_KEY); } catch (e) {} showPin(true); }
+  function showPin(show) { $("pinCard").classList.toggle("hide", !show); if (show) $("pin").value = ""; }
+
+  var toastT;
+  function toast(msg, isErr) {
+    var t = $("toast"); t.textContent = msg; t.className = "toast show" + (isErr ? " err" : "");
+    clearTimeout(toastT); toastT = setTimeout(function () { t.className = "toast"; }, isErr ? 6000 : 3500);
+  }
+  var modalCb = null;
+  function ask(msg, cb) { $("modalTxt").textContent = msg; modalCb = cb; $("modal").classList.add("show"); $("mYes").focus(); }
+  $("mNo").onclick = function () { $("modal").classList.remove("show"); modalCb = null; };
+  $("mYes").onclick = function () { $("modal").classList.remove("show"); var cb = modalCb; modalCb = null; if (cb) cb(); };
+
+  // Numérotation : étapes 1..n, sous-étapes "7.2".
+  function labels(units) {
+    var out = {}, n = 0, subs = {};
+    units.forEach(function (u) {
+      var dot = u.id.indexOf(".");
+      if (dot < 0) { n++; out[u.id] = String(n); }
+      else { var p = u.id.slice(0, dot); subs[p] = (subs[p] || 1) + 1; out[u.id] = (out[p] || n) + "." + subs[p]; }
+    });
+    return out;
+  }
+
+  function buildList() {
+    var ul = $("list"); ul.innerHTML = ""; rows = {};
+    var lab = labels(state.units);
+    state.units.forEach(function (u) {
+      var li = document.createElement("li"); if (u.id.indexOf(".") >= 0) li.className = "sub";
+      var t = document.createElement("div"); t.className = "t";
+      var b = document.createElement("b"); b.textContent = lab[u.id]; t.appendChild(b);
+      var tt = document.createElement("span"); tt.textContent = u.title; t.appendChild(tt);
+      var h = document.createElement("div"); h.className = "h";
+      var btn = document.createElement("button"); btn.type = "button"; btn.textContent = "Commence maintenant";
+      btn.setAttribute("aria-label", "Commence maintenant : " + u.title);
+      btn.onclick = function () {
+        ask("« " + u.title + " » commence maintenant ? Les étapes suivantes seront recalculées.", function () { act("start", u.id); });
+      };
+      li.appendChild(t); li.appendChild(btn); li.appendChild(h); ul.appendChild(li);
+      rows[u.id] = { li: li, h: h, title: u.title, label: lab[u.id] };
+    });
+  }
+
+  function compute() {
+    var live = GalaEngine.cleanLive(state, ids) || {};
+    var plan = { start: live.start || state.start, units: state.units.map(function (u) { return { id: u.id, duration: u.duration }; }) };
+    return GalaEngine.computeSchedule(plan, live, now());
+  }
+
+  function render() {
+    var t = now();
+    $("clock").textContent = hms(t);
+    var age = lastOk ? Math.round((Date.now() - lastOk) / 1000) : -1;
+    var sync = $("sync");
+    sync.textContent = lastOk ? (age < 15 ? "synchronisé" : "hors ligne depuis " + age + " s") : "connexion…";
+    sync.className = lastOk && age >= 15 ? "bad" : "";
+    if (!state) return;
+    var sc = compute(), cur = sc.current, u = cur >= 0 ? sc.units[cur] : null;
+    var lbl = $("nowLbl"), ttl = $("nowTitle"), big = $("nowBig"), sub = $("nowSub");
+    big.classList.remove("over");
+    if (sc.phase === "before") {
+      lbl.textContent = "Avant le début";
+      ttl.textContent = rows[sc.units[0].id].title;
+      big.textContent = mmss(sc.first - t);
+      sub.textContent = "Commence à " + hm(sc.first) + " (heure de Douala)";
+    } else if (sc.phase === "after" || !u) {
+      lbl.textContent = "Soirée terminée"; ttl.textContent = "Merci !"; big.textContent = "—";
+      sub.textContent = "Fin à " + hm(sc.end);
+    } else {
+      var r = rows[u.id], left = u.end - t;
+      lbl.innerHTML = ""; lbl.appendChild(document.createTextNode("En cours · " + r.label));
+      if (u.paused) { var bd = document.createElement("span"); bd.className = "badge"; bd.textContent = "En pause"; lbl.appendChild(bd); }
+      ttl.textContent = r.title;
+      if (left >= 0) big.textContent = mmss(left);
+      else { big.textContent = "+" + mmss(-left); big.classList.add("over"); }
+      var s = hm(u.start) + " – " + hm(u.end) + " · " + (left >= 0 ? "temps restant" : "dépassement");
+      if (u.paused && state.paused) s += " · pause depuis " + mmss(t - state.paused.since);
+      sub.textContent = s;
+    }
+    var nx = sc.next >= 0 ? sc.units[sc.next] : null; nextId = nx ? nx.id : null;
+    $("bNextSub").textContent = nx ? "→ " + rows[nx.id].label + " · " + rows[nx.id].title : (sc.phase === "after" ? "soirée terminée" : "dernière étape");
+    $("endAt").textContent = hm(sc.end);
+    var paused = !!state.paused;
+    var pb = $("bPause"); pb.textContent = paused ? "Reprendre" : "Pause"; pb.classList.toggle("on", paused);
+    pb.disabled = busy || (!paused && sc.phase !== "live");
+    $("bNext").disabled = busy || !nx;
+    ["bM5", "bM1", "bP1", "bP5"].forEach(function (b) { $(b).disabled = busy || sc.phase === "after"; });
+    $("bPlan").disabled = busy;
+    sc.units.forEach(function (x, i) {
+      var row = rows[x.id]; if (!row) return;
+      row.li.className = (x.id.indexOf(".") >= 0 ? "sub " : "") + (i === cur ? "cur" : (cur >= 0 && i < cur) || sc.phase === "after" ? "past" : "");
+      var mins = Math.round(x.duration / 60000 * 10) / 10;
+      var txt = hm(x.start) + " – " + hm(x.end) + " · " + String(mins).replace(".", ",") + " min";
+      if (row.h.getAttribute("data-t") !== txt + (i === cur)) {
+        row.h.setAttribute("data-t", txt + (i === cur));
+        row.h.innerHTML = ""; var em = document.createElement("em"); em.textContent = hm(x.start); row.h.appendChild(em);
+        row.h.appendChild(document.createTextNode(txt.slice(5) + (i === cur ? " · en cours" : "")));
+      }
+      row.li.querySelector("button").disabled = busy;
+    });
+  }
+
+  function onState(s, t0, t1) {
+    if (!s || s.ok === false) { if (s && s.error) toast(s.error, true); return; }
+    if (typeof s.serverTime === "number") offset = s.serverTime - (t0 + t1) / 2;
+    var rebuild = !state || JSON.stringify(state.units) !== JSON.stringify(s.units);
+    state = s; ids = s.units.map(function (u) { return u.id; }); lastOk = Date.now();
+    if (rebuild) buildList();
+    if (!s.pinConfigured) { showPin(true); $("pinMsg").textContent = "Le code PIN n'est pas encore configuré par le propriétaire (Propriétés du script › MC_PIN)."; }
+    else if (!pin) showPin(true);
+    render();
+  }
+
+  function refresh() {
+    if (polling || busy) return;
+    polling = true; var t0 = Date.now();
+    google.script.run
+      .withSuccessHandler(function (s) { polling = false; onState(s, t0, Date.now()); })
+      .withFailureHandler(function () { polling = false; render(); })
+      .mcState();
+  }
+
+  function setBusy(b) { busy = b; $("busy").classList.toggle("show", b); render(); }
+
+  function act(action, arg) {
+    if (busy) return;
+    if (!pin) { showPin(true); toast("Entrez d'abord le code PIN.", true); $("pin").focus(); return; }
+    setBusy(true); var t0 = Date.now();
+    google.script.run
+      .withSuccessHandler(function (r) {
+        var t1 = Date.now(); setBusy(false);
+        if (!r || !r.ok) {
+          if (r && (r.badPin || r.noPin)) forgetPin();
+          toast((r && r.error) || "Erreur inconnue.", true);
+          if (r && r.state) onState(r.state, t0, t1);
+          return;
+        }
+        onState(r.state, t0, t1); toast(r.message || "C'est fait.");
+      })
+      .withFailureHandler(function (e) { setBusy(false); toast("Connexion impossible : " + ((e && e.message) || e) + ". Réessayez.", true); })
+      .mcAction(pin, action, arg === undefined ? null : arg, state ? state.rev : null);
+  }
+
+  $("pinOk").onclick = function () {
+    var p = $("pin").value.trim(); if (!p) return;
+    $("pinOk").disabled = true; $("pinMsg").textContent = "Vérification…";
+    google.script.run
+      .withSuccessHandler(function (r) {
+        $("pinOk").disabled = false;
+        if (r && r.ok) { savePin(p); showPin(false); toast("Code PIN enregistré sur ce téléphone."); }
+        else { $("pinMsg").textContent = (r && r.error) || "Code PIN refusé."; $("pin").value = ""; }
+      })
+      .withFailureHandler(function () { $("pinOk").disabled = false; $("pinMsg").textContent = "Connexion impossible, réessayez."; })
+      .mcCheckPin(p);
+  };
+  $("pin").addEventListener("keydown", function (e) { if (e.key === "Enter") $("pinOk").click(); });
+  $("forget").onclick = function (e) { e.preventDefault(); forgetPin(); $("pin").focus(); };
+
+  $("bNext").onclick = function () { act("next", nextId); };
+  $("bPause").onclick = function () { act(state && state.paused ? "resume" : "pause"); };
+  $("bM5").onclick = function () {
+    var sc = compute(), u = sc.current >= 0 ? sc.units[sc.current] : null;
+    if (u && u.duration <= 5 * 60000) ask("Cette étape ne dure que " + Math.round(u.duration / 60000) + " min : −5 min la termine tout de suite (comme « Étape suivante »). Continuer ?", function () { act("adjust", -5); });
+    else act("adjust", -5);
+  };
+  $("bM1").onclick = function () { act("adjust", -1); };
+  $("bP1").onclick = function () { act("adjust", 1); };
+  $("bP5").onclick = function () { act("adjust", 5); };
+  $("bPlan").onclick = function () {
+    ask("Revenir au plan ? Toutes les corrections d'horaires (« commence maintenant », pauses) seront effacées. Les durées sont conservées.", function () { act("plan"); });
+  };
+
+  if (pin) showPin(false);
+  refresh();
+  setInterval(refresh, 5000);
+  setInterval(render, 500);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) refresh(); });
+})();
+</script>
+</body>
+</html>
