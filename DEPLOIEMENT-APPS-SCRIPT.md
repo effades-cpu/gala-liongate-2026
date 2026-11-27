@@ -72,6 +72,18 @@ Le PIN n'est jamais dans le dépôt GitHub ni dans le Sheet. Sans cette proprié
 - **Panneau MC** : ouvrez l'URL **sans** `?format=json`. Le panneau s'affiche, entrez le PIN, il est mémorisé.
   Pour un essai : appuyez sur « +1 min », vérifiez que l'onglet **Journal** a une nouvelle ligne, puis **« Revenir au plan »** et remettez la durée d'Accueil à 30 dans le Sheet.
 
+## 7 bis. Avant l'ouverture des portes (obligatoire)
+
+Les essais de la veille laissent des traces dans le Sheet (« début réel », pause, durées modifiées). Avant l'arrivée des invités :
+
+1. Dans le panneau, appuyer sur **Revenir au plan**.
+2. Dans l'onglet **Programme**, vérifier la colonne `durée (min)` : 30 · 4 · 4 · 2 · 5 · 3 · 8 · 4 · 5 · 145 (ou les durées décidées le jour même). La colonne « début réel » doit être vide.
+3. Dans l'onglet **Réglages**, vérifier `début prévu` = 28/11/2026 17:30 et que `pause en cours` est vide.
+4. Ouvrir le site : l'en-tête doit afficher **Bientôt** et le compte à rebours.
+5. Sur l'ordinateur de la salle, ouvrir `…/?ecran=1`, cliquer **Plein écran** (ce clic active le son). De préférence une connexion filaire ou 4G pour cet ordinateur.
+
+Le site ignore de toute façon les « début réel » et pauses enregistrés plus de 12 h avant le début prévu, mais les durées modifiées restent appliquées : d'où l'étape 2.
+
 ## 8. Brancher le site (1 min)
 
 Dans le dépôt, ouvrez `content.js`. Vers la ligne 25, remplacez :
@@ -86,11 +98,11 @@ par votre URL `/exec` (sans `?format=json`) :
   liveUrl: "https://script.google.com/macros/s/AKfy…/exec",
 ```
 
-Enregistrez, puis publiez le site comme d'habitude. En ~10 secondes, le site suit les actions de la MC. Si le flux est injoignable, le site garde le dernier état reçu puis revient au plan de `content.js` : la page ne reste jamais vide.
+Enregistrez et faites un commit sur la branche `main` : GitHub Pages met le site en ligne tout de suite (1 à 2 min). Faites-le **après** la fusion de la pull request. En ~10 secondes, le site suit les actions de la MC. Si le flux est injoignable, le site garde le dernier état reçu puis revient au plan de `content.js` : la page ne reste jamais vide.
 
 ## 9. Donner le panneau à la MC
 
-- Envoyez-lui l'URL `/exec` (sans paramètre) **en privé**, et le **PIN séparément** (par exemple de vive voix).
+- Envoyez-lui l'URL `/exec` (sans paramètre) et le **PIN séparément** (par exemple de vive voix). Attention : cette URL sera visible dans `content.js` (dépôt public). C'est donc le **PIN qui protège** le panneau : choisissez-en un de 6 chiffres ou plus.
 - Sur son téléphone : ouvrir le lien › **Ajouter à l'écran d'accueil** (Safari : bouton Partager ; Chrome : menu ⋮).
 - Elle entre le PIN une seule fois. Lien « Changer de code PIN » en bas du panneau si besoin.
 - Un bandeau Google « Cette application a été créée par un utilisateur de Google Apps Script » peut s'afficher en haut : c'est normal.
@@ -107,7 +119,7 @@ L'URL `/exec` reste **la même** : rien à changer dans `content.js` ni chez la 
 
 Si le panneau ne répond plus, le Sheet reste utilisable (le site le reflète en ~10 s) :
 - **Changer une durée** : colonne `durée (min)` de l'onglet **Programme**.
-- **« Cette étape commence à… »** : tapez l'heure (ex. `18:05`) dans `début réel (auto)` de l'étape, et **videz** les cellules `début réel` des étapes suivantes.
+- **« Cette étape commence à… »** : tapez l'heure (ex. `18:05`) dans `début réel (auto)` de l'étape, et **videz** les cellules `début réel` des étapes suivantes. Pour **sauter** des étapes, remplissez aussi le `début réel` de chaque étape sautée (une minute plus tôt suffit) : sinon le site ignore l'heure tapée. Le bouton « Commence maintenant » du panneau fait tout cela automatiquement : préférez-le.
 - **Annuler une correction** : videz la cellule `début réel` concernée.
 - **Lever une pause** : videz `pause en cours (id)` et `pause depuis` dans **Réglages**.
 - **Décaler tout le programme** : modifiez `début prévu` dans **Réglages**.
@@ -118,4 +130,4 @@ Chaque modification manuelle est notée dans le **Journal** (« Édition manuell
 
 - Le flux `?format=json` est **public et en lecture seule** : il ne contient que des heures et des durées.
 - Toute action passe par le **PIN** (vérifié sur le serveur ; un mauvais PIN est refusé, ralenti et noté au Journal « PIN refusé »).
-- Le script s'exécute sous votre compte mais n'accède qu'à ce Sheet. Vous pouvez tout couper à tout moment : **Déployer › Gérer les déploiements › Archiver**.
+- Le script s'exécute sous votre compte. Il ne lit et n'écrit que ce Sheet, mais l'écran d'autorisation de Google demande un accès plus large (« tous vos fichiers Sheets ») : c'est normal. Vous pouvez tout couper à tout moment : **Déployer › Gérer les déploiements › Archiver**.

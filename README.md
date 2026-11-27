@@ -1,6 +1,6 @@
 # Gala LIONGATE · 28 novembre 2026
 
-Présentation en direct de la soirée : le spot en couverture, puis le déroulé étape par étape. Chaque étape s'ouvre toute seule à son heure, avec l'intervenant et ses contenus.
+Présentation en direct de la soirée : les teasers en couverture, puis le déroulé étape par étape. Chaque étape s'ouvre toute seule à son heure, avec l'intervenant et ses contenus.
 
 En ligne : https://effades-cpu.github.io/gala-liongate-2026/
 
@@ -9,7 +9,7 @@ En ligne : https://effades-cpu.github.io/gala-liongate-2026/
 | Pour | Adresse |
 |---|---|
 | Le public (téléphones) | `https://effades-cpu.github.io/gala-liongate-2026/` |
-| L'écran de la salle (vidéoprojecteur) | `https://effades-cpu.github.io/gala-liongate-2026/?ecran=1`, puis cliquer **Plein écran** (ou touche **F**). Ce clic active aussi le son. |
+| L'écran de la salle (vidéoprojecteur) | **Toujours** `https://effades-cpu.github.io/gala-liongate-2026/?ecran=1`, puis cliquer **Plein écran** (ou touche **F**). Ce clic active aussi le son. Après un rechargement de la page, recliquer une fois pour retrouver le son. |
 | La MC (régie des horaires) | le lien du panneau Apps Script (voir `DEPLOIEMENT-APPS-SCRIPT.md` et `MC-GUIDE.md`) |
 
 Sur l'écran de la salle :

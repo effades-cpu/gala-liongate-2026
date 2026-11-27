@@ -58,7 +58,7 @@ function galaEngineFactory_(root) {
   // Validates a state object coming from the network; returns a clean `live` or null.
   function cleanLive(x, ids) {
     if (!x || typeof x !== "object") return null;
-    var ok = {}; ids.forEach(function (id) { ok[id] = 1; });
+    var ok = Object.create(null); ids.forEach(function (id) { ok[id] = 1; });
     function map(o, f) { var r = {}; if (o && typeof o === "object") for (var k in o) if (ok[k]) { var v = f(o[k]); if (v !== null) r[k] = v; } return r; }
     var ms = function (v) { v = Number(v); return isFinite(v) && v > 1.5e12 && v < 2.5e12 ? v : null; };
     var mins = function (v) { v = num(v, -1); return v >= 0 && v <= 600 ? v : null; };

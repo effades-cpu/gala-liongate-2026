@@ -38,7 +38,7 @@ main{max-width:640px;margin:0 auto;padding:14px}
 .btn-next span{display:block;font-size:13px;font-weight:600;color:#fff;opacity:.85}
 .btn-pause{grid-column:1/-1;background:var(--ochre);color:var(--ox);font-size:19px;font-weight:800;min-height:60px}
 .btn-pause.on{background:var(--ok);color:#fff}
-.adj{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.adj{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .adj button{background:#fff;color:var(--ox);border:2px solid var(--ox);font-weight:800;font-size:18px}
 h2{font-family:"EB Garamond",Georgia,serif;font-weight:600;font-size:22px;margin:22px 2px 10px;color:var(--ox)}
 .list{list-style:none;margin:0;padding:0}
@@ -97,6 +97,7 @@ h2{font-family:"EB Garamond",Georgia,serif;font-weight:600;font-size:22px;margin
     <button class="btn-next" id="bNext">Étape suivante<span id="bNextSub">&nbsp;</span></button>
     <button class="btn-pause" id="bPause">Pause</button>
     <div class="adj">
+      <button id="bM5" aria-label="Retirer cinq minutes à l'étape en cours">−5 min</button>
       <button id="bM1" aria-label="Retirer une minute à l'étape en cours">−1 min</button>
       <button id="bP1" aria-label="Ajouter une minute à l'étape en cours">+1 min</button>
       <button id="bP5" aria-label="Ajouter cinq minutes à l'étape en cours">+5 min</button>
@@ -222,7 +223,7 @@ galaEngineFactory_(window);
     var pb = $("bPause"); pb.textContent = paused ? "Reprendre" : "Pause"; pb.classList.toggle("on", paused);
     pb.disabled = busy || (!paused && sc.phase !== "live");
     $("bNext").disabled = busy || !nx;
-    ["bM1", "bP1", "bP5"].forEach(function (b) { $(b).disabled = busy || sc.phase === "after"; });
+    ["bM5", "bM1", "bP1", "bP5"].forEach(function (b) { $(b).disabled = busy || sc.phase === "after"; });
     $("bPlan").disabled = busy;
     sc.units.forEach(function (x, i) {
       var row = rows[x.id]; if (!row) return;
@@ -296,6 +297,7 @@ galaEngineFactory_(window);
 
   $("bNext").onclick = function () { act("next", nextId); };
   $("bPause").onclick = function () { act(state && state.paused ? "resume" : "pause"); };
+  $("bM5").onclick = function () { act("adjust", -5); };
   $("bM1").onclick = function () { act("adjust", -1); };
   $("bP1").onclick = function () { act("adjust", 1); };
   $("bP5").onclick = function () { act("adjust", 5); };

@@ -58,7 +58,7 @@ window.GALA = {
     {
       id: "ouverture", kind: "talk", duration: 4,
       title: { fr: "Ouverture", en: "Opening" },
-      presenter: { name: "M. Ayissi Jean Noël", role: { fr: "Fonction à compléter", en: "Title to be confirmed" }, org: "LIONGATE" },
+      presenter: { name: "M. Ayissi Jean Noël", role: { fr: "", en: "" }, org: "LIONGATE" },   // FONCTION À COMPLÉTER (vide = non affichée)
       sections: [
         { layout: "logos", logos: ["liongate", "drc"], title: { fr: "LIONGATE reçoit Dorothy Roffat Cosmetics", en: "LIONGATE welcomes Dorothy Roffat Cosmetics" } },
       ],
@@ -154,7 +154,6 @@ window.GALA = {
             "assets/products/inception/love-blush-rouche.webp",
             "assets/products/inception/liyah-lippenstift.webp",
             "assets/products/inception/lidschatten-duo-palette-open.webp",
-            "assets/products/inception/too-trav-travel-case-open-fill.webp",
           ],
         },
         { layout: "quote", text: { fr: "L'entretien de la peau d'abord, le maquillage ensuite", en: "Skincare first, make-up second" }, by: "Dorothy Roffat", duration: 30 },
@@ -171,7 +170,7 @@ window.GALA = {
     {
       id: "cloture", kind: "talk", duration: 5,
       title: { fr: "Clôture", en: "Closing words" },
-      presenter: { name: "M. le Gouverneur de la Région du Littoral", role: { fr: "Gouverneur de la Région du Littoral", en: "Governor of the Littoral Region" }, org: "Région du Littoral" },
+      presenter: { name: "M. le Gouverneur de la Région du Littoral", monogram: "✦", role: { fr: "Gouverneur de la Région du Littoral", en: "Governor of the Littoral Region" }, org: "Région du Littoral" },
       sections: [
         { layout: "logos", logos: ["liongate", "drc"], title: { fr: "Merci de votre présence", en: "Thank you for being with us" } },
       ],
