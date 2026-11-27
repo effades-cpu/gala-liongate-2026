@@ -300,6 +300,7 @@ galaEngineFactory_(window);
   $("bM5").onclick = function () {
     var sc = compute(), u = sc.current >= 0 ? sc.units[sc.current] : null;
     if (u && u.end - now() <= 5 * 60000 && nextId) ask("Il reste moins de 5 min sur cette étape : −5 min passe à l'étape suivante maintenant. Continuer ?", function () { act("next", nextId); });
+    else if (u && u.end - now() <= 5 * 60000) ask("Il reste moins de 5 min : −5 min termine la soirée. Continuer ?", function () { act("adjust", -5); });
     else act("adjust", -5);
   };
   $("bM1").onclick = function () { act("adjust", -1); };
