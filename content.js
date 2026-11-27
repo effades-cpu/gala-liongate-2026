@@ -109,7 +109,7 @@ window.GALA = {
     {
       id: "vision", kind: "talk", duration: 8, brand: "drc",   // sections en Playfair Display + Lato
       title: { fr: "Vision DRC & Présentation de la marque", en: "DRC vision & brand presentation" },
-      presenter: { name: "Mme Dorothy Roffat", role: { fr: "Fondatrice de Dorothy Roffat Cosmetics", en: "Founder, Dorothy Roffat Cosmetics" }, org: "Dorothy Roffat Cosmetics" },
+      presenter: { name: "Mme Dorothy Roffat", role: { fr: "Fondatrice", en: "Founder" }, org: "Dorothy Roffat Cosmetics" },
       // À COMPLÉTER avec le texte et les indications du propriétaire
       sections: [
         { layout: "quote", text: { fr: "Beauty is your nature", en: "Beauty is your nature" }, by: "Dorothy Roffat Cosmetics", duration: 45 },
