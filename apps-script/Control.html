@@ -3,104 +3,156 @@
 <head>
 <base target="_top">
 <meta charset="utf-8">
+<meta name="theme-color" content="#0e0d0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ox:#0e0d0c;--ox2:#211e1b;--sand:#f7ebc6;--ochre:#f2aa1e;--ground:#f7f3ea;--ink:#151311;--mute:#5f5950;--line:#e4ddd0;--amber:#8f5a00;--ok:#2f6b3a;--r:6px}
+/* Régie MC, Gala LIONGATE. Manrope only, logo colours, phone-first. */
+:root{--bg:#0e0d0c;--s1:#171513;--s2:#211e1b;--s3:#2b2723;--line:rgba(247,235,198,.12);--text:#f4f0e6;--t2:#bdb6a8;--t3:#8f897d;
+  --gold:#f2aa1e;--red:#dc3c14;--green:#3fb67c;--cream:#f7ebc6;--r:14px;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.4 Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-body{padding:0 0 calc(24px + env(safe-area-inset-bottom))}
-button{font:inherit;cursor:pointer;border:0;border-radius:4px;min-height:52px;touch-action:manipulation}
-button:focus-visible,input:focus-visible{outline:3px solid var(--ochre);outline-offset:2px}
-button:disabled{opacity:.45;cursor:not-allowed}
-.top{position:sticky;top:0;z-index:5;background:var(--ox);color:var(--sand);padding:12px 16px calc(12px);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:18px;font-weight:800;letter-spacing:.02em}
-.brand small{display:block;font-size:13px;color:var(--ochre);font-weight:700}
-.clock{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:20px}
-.clock small{display:block;font-size:11px;font-weight:600;color:var(--sand);opacity:.8}
-.clock small.bad{color:#ffb4a0;opacity:1}
-main{max-width:640px;margin:0 auto;padding:14px}
-.card{background:#fff;border-radius:var(--r);padding:16px;border:1px solid var(--line);margin-bottom:14px}
-.pin label{display:block;font-weight:700;margin-bottom:8px}
-.pin .row{display:flex;gap:8px}
-.pin input{flex:1;min-width:0;font:inherit;font-size:22px;letter-spacing:.3em;padding:10px 14px;border:2px solid var(--line);border-radius:4px;background:var(--ground)}
-.pin p{margin:8px 0 0;color:var(--mute);font-size:14px}
-.now{background:var(--ox);color:var(--sand)}
-.now .lbl{font-size:14px;font-weight:800;color:var(--ochre)}
-.now h1{font-weight:800;font-size:26px;letter-spacing:-.01em;line-height:1.15;margin:6px 0 10px;color:#fff}
-.now .big{font-size:52px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;color:#fff}
-.now .big.over{color:var(--ochre)}
-.now .sub{margin-top:8px;font-size:15px;opacity:.92}
-.badge{display:inline-block;background:var(--ochre);color:var(--ox);font-weight:800;font-size:13px;border-radius:4px;padding:3px 8px;margin-left:6px;vertical-align:middle}
-.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.btn-next{grid-column:1/-1;background:var(--ox);color:#fff;font-size:20px;font-weight:800;min-height:68px}
-.btn-next span{display:block;font-size:13px;font-weight:600;color:#fff;opacity:.85}
-.btn-pause{grid-column:1/-1;background:var(--ochre);color:var(--ox);font-size:19px;font-weight:800;min-height:60px}
-.btn-pause.on{background:var(--ok);color:#fff}
-.adj{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.adj button{background:#fff;color:var(--ox);border:2px solid var(--ox);font-weight:800;font-size:18px}
-h2{font-weight:800;font-size:20px;margin:22px 2px 10px;color:var(--ink)}
-.list{list-style:none;margin:0;padding:0}
-.list li{background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:12px 12px 12px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;border-left:6px solid transparent}
-.list li.sub{margin-left:18px}
-.list li.past{opacity:.6}
-.list li.cur{border-left-color:var(--ochre);background:#fbf1d6}
-.list .t{font-weight:700;line-height:1.25}
-.list .t b{color:var(--amber);margin-right:6px;font-variant-numeric:tabular-nums}
-.list .h{grid-column:1;color:var(--mute);font-size:14px;font-variant-numeric:tabular-nums}
-.list .h em{font-style:normal;font-weight:700;color:var(--ox)}
-.list button{grid-row:1/3;grid-column:2;background:var(--ox);color:#fff;font-weight:800;font-size:14px;padding:0 12px;min-height:48px;max-width:132px;line-height:1.15}
-.plan{display:block;width:100%;margin-top:18px;background:transparent;color:#8a1c1c;border:2px solid #8a1c1c;font-weight:800}
-.foot{color:var(--mute);font-size:13px;text-align:center;margin-top:14px}
-.foot a{color:var(--ox)}
-.toast{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;background:var(--ink);color:#fff;border-radius:var(--r);padding:14px 16px;font-weight:600;z-index:20;transform:translateY(160%);transition:transform .25s ease}
-.toast.show{transform:none}
-.toast.err{background:#8a1c1c}
-.busy{position:fixed;inset:0;background:rgba(242,238,233,.55);z-index:15;display:none;align-items:center;justify-content:center;font-weight:800;color:var(--ox)}
-.busy.show{display:flex}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;display:none;align-items:flex-end;justify-content:center;padding:12px}
-.modal.show{display:flex}
-.modal .box{background:#fff;border-radius:var(--r);padding:18px;max-width:520px;width:100%}
-.modal p{font-size:18px;font-weight:600;margin:0 0 16px}
-.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.modal .yes{background:var(--ox);color:#fff;font-weight:800}
-.modal .no{background:var(--ground);color:var(--ink);font-weight:700}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;cursor:pointer;border:0;border-radius:12px;min-height:52px;touch-action:manipulation;transition:transform .18s var(--spring),background-color .25s var(--ease),opacity .25s,box-shadow .25s}
+button:active:not(:disabled){transform:scale(.96)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+button:disabled{opacity:.35;cursor:not-allowed}
+.num{font-variant-numeric:tabular-nums}
 .hide{display:none!important}
-@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+
+/* Header */
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;padding-top:max(14px,env(safe-area-inset-top));background:rgba(14,13,12,.92);border-bottom:1px solid var(--line)}
+.brand{font-size:17px;font-weight:800;letter-spacing:.01em}
+.brand small{display:block;font-size:12px;font-weight:700;color:var(--gold)}
+.clock{text-align:right;font-weight:800;font-size:19px;font-variant-numeric:tabular-nums}
+.clock small{display:flex;align-items:center;justify-content:flex-end;gap:7px;font-size:12px;font-weight:600;color:var(--t2)}
+.clock small i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:sync 2s var(--ease) infinite}
+.clock small.bad{color:#ff9b7d}.clock small.bad i{background:var(--red);animation:none}
+@keyframes sync{0%{box-shadow:0 0 0 0 rgba(63,182,124,.55)}80%,100%{box-shadow:0 0 0 7px rgba(63,182,124,0)}}
+main{max-width:620px;margin:0 auto;padding:16px}
+
+/* PIN */
+.pin{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:16px;animation:rise .5s var(--ease)}
+.pin label{display:block;font-weight:800;font-size:17px;margin-bottom:12px}
+.pin .row{display:flex;gap:10px}
+.pin input{flex:1;min-width:0;font:inherit;font-size:24px;font-weight:800;letter-spacing:.35em;padding:12px 16px;border:2px solid var(--s3);border-radius:12px;background:var(--bg);color:var(--text);transition:border-color .25s}
+.pin input:focus{border-color:var(--gold);outline:none}
+.pin button{background:var(--gold);color:#151311;font-weight:800;padding:0 20px}
+.pin p{margin:10px 0 0;color:var(--t2);font-size:14px}
+.shake{animation:shake .45s var(--ease)}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+
+/* Current step: countdown ring */
+.now{position:relative;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;overflow:hidden}
+.ring{position:relative;width:132px;height:132px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{fill:none;stroke:var(--s3);stroke-width:9}
+.ring .arc{fill:none;stroke:var(--gold);stroke-width:9;stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset .6s linear,stroke .4s}
+.now.paused .ring .arc{stroke:var(--cream)}
+.now.hot .ring .arc{stroke:var(--red)}
+.now.over .ring .arc{stroke:var(--red);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.35}}
+.ring .big{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ring .big.tick{animation:tick .35s var(--ease)}
+@keyframes tick{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+.now .lbl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:800;color:var(--gold)}
+.live{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;border-radius:6px;padding:3px 8px;font-size:12px}
+.live i{width:7px;height:7px;border-radius:50%;background:#fff;animation:sync 1.6s var(--ease) infinite}
+.badge{display:inline-block;background:var(--cream);color:#151311;font-weight:800;font-size:12px;border-radius:6px;padding:3px 8px;animation:pop .35s var(--spring)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.now h1{font-weight:800;font-size:22px;letter-spacing:-.01em;line-height:1.2;margin:6px 0 8px}
+.now h1.swap{animation:rise .45s var(--ease)}
+.now .sub{font-size:14px;color:var(--t2)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Controls */
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.btn-next{grid-column:1/-1;position:relative;overflow:hidden;background:var(--gold);color:#151311;font-size:20px;font-weight:800;min-height:74px;text-align:left;padding:12px 18px;display:flex;flex-direction:column;justify-content:center}
+.btn-next::after{content:"";position:absolute;right:18px;top:50%;width:12px;height:12px;border-top:3px solid #151311;border-right:3px solid #151311;transform:translateY(-50%) rotate(45deg);transition:transform .25s var(--ease)}
+.btn-next:active:not(:disabled)::after{transform:translate(6px,-50%) rotate(45deg)}
+.btn-next span{display:block;font-size:13px;font-weight:600;opacity:.75;margin-top:2px;padding-right:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-pause{grid-column:1/-1;background:var(--s2);color:var(--text);font-size:19px;font-weight:800;min-height:60px;border:1px solid var(--line)}
+.btn-pause.on{background:var(--cream);color:#151311;animation:breathe 2.4s var(--ease) infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 6px rgba(247,235,198,.12)}}
+.adj{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.adj button{background:var(--s1);border:1px solid var(--line);font-weight:800;font-size:17px;min-height:56px}
+.adj button.flash{animation:flash .5s var(--ease)}
+@keyframes flash{0%{background:var(--gold);color:#151311}100%{background:var(--s1)}}
+
+/* Running order */
+h2{font-weight:800;font-size:15px;color:var(--t2);margin:6px 2px 10px}
+.list{list-style:none;margin:0;padding:0;position:relative}
+.list li{position:relative;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:12px 12px 12px 16px;margin-bottom:8px;overflow:hidden;transition:background-color .35s var(--ease),border-color .35s,opacity .35s,transform .35s var(--ease)}
+.list li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:transparent;transition:background-color .35s}
+.list li .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--gold);transition:width .6s linear}
+.list li.sub{margin-left:18px}
+.list li.past{opacity:.5}
+.list li.cur{background:var(--s2);border-color:rgba(242,170,30,.45);transform:scale(1.01)}
+.list li.cur::before{background:var(--gold)}
+.list .t{font-weight:700;line-height:1.25}
+.list .t b{color:var(--gold);margin-right:8px;font-variant-numeric:tabular-nums}
+.list .h{grid-column:1;color:var(--t2);font-size:13px;font-variant-numeric:tabular-nums}
+.list .h em{font-style:normal;font-weight:800;color:var(--text)}
+.list button{grid-row:1/3;grid-column:2;background:var(--s3);color:var(--text);font-weight:700;font-size:13px;padding:0 12px;min-height:46px;max-width:120px;line-height:1.15}
+.list li.cur button{background:var(--gold);color:#151311}
+.plan{display:block;width:100%;margin-top:18px;background:transparent;color:#ff9b7d;border:1px solid rgba(220,60,20,.5);font-weight:800}
+.foot{color:var(--t3);font-size:13px;text-align:center;margin-top:16px}
+.foot a{color:var(--t2)}
+
+/* Feedback */
+.toast{position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));max-width:600px;margin:0 auto;background:var(--cream);color:#151311;border-radius:12px;padding:14px 16px;font-weight:700;z-index:20;transform:translateY(160%);opacity:0;transition:transform .45s var(--spring),opacity .3s}
+.toast.show{transform:none;opacity:1}
+.toast.err{background:var(--red);color:#fff}
+.busy{position:fixed;left:50%;top:76px;z-index:15;display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px;transform:translate(-50%,-140%);opacity:0;pointer-events:none;transition:transform .35s var(--spring),opacity .25s}
+.busy::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid var(--gold);border-right-color:transparent;animation:spin .8s linear infinite}
+.busy.show{transform:translate(-50%,0);opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;padding:12px;background:rgba(0,0,0,0);pointer-events:none;transition:background-color .3s}
+.modal.show{background:rgba(0,0,0,.6);pointer-events:auto}
+.modal .box{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:20px;max-width:520px;width:100%;transform:translateY(120%);transition:transform .45s var(--spring)}
+.modal.show .box{transform:none}
+.modal p{font-size:18px;font-weight:700;margin:0 0 18px}
+.modal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal .yes{background:var(--gold);color:#151311;font-weight:800}
+.modal .no{background:var(--s3);font-weight:700}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="brand"><small>Régie MC</small>Gala LIONGATE</div>
-  <div class="clock"><span id="clock">--:--:--</span><small id="sync">connexion…</small></div>
+  <div class="clock"><span id="clock">--:--:--</span><small id="sync"><i></i><span id="syncTxt">connexion…</span></small></div>
 </header>
 
 <main>
-  <section class="card pin hide" id="pinCard" aria-labelledby="pinLbl">
+  <section class="pin hide" id="pinCard" aria-labelledby="pinLbl">
     <label id="pinLbl" for="pin">Code PIN de la régie</label>
     <div class="row">
-      <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••">
-      <button id="pinOk" style="background:var(--ox);color:var(--sand);font-weight:800;padding:0 18px">Valider</button>
+      <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••••">
+      <button id="pinOk">Valider</button>
     </div>
-    <p id="pinMsg">Saisi une seule fois : il est mémorisé sur ce téléphone.</p>
+    <p id="pinMsg">Saisi une seule fois, il est mémorisé sur ce téléphone.</p>
   </section>
 
-  <section class="card now" aria-live="polite">
-    <div class="lbl" id="nowLbl">Chargement…</div>
-    <h1 id="nowTitle">&nbsp;</h1>
-    <div class="big" id="nowBig">--:--</div>
-    <div class="sub" id="nowSub">&nbsp;</div>
+  <section class="now" id="nowCard" aria-live="polite">
+    <div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="54"/><circle class="arc" id="arc" cx="60" cy="60" r="54"/></svg><div class="big num" id="nowBig">--:--</div></div>
+    <div>
+      <div class="lbl" id="nowLbl">Chargement…</div>
+      <h1 id="nowTitle">&nbsp;</h1>
+      <div class="sub" id="nowSub">&nbsp;</div>
+    </div>
   </section>
 
   <section class="controls" aria-label="Commandes">
     <button class="btn-next" id="bNext">Étape suivante<span id="bNextSub">&nbsp;</span></button>
     <button class="btn-pause" id="bPause">Pause</button>
     <div class="adj">
-      <button id="bM5" aria-label="Retirer cinq minutes à l'étape en cours">−5 min</button>
-      <button id="bM1" aria-label="Retirer une minute à l'étape en cours">−1 min</button>
-      <button id="bP1" aria-label="Ajouter une minute à l'étape en cours">+1 min</button>
-      <button id="bP5" aria-label="Ajouter cinq minutes à l'étape en cours">+5 min</button>
+      <button id="bM5" aria-label="Retirer cinq minutes à l'étape en cours">−5</button>
+      <button id="bM1" aria-label="Retirer une minute à l'étape en cours">−1</button>
+      <button id="bP1" aria-label="Ajouter une minute à l'étape en cours">+1</button>
+      <button id="bP5" aria-label="Ajouter cinq minutes à l'étape en cours">+5</button>
     </div>
   </section>
 
@@ -108,10 +160,10 @@ h2{font-weight:800;font-size:20px;margin:22px 2px 10px;color:var(--ink)}
   <ul class="list" id="list"></ul>
 
   <button class="plan" id="bPlan">Revenir au plan</button>
-  <p class="foot">Fin de soirée prévue : <b id="endAt">--:--</b> · <a href="#" id="forget">Changer de code PIN</a></p>
+  <p class="foot">Fin de soirée prévue <b id="endAt">--:--</b><br><a href="#" id="forget">Changer de code PIN</a></p>
 </main>
 
-<div class="busy" id="busy">Envoi…</div>
+<div class="busy" id="busy">Envoi</div>
 <div class="toast" id="toast" role="status" aria-live="assertive"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTxt">
   <div class="box"><p id="modalTxt"></p><div class="row"><button class="no" id="mNo">Annuler</button><button class="yes" id="mYes">Confirmer</button></div></div>
@@ -191,33 +243,40 @@ galaEngineFactory_(window);
     $("clock").textContent = hms(t);
     var age = lastOk ? Math.round((Date.now() - lastOk) / 1000) : -1;
     var sync = $("sync");
-    sync.textContent = lastOk ? (age < 15 ? "synchronisé" : "hors ligne depuis " + age + " s") : "connexion…";
+    $("syncTxt").textContent = lastOk ? (age < 15 ? "synchronisé" : "hors ligne depuis " + age + " s") : "connexion…";
     sync.className = lastOk && age >= 15 ? "bad" : "";
     if (!state) return;
     var sc = compute(), cur = sc.current, u = cur >= 0 ? sc.units[cur] : null;
-    var lbl = $("nowLbl"), ttl = $("nowTitle"), big = $("nowBig"), sub = $("nowSub");
-    big.classList.remove("over");
+    var lbl = $("nowLbl"), ttl = $("nowTitle"), big = $("nowBig"), sub = $("nowSub"), card = $("nowCard"), arc = $("arc");
+    var prevBig = big.textContent, prevTtl = ttl.textContent, frac = 0;
+    card.classList.remove("over", "hot", "paused");
     if (sc.phase === "before") {
-      lbl.textContent = "Avant le début";
+      lbl.textContent = "Avant le début"; frac = 0;
       ttl.textContent = rows[sc.units[0].id].title;
       big.textContent = mmss(sc.first - t);
       sub.textContent = "Commence à " + hm(sc.first) + " (heure de Douala)";
     } else if (sc.phase === "after" || !u) {
-      lbl.textContent = "Soirée terminée"; ttl.textContent = "Merci !"; big.textContent = "—";
+      lbl.textContent = "Soirée terminée"; ttl.textContent = "Merci"; big.textContent = "—"; frac = 1;
       sub.textContent = "Fin à " + hm(sc.end);
     } else {
       var r = rows[u.id], left = u.end - t;
-      lbl.innerHTML = ""; lbl.appendChild(document.createTextNode("En cours · " + r.label));
-      if (u.paused) { var bd = document.createElement("span"); bd.className = "badge"; bd.textContent = "En pause"; lbl.appendChild(bd); }
+      lbl.innerHTML = ""; var lv = document.createElement("span"); lv.className = "live"; lv.innerHTML = "<i></i>En direct"; lbl.appendChild(lv);
+      lbl.appendChild(document.createTextNode("Étape " + r.label));
+      if (u.paused) { var bd = document.createElement("span"); bd.className = "badge"; bd.textContent = "En pause"; lbl.appendChild(bd); card.classList.add("paused"); }
+      frac = Math.min(1, Math.max(0, (t - u.start) / Math.max(1, u.end - u.start)));
+      if (left < 0) card.classList.add("over"); else if (left < 60000 && !u.paused) card.classList.add("hot");
       ttl.textContent = r.title;
       if (left >= 0) big.textContent = mmss(left);
-      else { big.textContent = "+" + mmss(-left); big.classList.add("over"); }
-      var s = hm(u.start) + " – " + hm(u.end) + " · " + (left >= 0 ? "temps restant" : "dépassement");
-      if (u.paused && state.paused) s += " · pause depuis " + mmss(t - state.paused.since);
+      else big.textContent = "+" + mmss(-left);
+      var s = hm(u.start) + " – " + hm(u.end) + ", " + (left >= 0 ? "temps restant" : "dépassement");
+      if (u.paused && state.paused) s += ", pause depuis " + mmss(t - state.paused.since);
       sub.textContent = s;
     }
+    arc.style.strokeDashoffset = String(339.3 * (1 - frac));
+    if (big.textContent !== prevBig && big.textContent.slice(-1) !== prevBig.slice(-1)) { big.classList.remove("tick"); void big.offsetWidth; big.classList.add("tick"); }
+    if (ttl.textContent !== prevTtl) { ttl.classList.remove("swap"); void ttl.offsetWidth; ttl.classList.add("swap"); }
     var nx = sc.next >= 0 ? sc.units[sc.next] : null; nextId = nx ? nx.id : null;
-    $("bNextSub").textContent = nx ? "Ensuite : " + rows[nx.id].label + " · " + rows[nx.id].title : (sc.phase === "after" ? "soirée terminée" : "dernière étape");
+    $("bNextSub").textContent = nx ? "Ensuite " + rows[nx.id].label + ", " + rows[nx.id].title : (sc.phase === "after" ? "soirée terminée" : "dernière étape");
     $("endAt").textContent = hm(sc.end);
     var paused = !!state.paused;
     var pb = $("bPause"); pb.textContent = paused ? "Reprendre" : "Pause"; pb.classList.toggle("on", paused);
@@ -228,12 +287,14 @@ galaEngineFactory_(window);
     sc.units.forEach(function (x, i) {
       var row = rows[x.id]; if (!row) return;
       row.li.className = (x.id.indexOf(".") >= 0 ? "sub " : "") + (i === cur ? "cur" : (cur >= 0 && i < cur) || sc.phase === "after" ? "past" : "");
+      var bar = row.li.querySelector(".bar"); if (!bar) { bar = document.createElement("i"); bar.className = "bar"; row.li.appendChild(bar); }
+      bar.style.width = i === cur ? Math.min(100, Math.max(0, (t - x.start) / Math.max(1, x.end - x.start) * 100)) + "%" : "0%";
       var mins = Math.round(x.duration / 60000 * 10) / 10;
-      var txt = hm(x.start) + " – " + hm(x.end) + " · " + String(mins).replace(".", ",") + " min";
+      var txt = hm(x.start) + " – " + hm(x.end) + ", " + String(mins).replace(".", ",") + " min";
       if (row.h.getAttribute("data-t") !== txt + (i === cur)) {
         row.h.setAttribute("data-t", txt + (i === cur));
         row.h.innerHTML = ""; var em = document.createElement("em"); em.textContent = hm(x.start); row.h.appendChild(em);
-        row.h.appendChild(document.createTextNode(txt.slice(5) + (i === cur ? " · en cours" : "")));
+        row.h.appendChild(document.createTextNode(txt.slice(5) + (i === cur ? ", en cours" : "")));
       }
       row.li.querySelector("button").disabled = busy;
     });
@@ -259,6 +320,9 @@ galaEngineFactory_(window);
       .mcState();
   }
 
+  function buzz(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
+  document.addEventListener("pointerdown", function (e) { var b = e.target.closest && e.target.closest("button"); if (b && !b.disabled) buzz(8); }, { passive: true });
+  ["bM5", "bM1", "bP1", "bP5"].forEach(function (id) { $(id).addEventListener("click", function () { var b = $(id); b.classList.remove("flash"); void b.offsetWidth; b.classList.add("flash"); }); });
   function setBusy(b) { busy = b; $("busy").classList.toggle("show", b); render(); }
 
   function act(action, arg) {
@@ -274,7 +338,7 @@ galaEngineFactory_(window);
           if (r && r.state) onState(r.state, t0, t1);
           return;
         }
-        onState(r.state, t0, t1); toast(r.message || "C'est fait.");
+        onState(r.state, t0, t1); toast(r.message || "C'est fait."); buzz(15);
       })
       .withFailureHandler(function (e) { setBusy(false); toast("Connexion impossible : " + ((e && e.message) || e) + ". Réessayez.", true); })
       .mcAction(pin, action, arg === undefined ? null : arg, state ? state.rev : null);
@@ -287,7 +351,7 @@ galaEngineFactory_(window);
       .withSuccessHandler(function (r) {
         $("pinOk").disabled = false;
         if (r && r.ok) { savePin(p); showPin(false); toast("Code PIN enregistré sur ce téléphone."); }
-        else { $("pinMsg").textContent = (r && r.error) || "Code PIN refusé."; $("pin").value = ""; }
+        else { $("pinMsg").textContent = (r && r.error) || "Code PIN refusé."; $("pin").value = ""; var pc = $("pinCard"); pc.classList.remove("shake"); void pc.offsetWidth; pc.classList.add("shake"); buzz([40, 60, 40]); }
       })
       .withFailureHandler(function () { $("pinOk").disabled = false; $("pinMsg").textContent = "Connexion impossible, réessayez."; })
       .mcCheckPin(p);
