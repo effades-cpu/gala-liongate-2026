@@ -710,7 +710,7 @@ body.flow .s-quote blockquote{font-size:80px}
     const fsb = root.querySelector("[data-vfs]"); if (fsb) fsb.addEventListener("click", () => { const r = v.requestFullscreen || v.webkitRequestFullscreen || v.webkitEnterFullscreen; if (r) { const p = r.call(v); if (p && p.catch) p.catch(() => {}); } if (!soundOn) setSound(true); });
     btn.addEventListener("click", () => { if (v.paused) { if (root.querySelector(".s-spot").classList.contains("done")) { root.querySelector(".s-spot").classList.remove("done"); k = 0; load(); } else playVideo(v); } else v.pause(); });
     const box = root.querySelector(".s-spot");
-    if (list.length) { box.classList.add("intro"); setTimeout(() => { box.classList.add("fading"); load(); }, 1500); setTimeout(() => box.classList.remove("intro", "fading"), 3300); }
+    if (list.length) { box.classList.add("intro"); setTimeout(() => { if (!box.isConnected) return; box.classList.add("fading"); load(); }, 1500); setTimeout(() => box.classList.remove("intro", "fading"), 3300); }
   }
 
   // Plays clips in order from an offset (s). loop: start over at the end; otherwise one pass, then random (if the MC extends)
@@ -733,7 +733,7 @@ body.flow .s-quote blockquote{font-size:80px}
       const k = pickIndex(sec.el, n, every, s.lead, (s.leadFor || 60) * 1000);
       if (k !== slideState.k) {
         frames.forEach((f, i) => f.classList.toggle("on", i === k)); slideState.k = k;
-                const w = el.querySelector("[data-who]"); if (w) w.textContent = ((s.images || [])[k] || {}).name || "";
+        const w = el.querySelector("[data-who]"); if (w) w.textContent = ((s.images || [])[k] || {}).name || "";
       }
     }
     if (s.layout === "text-image" && s.progressive) {
