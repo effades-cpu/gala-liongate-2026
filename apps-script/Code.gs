@@ -19,8 +19,7 @@ var DEFAULT_START = Date.parse("2026-11-28T17:30:00+01:00");
 var UNITS = [
   { id: "accueil",     title: "Accueil et photocall", duration: 30 },
   { id: "ouverture",   title: "Ouverture", duration: 4 },
-  { id: "marketing",   title: "Le département Marketing et Communication", duration: 4 },
-  { id: "expansion",   title: "Pôle Expansion de marchés", duration: 2 },
+  { id: "expansion",   title: "Pôle Expansion de marchés", duration: 5 },
   { id: "it",          title: "IT & Software Outsourcing", duration: 5 },
   { id: "intermede",   title: "Intermède musical", duration: 3 },
   { id: "vision",      title: "Vision DRC & Présentation de la marque", duration: 8 },

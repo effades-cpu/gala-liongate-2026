@@ -9,7 +9,7 @@ Sans action de votre part, les étapes s'enchaînent **toutes seules** selon leu
 Les essais de la veille laissent des traces dans le Sheet (« début réel », pause, durées modifiées). Avant l'arrivée des invités :
 
 1. Dans le panneau, appuyer sur **Revenir au plan**.
-2. Dans l'onglet **Programme**, vérifier la colonne `durée (min)` : 30 · 4 · 4 · 2 · 5 · 3 · 8 · 4 · 5 · 145 (ou les durées décidées le jour même). Les colonnes « début réel » et « pause cumulée » doivent être vides.
+2. Dans l'onglet **Programme**, vérifier la colonne `durée (min)` : 30, 4, 5, 5, 3, 8, 4, 5, 145 (ou les durées décidées le jour même). Les colonnes « début réel » et « pause cumulée » doivent être vides.
 3. Dans l'onglet **Réglages**, vérifier `début prévu` = 28/11/2026 17:30 et que `pause en cours` est vide.
 4. Ouvrir le site : l'en-tête doit afficher **Bientôt** et le compte à rebours.
 5. Sur l'ordinateur de la salle, ouvrir `…/?ecran=1`, cliquer **Plein écran** (ce clic active le son). De préférence une connexion filaire ou 4G pour cet ordinateur.
@@ -30,7 +30,7 @@ Le site ignore de toute façon les « début réel » et la « pause en cours »
 | **Étape suivante** | Termine l'étape en cours **maintenant** et lance celle indiquée sous le bouton. |
 | **Pause** | Fige l'étape en cours : le compte à rebours s'arrête (sur l'écran de la salle aussi, avec « En pause »), rien n'avance tout seul. Les étapes suivantes sont décalées d'autant. |
 | **Reprendre** | Relance l'étape ; les étapes suivantes sont décalées de la durée de la pause. |
-| **−5 min / −1 min / +1 min / +5 min** | Raccourcit ou allonge l'étape en cours (avant le début : l'Accueil). La suite se décale. Si −5 min ramène l'étape à 0, le panneau demande confirmation : l'étape se termine alors tout de suite. |
+| **−5 min / −1 min / +1 min / +5 min** | Raccourcit ou allonge l'étape en cours (avant le début : l'Accueil). La suite se décale. S'il reste moins de 5 min, −5 min fait la même chose qu'« Étape suivante » (l'étape suivante commence maintenant, rien n'est sauté) : le panneau demande confirmation. |
 | **Revenir au plan** | Efface toutes les corrections d'horaires et les pauses, garde les durées. Confirmation demandée. |
 
 ## Cas concrets
