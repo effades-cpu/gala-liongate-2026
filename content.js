@@ -54,21 +54,15 @@ window.GALA = {
   steps: [
     {
       id: "accueil", kind: "open", duration: 30, scene: "teaser",
-      title: { fr: "Accueil et photocall", en: "Welcome and photocall" },
-      line: { fr: "Bienvenue. Installez-vous, la soirée commence bientôt.", en: "Welcome. Please take your seats, the evening starts shortly." },
+      title: { fr: "Accueil", en: "Welcome" },
+      line: { fr: "Bienvenue. Installez-vous", en: "Welcome. Please take your seats" },
     },
     {
       id: "ouverture", kind: "talk", duration: 4, hold: true,
       title: { fr: "Ouverture", en: "Opening" },
       presenter: { name: "M. Ayissi Jean Noël", role: { fr: "", en: "" }, org: "LIONGATE" },   // FONCTION À COMPLÉTER (vide = non affichée)
       sections: [
-        { layout: "logos", logos: ["liongate", "drc"], duration: 10 },
-        { layout: "carousel", duration: 220, every: 9,
-          images: [
-            { src: "assets/photos/panoramique.webp" },
-            { pair: ["assets/photos/flying-banner-1.webp", "assets/photos/flying-banner-2.webp"] },
-          ] },
-        { layout: "emblem", duration: 10 },
+        { layout: "carousel", duration: 240, images: [{ src: "assets/photos/panoramique.webp" }] },   // Panoramique seule (v9)
       ],
     },
     {
@@ -118,31 +112,24 @@ window.GALA = {
       presenter: { name: "M. Donald Nguimfack", role: { fr: "Directeur du pôle IT & Software Outsourcing", en: "Director, IT & Software Outsourcing" }, org: "LIONGATE" },
       sections: [
         {
-          layout: "text-image", duration: 240, progressive: true,
+          layout: "text-image", duration: 300, progressive: true,
           title: { fr: "IT & Software Outsourcing", en: "IT & Software Outsourcing" },
           text: { fr: "On gère les systèmes d'information des entreprises, de l'audit à l'exploitation.", en: "We run companies' information systems, from audit to operations." },
           points: { fr: ["Audit", "Développement", "Exploitation"], en: ["Audit", "Build", "Run"] },
           image: "",
         },
-        { layout: "carousel", duration: 60, every: 5,   // roll-ups ENG et FR côte à côte, qui échangent leur place toutes les 5 s
-          images: [
-            { pair: ["assets/photos/rollup-en.webp", "assets/photos/rollup-fr.webp"] },
-            { pair: ["assets/photos/rollup-fr.webp", "assets/photos/rollup-en.webp"] },
-          ] },
       ],
     },
     {
       id: "intermede", kind: "open", duration: 3, scene: "ambient",
       title: { fr: "Intermède musical", en: "Musical interlude" },
       line: { fr: "Avec l'orchestre", en: "With the orchestra" },
-      lead: 3, leadFor: 60,   // Cycy, Freddy et DSC08156 seules pendant 1 min, puis les autres
-      images: [
-        { src: "assets/photos/cycy.webp", pos: "50% 6%" },
-        { src: "assets/photos/freddy.webp", pos: "50% 30%" },
-        { src: "assets/photos/dsc08156-5.webp", pos: "50% 0%" },
-        { src: "assets/photos/dsc08063.webp", pos: "50% 45%" },
-        { src: "assets/photos/dsc08127.webp", pos: "50% 36%" },
-        { src: "assets/photos/dsc09008.webp", pos: "50% 4%" },
+      clips: [   // dans cet ordre, puis on recommence (v9)
+        { src: "assets/video/kribi-dji-0262.mp4", dur: 25 },
+        { src: "assets/video/kribi-c2544.mp4", dur: 9 },
+        { src: "assets/video/kribi-dji-0262.mp4", dur: 25 },
+        { src: "assets/video/kribi-c2475.mp4", dur: 6.5 },
+        { src: "assets/video/kribi-c2468.mp4", dur: 8 },
       ],
     },
     {
@@ -169,62 +156,22 @@ window.GALA = {
             { year: "2026", text: { fr: "Arrivée au Cameroun avec LIONGATE", en: "Arrival in Cameroon with LIONGATE" } },
           ],
         },
-        {
-          layout: "products", every: 15, duration: 45,
-          title: { fr: "Secret Skin, le soin fabriqué en Allemagne", en: "Secret Skin, skincare made in Germany" },
-          items: [
-            { name: "Ma Base Secrète Pro Primer", image: "assets/products/my-secret-skin/pro-primer.webp",
-              text: { fr: "Un soin actif sous le maquillage. Affine le grain et régule le sébum sans boucher les pores.", en: "An active primer. Refines skin texture and controls shine without clogging pores." },
-              actives: { fr: ["Argent colloïdal", "Acide lactique", "Silice naturelle"], en: ["Colloidal silver", "Lactic acid", "Natural silica"] } },
-            { name: "Mon Secret Jour", image: "assets/products/my-secret-skin/secret-jour.webp",
-              text: { fr: "Le jus d'aloe vera natif remplace l'eau. Texture légère, sans film gras.", en: "Native aloe vera juice replaces water. Light texture, no greasy film." },
-              actives: { fr: ["Aloe vera natif", "Acide hyaluronique", "Esters végétaux"], en: ["Native aloe vera", "Hyaluronic acid", "Plant esters"] } },
-            { name: "Mon Secret Nuit", image: "assets/products/my-secret-skin/secret-nuit.webp",
-              text: { fr: "Un soin enveloppant pour la nuit, quand la peau se répare le mieux.", en: "A rich night cream for the hours when skin repairs itself best." },
-              actives: { fr: ["Aloe vera", "Acide hyaluronique", "Huile de ricin"], en: ["Aloe vera", "Hyaluronic acid", "Castor oil"] } },
-          ],
-        },
-        { layout: "showcase", duration: 40, every: 5, bare: true,
-          items: [
-            { image: "assets/products/inception/c040-fluid-foundation.webp" },
-            { image: "assets/products/inception/lidschatten-profi-palette-open.webp" },
-            { image: "assets/products/inception/splash-mascara.webp" },
-            { image: "assets/products/inception/paris-lipgloss.webp" },
-            { image: "assets/products/inception/love-blush-rouche.webp" },
-            { image: "assets/products/inception/liyah-lippenstift.webp" },
-            { image: "assets/products/inception/pool-eyeliner.webp" },
-            { image: "assets/products/inception/lidschatten-duo-palette-open.webp" },
-          ] },
-        { layout: "carousel", duration: 90, every: 6, lead: 3, leadFor: 60,
-          caption: { fr: "Mai 2026, Kribi, Cameroun", en: "May 2026, Kribi, Cameroon" },
-          images: [
-            { src: "assets/photos/cycy.webp", pos: "50% 6%", name: "Cynthia Yombi" },
-            { src: "assets/photos/freddy.webp", pos: "50% 30%", name: "Freddy Angel" },
-            { src: "assets/photos/dsc08156-5.webp", pos: "50% 0%" },
-            { src: "assets/photos/dsc08063.webp", pos: "50% 45%" },
-            { src: "assets/photos/dsc08127.webp", pos: "50% 36%" },
-            { src: "assets/photos/dsc09008.webp", pos: "50% 4%" },
-          ] },
-        { layout: "clips", duration: 140,   // le tournage de Kribi ; si la MC prolonge, les clips continuent au hasard
+        { layout: "clips", duration: 285, loop: true,   // dans l'ordre, répétés tant qu'il reste du temps (v9)
           caption: { fr: "Mai 2026, Kribi, Cameroun", en: "May 2026, Kribi, Cameroon" },
           clips: [
             { src: "assets/video/kribi-c2581.mp4", dur: 25 },
             { src: "assets/video/kribi-c2585.mp4", dur: 16 },
             { src: "assets/video/kribi-c2598.mp4", dur: 9 },
             { src: "assets/video/kribi-dji-0255.mp4", dur: 35 },
-            { src: "assets/video/kribi-dji-0262.mp4", dur: 25 },
-            { src: "assets/video/kribi-dji-0265.mp4", dur: 16 },
-            { src: "assets/video/kribi-dji-0268.mp4", dur: 14 },
           ] },
+        { layout: "quote", duration: 30, text: { fr: "Beauty is your nature", en: "Beauty is your nature" } },   // logo DRC doré + slogan, tenu
       ],
-      substeps: [
-        {
-          id: "vision.spot", duration: 4,
-          title: { fr: "Projection du spot", en: "Screening of the spot" },
-          presenter: { name: "Cynthia Abong", role: { fr: "Égérie de la marque", en: "Face of the brand" }, org: "Dorothy Roffat Cosmetics" },
-          sections: [{ layout: "spots" }],
-        },
-      ],
+    },
+    {
+      id: "spot", kind: "talk", duration: 4, brand: "drc", hold: true,   // étape à part entière depuis v9
+      title: { fr: "Projection du spot", en: "Screening of the spot" },
+      presenter: { name: "Mme Dorothy Roffat", role: { fr: "Fondatrice", en: "Founder" }, org: "Dorothy Roffat Cosmetics" },
+      sections: [{ layout: "spots" }],
     },
     {
       id: "cloture", kind: "talk", duration: 5,
