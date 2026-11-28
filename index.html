@@ -552,15 +552,16 @@ body.flow .s-quote blockquote{font-size:80px}
 
   // ---------- Sound ----------
   let soundOn = false; // browsers require a user gesture on every load before sound can play
+  const isOut = v => !!v.closest("#scene > .layer.leaving, .slide.leave");   // outgoing during a crossfade
   function applySound() {
-    document.querySelectorAll("video").forEach(v => { v.muted = !soundOn; });
+    document.querySelectorAll("video").forEach(v => { v.muted = isOut(v) || !soundOn; });
     $("#muteBtn").setAttribute("aria-pressed", String(soundOn));
     $("#muteBtn").setAttribute("aria-label", soundOn ? U().soundOff : U().sound);
     $("#muteWave").style.opacity = soundOn ? 1 : .25;
     const anyVideo = !!document.querySelector("#scene video");
     document.body.classList.toggle("needs-sound", anyVideo && !soundOn);
   }
-  function setSound(on) { soundOn = on; applySound(); document.querySelectorAll("#scene video").forEach(v => { if (v.paused && !v.ended) v.play().catch(() => {}); }); }
+  function setSound(on) { soundOn = on; applySound(); document.querySelectorAll("#scene video").forEach(v => { if (!isOut(v) && v.paused && !v.ended) v.play().catch(() => {}); }); }
   $("#soundCta").addEventListener("click", () => setSound(true));
   $("#muteBtn").addEventListener("click", () => setSound(!soundOn));
 
@@ -684,7 +685,7 @@ body.flow .s-quote blockquote{font-size:80px}
 
   function renderSection(sec, u) {
     const s = sec.s, box = $("#slidebox"); if (!box) return;
-    const old = box.querySelector(".slide"); if (old) { old.classList.add("leave"); old.querySelectorAll("video").forEach(m => { m.muted = true; }); setTimeout(() => old.remove(), RM ? 0 : 1250); }
+    box.querySelectorAll(".slide:not(.leave)").forEach(old => { old.classList.add("leave"); old.querySelectorAll("video").forEach(m => { m.muted = true; }); setTimeout(() => old.remove(), RM ? 0 : 1250); });
     document.body.classList.toggle("spotfull", s.layout === "spots"); fitSlide();
     const d = document.createElement("div"); d.className = "slide" + (isDrc(u) || s.brand === "drc" ? " drc" : "");
     d.innerHTML = sectionHTML(s, u);
@@ -891,7 +892,7 @@ body.flow .s-quote blockquote{font-size:80px}
       $("#stepTitle").textContent = u.done; $("#timerVal").textContent = hm(sch.end); $("#timerLbl").textContent = u.end; bar.style.width = "100%";
       $("#endin").innerHTML = "";
     }
-    const up = document.querySelector("[data-upnext]");
+    const up = document.querySelector("#scene > .layer:not(.leaving) [data-upnext]");
     if (up && sch.next >= 0) up.textContent = `${hm(sch.units[sch.next].start)}, ${u.in} ${dur(sch.units[sch.next].start - t)}`;
   }
 
@@ -944,7 +945,7 @@ body.flow .s-quote blockquote{font-size:80px}
       }
     }
     if (phase === "open" && cur && cur.scene !== "teaser") {
-      const imgs = document.querySelectorAll(".ambient img"); if (imgs.length > 1) { const k = pickIndex(T - sch.units[sch.current].start, imgs.length, 8000, cur.lead, (cur.leadFor || 60) * 1000); imgs.forEach((im, i) => { if (im.classList.contains("on") !== (i === k)) im.classList.toggle("on", i === k); }); }
+      const imgs = document.querySelectorAll("#scene > .layer:not(.leaving) .ambient img"); if (imgs.length > 1) { const k = pickIndex(T - sch.units[sch.current].start, imgs.length, 8000, cur.lead, (cur.leadFor || 60) * 1000); imgs.forEach((im, i) => { if (im.classList.contains("on") !== (i === k)) im.classList.toggle("on", i === k); }); }
     }
     // Next automatic change: end of the current section (unless it is the held last one) or end of the step.
     // Recomputed every tick, so +1/+5 min from the MC hides it at once and it returns for the last 10 s of the new end.
