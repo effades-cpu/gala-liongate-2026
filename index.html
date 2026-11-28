@@ -553,6 +553,20 @@ body.flow .s-quote blockquote{font-size:80px}
   $("#soundCta").addEventListener("click", () => setSound(true));
   $("#muteBtn").addEventListener("click", () => setSound(!soundOn));
 
+  // Weak bandwidth: phones and slow links get the 540p "-sd" videos; a video stalled for 2.5 s switches the page to them (?hd forces full quality)
+  const conn = navigator.connection || {};
+  let LITE = !qs.has("hd") && !!(qs.has("lite") || conn.saveData || /2g|3g/.test(conn.effectiveType || "") || (conn.downlink && conn.downlink < 4) || (!SCREEN && Math.min(screen.width, screen.height) < 900));
+  const vsrc = s => (LITE && /\.mp4$/.test(s || "") && !/-sd\.mp4$/.test(s)) ? s.replace(/\.mp4$/, "-sd.mp4") : s;
+  document.addEventListener("waiting", e => {
+    const v = e.target; if (LITE || qs.has("hd") || !(v instanceof HTMLVideoElement)) return;
+    clearTimeout(v._stall);
+    v._stall = setTimeout(() => {
+      if (LITE || v.readyState >= 3 || v.paused) return;
+      LITE = true; const t = v.currentTime;
+      v.addEventListener("loadedmetadata", () => { if (t > 0 && t < v.duration) v.currentTime = t; playVideo(v); }, { once: true });
+      v.src = vsrc(v.currentSrc || v.src);
+    }, 2500);
+  }, true);
   function playVideo(v) {
     v.muted = !soundOn; v.playsInline = true;
     const p = v.play(); if (p && p.catch) p.catch(() => { v.muted = true; soundOn = false; v.play().catch(() => {}); applySound(); });
@@ -564,13 +578,13 @@ body.flow .s-quote blockquote{font-size:80px}
   function teaserVideo() {
     const list = (G.media.teasers || []).filter(Boolean);
     if (!list.length) return "";
-    return `<video class="bgvideo" data-teaser="0" src="${esc(list[0])}" poster="${esc(G.media.teaserPoster || "")}" muted playsinline autoplay preload="auto"></video>`;
+    return `<video class="bgvideo" data-teaser="0" src="${esc(vsrc(list[0]))}" poster="${esc(G.media.teaserPoster || "")}" muted playsinline autoplay preload="auto"></video>`;
   }
   function wireTeaser(root) {
     const v = root.querySelector("video[data-teaser]"); if (!v) return;
     const list = G.media.teasers.filter(Boolean);
     v.loop = list.length === 1;
-    v.addEventListener("ended", () => { const k = (+v.dataset.teaser + 1) % list.length; v.dataset.teaser = k; v.src = list[k]; playVideo(v); });
+    v.addEventListener("ended", () => { const k = (+v.dataset.teaser + 1) % list.length; v.dataset.teaser = k; v.src = vsrc(list[k]); playVideo(v); });
     playVideo(v);
   }
 
@@ -685,7 +699,7 @@ body.flow .s-quote blockquote{font-size:80px}
   function wireSpots(root) {
     const v = root.querySelector("video"), list = spotList(), lab = root.querySelector("[data-vlabel]"), btn = root.querySelector("[data-vplay]");
     let k = 0;
-    const load = () => { const x = list[k]; v.src = x.src; if (x.poster) v.poster = x.poster; lab.textContent = x.label || x.lang.toUpperCase(); playVideo(v); };
+    const load = () => { const x = list[k]; v.src = vsrc(x.src); if (x.poster) v.poster = x.poster; lab.textContent = x.label || x.lang.toUpperCase(); playVideo(v); };
     v.addEventListener("ended", () => { k++; if (k < list.length) load(); else root.querySelector(".s-spot").classList.add("done"); });
     const icon = () => btn.innerHTML = v.paused ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>' : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>';
     v.addEventListener("play", icon); v.addEventListener("pause", icon);
@@ -724,7 +738,7 @@ body.flow .s-quote blockquote{font-size:80px}
       const v = el.querySelector(".s-clips video"), list = s.clips || []; if (!v || !list.length) return;
       // start on the clip that matches the time already spent in this section, so the sequence ends with the countdown
       let off = sec.el / 1000, k = 0; while (k < list.length && off >= list[k].dur) { off -= list[k].dur; k++; }
-      const play = (i, at) => { v.src = list[i].src; v.muted = true; v.addEventListener("loadedmetadata", () => { if (at > 0 && at < v.duration) v.currentTime = at; }, { once: true }); v.play().catch(() => {}); };
+      const play = (i, at) => { v.src = vsrc(list[i].src); v.muted = true; v.addEventListener("loadedmetadata", () => { if (at > 0 && at < v.duration) v.currentTime = at; }, { once: true }); v.play().catch(() => {}); };
       let firstPass = true; v.addEventListener("ended", () => { if (firstPass && k + 1 < list.length) k++; else { firstPass = false; let r = Math.floor(Math.random() * list.length); if (list.length > 1 && r === k) r = (r + 1) % list.length; k = r; } play(k, 0); });
       if (k >= list.length) { k = Math.floor(Math.random() * list.length); off = 0; }
       play(k, off);
@@ -966,7 +980,7 @@ body.flow .s-quote blockquote{font-size:80px}
   setInterval(tick, 250);
   if (G.liveUrl) { poll().then(tick); setInterval(poll, (SCREEN ? Math.max(5, G.pollSeconds || 10) : 30) * 1000); }
   // Room screen: warm the spot files during the evening so the projection starts instantly
-  if (SCREEN) setTimeout(() => (G.media.spots || []).forEach(x => { const v = document.createElement("video"); v.preload = "auto"; v.muted = true; v.src = x.src; v.style.display = "none"; document.body.appendChild(v); }), 15000);
+  if (SCREEN) setTimeout(() => (G.media.spots || []).forEach(x => { const v = document.createElement("video"); v.preload = "auto"; v.muted = true; v.src = vsrc(x.src); v.style.display = "none"; document.body.appendChild(v); }), 15000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) { poll().then(tick); } });
 })();
 </script>
