@@ -89,7 +89,8 @@ body.hide-cursor .tools{opacity:0;transition:opacity var(--mid)}
 
 /* ===== Scenes ===== */
 #scene{position:absolute;inset:0;z-index:1}
-#scene > .layer{position:absolute;inset:0;animation:fadein var(--slow) var(--ease)}
+#scene > .layer{position:absolute;inset:0;animation:fadein 1.2s var(--ease)}
+#scene > .layer.leaving{animation:fadeout 1.2s var(--ease) forwards;pointer-events:none}
 #scene > .layer.talk{top:112px}
 body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > .layer{top:112px}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -149,9 +150,16 @@ body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-
 .main{display:flex;flex-direction:column;gap:14px;min-width:0;min-height:0}
 .frame{position:relative;flex:1;border-radius:var(--r);overflow:hidden;background:#0e0d0c}
 .slidebox{position:absolute;left:0;top:0;width:1264px;height:856px;transform-origin:0 0}
-.slide{position:absolute;inset:0;overflow:hidden;animation:fadein var(--mid) var(--ease) both}
-.slide.leave{animation:fadeout var(--mid) var(--ease) both}
+.slide{position:absolute;inset:0;overflow:hidden;animation:fadein 1.2s var(--ease) both}
+.slide.leave{animation:fadeout 1.2s var(--ease) both}
 @keyframes fadeout{to{opacity:0}}
+.cd{position:relative;flex:none;width:34px;height:34px;display:inline-grid;place-items:center;font-style:normal;opacity:0;transform:scale(.9);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.cd.on{opacity:1;transform:none}
+.cd svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.cd circle{fill:none;stroke:var(--line);stroke-width:2}
+.cd .arc{stroke:var(--gold);stroke-dasharray:100.5;stroke-dashoffset:0;transition:stroke-dashoffset .25s linear}
+.cd em{font-style:normal;font-size:14px;font-weight:700;color:var(--text-2);font-variant-numeric:tabular-nums}
+.upnext .cd{margin-top:14px}
 .foot{flex:none;display:flex;align-items:center;gap:20px;height:36px;color:var(--text-2);font-size:18px}
 .secbar{flex:1;max-width:420px;height:3px;background:var(--line);overflow:hidden}
 .secbar i{display:block;height:100%;width:0;background:var(--gold);transition:width .25s linear}
@@ -460,6 +468,7 @@ body.flow .s-quote blockquote{font-size:80px}
   "use strict";
   const G = window.GALA, E = window.GalaEngine;
   const qs = new URLSearchParams(location.search);
+  const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const SCREEN = qs.has("ecran") || qs.has("screen");
   if (qs.get("live") && /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) G.liveUrl = qs.get("live"); // local testing only
   const $ = (s, r = document) => r.querySelector(s);
@@ -601,20 +610,32 @@ body.flow .s-quote blockquote{font-size:80px}
     } else if (phase === "open") {
       const nx = sch.next >= 0 ? units[sch.next] : null;
       const bg = cur.scene === "teaser" ? teaserVideo() : cur.clips ? `<div class="ambient"><video class="bgvideo" data-clips muted playsinline preload="auto"></video></div>` : `<div class="ambient">${(cur.images || []).map((s, k) => imgTag(s.src || s, "", k === 0 ? "on" : "", s.pos ? ` style="object-position:${esc(s.pos)}"` : "")).join("")}</div>`;
-      html = `<div class="layer openstep">${bg}<div class="shade"></div><div class="open-copy"><div><h1>${esc(L(cur.title))}</h1>${cur.line ? `<p>${esc(L(cur.line))}</p>` : ""}</div>${nx ? `<div class="upnext"><small>${esc(U().next)}</small><b>${esc(L(nx.title))}</b><span class="num" data-upnext></span></div>` : ""}</div></div>`;
+      html = `<div class="layer openstep">${bg}<div class="shade"></div><div class="open-copy"><div><h1>${esc(L(cur.title))}</h1>${cur.line ? `<p>${esc(L(cur.line))}</p>` : ""}</div>${nx ? `<div class="upnext"><small>${esc(U().next)}</small><b>${esc(L(nx.title))}</b><span class="num" data-upnext></span>${cdHTML()}</div>` : ""}</div></div>`;
     } else if (phase === "after") {
       html = `<div class="layer afterstep">${teaserVideo()}<div class="after"><div class="in"><h1>${esc(U().done)}</h1><p>${esc(U().doneLine)}</p><div class="duo">${logoHTML("liongate")}<span class="sep"></span>${drcLock()}</div></div></div></div>`;
     } else {
-      html = `<div class="layer talk"><aside class="side">${presenterCard(cur)}<ol class="runlist" id="runlist"></ol></aside><div class="main"><div class="frame" id="frame"><div class="slidebox" id="slidebox"></div></div><div class="foot"><span id="secLabel" class="num"></span><span class="secbar"><i id="secBar"></i></span><span class="dots" id="dots"></span></div></div></div>`;
+      html = `<div class="layer talk"><aside class="side">${presenterCard(cur)}<ol class="runlist" id="runlist"></ol></aside><div class="main"><div class="frame" id="frame"><div class="slidebox" id="slidebox"></div></div><div class="foot"><span id="secLabel" class="num"></span><span class="secbar"><i id="secBar"></i></span>${cdHTML()}<span class="dots" id="dots"></span></div></div></div>`;
     }
-    sc.innerHTML = html;
-    wireTeaser(sc);
-    const cv = phase === "open" && cur.clips ? sc.querySelector("video[data-clips]") : null;
+    const quick = RM || document.body.classList.contains("flow");
+    [...sc.children].forEach(o => {
+      if (quick || o.classList.contains("leaving")) { o.remove(); return; }
+      o.classList.add("leaving"); o.inert = true;
+      o.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
+      o.querySelectorAll("video").forEach(m => { m.muted = true; });
+      setTimeout(() => o.remove(), 1300);
+    });
+    sc.insertAdjacentHTML("beforeend", html);
+    const nl = sc.lastElementChild;
+    wireTeaser(nl);
+    const cv = phase === "open" && cur.clips ? nl.querySelector("video[data-clips]") : null;
     if (cv) runClips(cv, cur.clips, Math.max(0, now() - sch.units[sch.current].start) / 1000, true);
-    sc.querySelectorAll("[data-open-prog]").forEach(b => b.addEventListener("click", openDrawer));
+    nl.querySelectorAll("[data-open-prog]").forEach(b => b.addEventListener("click", openDrawer));
     if (phase === "talk") { fitSlide(); secKey = ""; renderRunlist(sch); }
     applySound();
   }
+
+  // Quiet 10-second countdown shown before every automatic change (section or step)
+  const cdHTML = () => `<i class="cd" data-cd aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16"/><circle class="arc" cx="18" cy="18" r="16"/></svg><em></em></i>`;
 
   function presenterCard(u) {
     const p = u.presenter || (u.parent && u.parent.presenter);
@@ -651,19 +672,19 @@ body.flow .s-quote blockquote{font-size:80px}
       let k = ((manual.k % n) + n) % n, e = Math.max(0, nowMs - manual.at), base = manual.at, guard = 0;
       while (e >= sp.list[k].dur && !(hold && k === n - 1) && guard++ < 500) { e -= sp.list[k].dur; base += sp.list[k].dur; k = (k + 1) % n; }
       const x = sp.list[k];
-      return { k, n, s: x.s, start: base, dur: x.dur, el: e };
+      return { k, n, hold, s: x.s, start: base, dur: x.dur, el: e };
     }
     const el = Math.max(0, nowMs - unitSched.start);
-    if (hold && el >= sp.total) { const x = sp.list[n - 1]; return { k: n - 1, n, s: x.s, start: unitSched.start + x.start, dur: x.dur, el: Math.min(el - x.start, x.dur) }; }
+    if (hold && el >= sp.total) { const x = sp.list[n - 1]; return { k: n - 1, n, hold, s: x.s, start: unitSched.start + x.start, dur: x.dur, el: Math.min(el - x.start, x.dur) }; }
     const loop = el % sp.total;
     let k = sp.list.findIndex(x => loop >= x.start && loop < x.start + x.dur); if (k < 0) k = 0;
     const x = sp.list[k];
-    return { k, n, s: x.s, start: unitSched.start + Math.floor(el / sp.total) * sp.total + x.start, dur: x.dur, el: Math.max(0, loop - x.start) };
+    return { k, n, hold, s: x.s, start: unitSched.start + Math.floor(el / sp.total) * sp.total + x.start, dur: x.dur, el: Math.max(0, loop - x.start) };
   }
 
   function renderSection(sec, u) {
     const s = sec.s, box = $("#slidebox"); if (!box) return;
-    const old = box.querySelector(".slide"); if (old) { old.classList.add("leave"); setTimeout(() => old.remove(), 420); }
+    const old = box.querySelector(".slide"); if (old) { old.classList.add("leave"); old.querySelectorAll("video").forEach(m => { m.muted = true; }); setTimeout(() => old.remove(), RM ? 0 : 1250); }
     document.body.classList.toggle("spotfull", s.layout === "spots"); fitSlide();
     const d = document.createElement("div"); d.className = "slide" + (isDrc(u) || s.brand === "drc" ? " drc" : "");
     d.innerHTML = sectionHTML(s, u);
@@ -910,9 +931,10 @@ body.flow .s-quote blockquote{font-size:80px}
     const key = phase + "|" + (cur ? cur.id : "") + "|" + lang;
     if (key !== sceneKey) { sceneKey = key; if (manual.id !== (cur && cur.id)) manual = { id: cur && cur.id, k: null, at: 0 }; renderScene(sch); }
     renderHud(sch, T);
+    let sec = null;
     if (phase === "talk") {
       const rk = sch.units.map(s => s.start).join(",") + sch.current; if (rk !== lastRunKey) { lastRunKey = rk; renderRunlist(sch); }
-      const sec = currentSection(cur, sch.units[sch.current], T);
+      sec = currentSection(cur, sch.units[sch.current], T);
       if (sec) {
         const sk = cur.id + "#" + sec.k + "#" + sec.start + "#" + lang;
         if (sk !== secKey) { secKey = sk; renderSection(sec, cur); }
@@ -924,6 +946,18 @@ body.flow .s-quote blockquote{font-size:80px}
     if (phase === "open" && cur && cur.scene !== "teaser") {
       const imgs = document.querySelectorAll(".ambient img"); if (imgs.length > 1) { const k = pickIndex(T - sch.units[sch.current].start, imgs.length, 8000, cur.lead, (cur.leadFor || 60) * 1000); imgs.forEach((im, i) => { if (im.classList.contains("on") !== (i === k)) im.classList.toggle("on", i === k); }); }
     }
+    // Next automatic change: end of the current section (unless it is the held last one) or end of the step.
+    // Recomputed every tick, so +1/+5 min from the MC hides it at once and it returns for the last 10 s of the new end.
+    let nextAt = null; const cs = sch.current >= 0 ? sch.units[sch.current] : null;
+    if (sch.phase === "live" && cs && !cs.paused) {
+      nextAt = cs.end;
+      if (sec && sec.n > 1 && !(sec.hold && sec.k === sec.n - 1)) nextAt = Math.min(nextAt, sec.start + sec.dur);
+    }
+    const left = nextAt === null ? -1 : nextAt - T, show = left > 0 && left <= 10000;
+    document.querySelectorAll("#scene > .layer:not(.leaving) [data-cd]").forEach(c => {
+      c.classList.toggle("on", show);
+      if (show) { c.querySelector("em").textContent = Math.ceil(left / 1000); c.querySelector(".arc").style.strokeDashoffset = (100.5 * (1 - left / 10000)).toFixed(1); }
+    });
     if ($("#drawer").classList.contains("open")) renderDrawer(sch);
   }
 
