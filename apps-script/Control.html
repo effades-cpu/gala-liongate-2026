@@ -120,6 +120,24 @@ h2{font-weight:800;font-size:15px;color:var(--t2);margin:6px 2px 10px}
 .modal .yes{background:var(--gold);color:#151311;font-weight:800}
 .modal .no{background:var(--s3);font-weight:700}
 
+/* Small phones */
+@media (max-width:400px){
+  main{padding:12px}
+  .now{gap:14px;padding:14px}
+  .ring{width:108px;height:108px}
+  .ring .big{font-size:28px}.ring .big.l6{font-size:22px}.ring .big.l7{font-size:18px}
+  .now h1{font-size:19px}
+  .btn-next{font-size:18px;min-height:68px}
+  .adj button{font-size:16px}
+  .list button{max-width:100px;font-size:12px;padding:0 8px}
+}
+@media (max-width:340px){
+  .now{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .now .lbl{justify-content:center}
+  .ring{width:120px;height:120px}
+  .ring .big{font-size:30px}.ring .big.l6{font-size:24px}.ring .big.l7{font-size:20px}
+  .top{padding-left:14px;padding-right:14px}
+}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
