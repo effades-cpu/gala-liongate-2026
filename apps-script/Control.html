@@ -53,7 +53,10 @@ main{max-width:620px;margin:0 auto;padding:16px}
 .now.hot .ring .arc{stroke:var(--red)}
 .now.over .ring .arc{stroke:var(--red);animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:.35}}
-.ring .big{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ring .big{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ring .big.l6{font-size:26px}.ring .big.l7{font-size:21px}
+.now.over .big{color:#ff9b7d}.now.hot .big{color:var(--gold)}
+.over-chip{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:12px;border-radius:6px;padding:3px 8px}
 .ring .big.tick{animation:tick .35s var(--ease)}
 @keyframes tick{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
 .now .lbl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:800;color:var(--gold)}
@@ -87,15 +90,15 @@ h2{font-weight:800;font-size:15px;color:var(--t2);margin:6px 2px 10px}
 .list li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:transparent;transition:background-color .35s}
 .list li .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--gold);transition:width .6s linear}
 .list li.sub{margin-left:18px}
-.list li.past{opacity:.5}
-.list li.cur{background:var(--s2);border-color:rgba(242,170,30,.45);transform:scale(1.01)}
+.list li.past{opacity:.72}
+.list li.cur{background:var(--s2);border-color:rgba(242,170,30,.45)}
 .list li.cur::before{background:var(--gold)}
 .list .t{font-weight:700;line-height:1.25}
 .list .t b{color:var(--gold);margin-right:8px;font-variant-numeric:tabular-nums}
 .list .h{grid-column:1;color:var(--t2);font-size:13px;font-variant-numeric:tabular-nums}
 .list .h em{font-style:normal;font-weight:800;color:var(--text)}
 .list button{grid-row:1/3;grid-column:2;background:var(--s3);color:var(--text);font-weight:700;font-size:13px;padding:0 12px;min-height:46px;max-width:120px;line-height:1.15}
-.list li.cur button{background:var(--gold);color:#151311}
+.list li.cur button{background:transparent;border:1px solid var(--line);color:var(--t2)}
 .plan{display:block;width:100%;margin-top:18px;background:transparent;color:#ff9b7d;border:1px solid rgba(220,60,20,.5);font-weight:800}
 .foot{color:var(--t3);font-size:13px;text-align:center;margin-top:16px}
 .foot a{color:var(--t2)}
@@ -108,8 +111,8 @@ h2{font-weight:800;font-size:15px;color:var(--t2);margin:6px 2px 10px}
 .busy::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid var(--gold);border-right-color:transparent;animation:spin .8s linear infinite}
 .busy.show{transform:translate(-50%,0);opacity:1}
 @keyframes spin{to{transform:rotate(360deg)}}
-.modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;padding:12px;background:rgba(0,0,0,0);pointer-events:none;transition:background-color .3s}
-.modal.show{background:rgba(0,0,0,.6);pointer-events:auto}
+.modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;padding:12px;background:rgba(0,0,0,0);pointer-events:none;visibility:hidden;transition:background-color .3s,visibility 0s .45s}
+.modal.show{background:rgba(0,0,0,.6);pointer-events:auto;visibility:visible;transition:background-color .3s,visibility 0s}
 .modal .box{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:20px;max-width:520px;width:100%;transform:translateY(120%);transition:transform .45s var(--spring)}
 .modal.show .box{transform:none}
 .modal p{font-size:18px;font-weight:700;margin:0 0 18px}
@@ -136,11 +139,11 @@ h2{font-weight:800;font-size:15px;color:var(--t2);margin:6px 2px 10px}
     <p id="pinMsg">Saisi une seule fois, il est mémorisé sur ce téléphone.</p>
   </section>
 
-  <section class="now" id="nowCard" aria-live="polite">
+  <section class="now" id="nowCard">
     <div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="54"/><circle class="arc" id="arc" cx="60" cy="60" r="54"/></svg><div class="big num" id="nowBig">--:--</div></div>
     <div>
       <div class="lbl" id="nowLbl">Chargement…</div>
-      <h1 id="nowTitle">&nbsp;</h1>
+      <h1 id="nowTitle" aria-live="polite">&nbsp;</h1>
       <div class="sub" id="nowSub">&nbsp;</div>
     </div>
   </section>
@@ -164,7 +167,7 @@ h2{font-weight:800;font-size:15px;color:var(--t2);margin:6px 2px 10px}
 </main>
 
 <div class="busy" id="busy">Envoi</div>
-<div class="toast" id="toast" role="status" aria-live="assertive"></div>
+<div class="toast" id="toast" role="status"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTxt">
   <div class="box"><p id="modalTxt"></p><div class="row"><button class="no" id="mNo">Annuler</button><button class="yes" id="mYes">Confirmer</button></div></div>
 </div>
@@ -198,7 +201,9 @@ galaEngineFactory_(window);
     clearTimeout(toastT); toastT = setTimeout(function () { t.className = "toast"; }, isErr ? 6000 : 3500);
   }
   var modalCb = null;
-  function ask(msg, cb) { $("modalTxt").textContent = msg; modalCb = cb; $("modal").classList.add("show"); $("mYes").focus(); }
+  function ask(msg, cb) { $("modalTxt").textContent = msg; modalCb = cb; $("modal").classList.add("show"); setTimeout(function () { $("mNo").focus(); }, 50); }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && $("modal").classList.contains("show")) $("mNo").click(); });
+  $("modal").addEventListener("click", function (e) { if (e.target === $("modal")) $("mNo").click(); });
   $("mNo").onclick = function () { $("modal").classList.remove("show"); modalCb = null; };
   $("mYes").onclick = function () { $("modal").classList.remove("show"); var cb = modalCb; modalCb = null; if (cb) cb(); };
 
@@ -251,18 +256,24 @@ galaEngineFactory_(window);
     var prevBig = big.textContent, prevTtl = ttl.textContent, frac = 0;
     card.classList.remove("over", "hot", "paused");
     if (sc.phase === "before") {
-      lbl.textContent = "Avant le début"; frac = 0;
+      lbl.textContent = "Avant le début"; lbl.removeAttribute("data-k"); frac = 0;
       ttl.textContent = rows[sc.units[0].id].title;
       big.textContent = mmss(sc.first - t);
       sub.textContent = "Commence à " + hm(sc.first) + " (heure de Douala)";
     } else if (sc.phase === "after" || !u) {
-      lbl.textContent = "Soirée terminée"; ttl.textContent = "Merci"; big.textContent = "—"; frac = 1;
+      lbl.textContent = "Soirée terminée"; lbl.removeAttribute("data-k"); ttl.textContent = "Merci"; big.textContent = "—"; frac = 1;
       sub.textContent = "Fin à " + hm(sc.end);
     } else {
       var r = rows[u.id], left = u.end - t;
-      lbl.innerHTML = ""; var lv = document.createElement("span"); lv.className = "live"; lv.innerHTML = "<i></i>En direct"; lbl.appendChild(lv);
-      lbl.appendChild(document.createTextNode("Étape " + r.label));
-      if (u.paused) { var bd = document.createElement("span"); bd.className = "badge"; bd.textContent = "En pause"; lbl.appendChild(bd); card.classList.add("paused"); }
+      var lkey = r.label + "|" + !!u.paused + "|" + (left < 0);
+      if (lbl.getAttribute("data-k") !== lkey) {
+        lbl.setAttribute("data-k", lkey); lbl.innerHTML = "";
+        var lv = document.createElement("span"); lv.className = "live"; lv.innerHTML = "<i></i>En direct"; lbl.appendChild(lv);
+        lbl.appendChild(document.createTextNode("Étape " + r.label));
+        if (u.paused) { var bd = document.createElement("span"); bd.className = "badge"; bd.textContent = "En pause"; lbl.appendChild(bd); }
+        if (left < 0) { var oc = document.createElement("span"); oc.className = "over-chip"; oc.textContent = "Dépassement"; lbl.appendChild(oc); }
+      }
+      if (u.paused) card.classList.add("paused");
       frac = Math.min(1, Math.max(0, (t - u.start) / Math.max(1, u.end - u.start)));
       if (left < 0) card.classList.add("over"); else if (left < 60000 && !u.paused) card.classList.add("hot");
       ttl.textContent = r.title;
@@ -273,6 +284,7 @@ galaEngineFactory_(window);
       sub.textContent = s;
     }
     arc.style.strokeDashoffset = String(339.3 * (1 - frac));
+    var bl = big.textContent.length; big.classList.toggle("l6", bl === 6); big.classList.toggle("l7", bl >= 7);
     if (big.textContent !== prevBig && big.textContent.slice(-1) !== prevBig.slice(-1)) { big.classList.remove("tick"); void big.offsetWidth; big.classList.add("tick"); }
     if (ttl.textContent !== prevTtl) { ttl.classList.remove("swap"); void ttl.offsetWidth; ttl.classList.add("swap"); }
     var nx = sc.next >= 0 ? sc.units[sc.next] : null; nextId = nx ? nx.id : null;
