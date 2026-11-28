@@ -1,24 +1,27 @@
 /*
-  CONTENU DE LA PRÉSENTATION · Gala LIONGATE du 28 novembre 2026
+  CONTENU DE LA PRÉSENTATION, Gala LIONGATE du 28 novembre 2026
   --------------------------------------------------------------
   C'est le seul fichier à modifier pour changer le contenu (voir README.md).
   - Texte : remplacer ce qui est entre guillemets. Chaque texte existe en "fr" et en "en".
-  - Image : déposer le fichier dans assets/ puis écrire son chemin, par exemple "assets/photos/DSC08017.webp".
+  - Image : déposer le fichier dans assets/ puis écrire son chemin, par exemple "assets/photos/cycy.webp".
   - Ne pas supprimer les virgules ni les accolades.
   - Les HORAIRES pendant la soirée viennent du Google Sheet de la MC (liveUrl). Les durées ci-dessous
     servent de plan par défaut si le Sheet n'est pas joignable.
 
   Mises en page d'une section (layout) :
-    "logos"          logos côte à côte                    { logos: ["liongate", "drc"], title, text }
-    "logo-alternate" logo LIONGATE noir sur clair / original sur foncé, en alternance douce
-    "title"          grand titre                          { kicker, title, text }
-    "text-image"     texte à gauche, image à droite       { title, text, points, image }
-    "carousel"       images qui défilent seules en boucle { title, images: [...], every: secondes }
-    "products"       cartes produits qui défilent         { title, items: [{ name, image, text, actives }] }
-    "timeline"       frise                                { title, items: [{ year, text }] }
-    "quote"          citation                             { text, by }
-    "spots"          les deux spots VF puis VE, avec le son
-  "duration" (secondes) : durée d'une section. Sans durée, les sections se partagent le temps de l'étape.
+    "logos"       logos côte à côte                       { logos: ["liongate", "drc"], text }
+    "emblem"      l'emblème LIONGATE seul
+    "text-image"  texte à gauche, étapes à droite         { title, text, points, progressive: true = s'allument une à une }
+    "carousel"    images plein cadre en fondu             { images: [{ src, pos, name }] ou [{ pair: [a, b] }], every,
+                                                            lead: n premières images seules pendant leadFor secondes, caption }
+    "showcase"    produits : le produit au centre, deux sur les côtés  { title, text, items, bare: true = sans texte }
+    "products"    cartes produits avec texte              { title, items: [{ name, image, text, actives }] }
+    "timeline"    frise animée                            { title, items: [{ year, text }] }
+    "quote"       signature + slogan                      { text }
+    "clips"       vidéos à la suite, puis au hasard       { clips: [{ src, dur }] }
+    "spots"       les deux spots VF puis VE, avec le son
+  "duration" (secondes) : durée d'une section. "hold: true" sur une étape = reste sur la dernière section.
+  "pos" d'une image : position du cadrage ("50% 10%" = visage en haut), pour garder les visages à la même hauteur.
 */
 window.GALA = {
   // Lien /exec du Google Apps Script (voir DEPLOIEMENT-APPS-SCRIPT.md). Vide = horaires du plan ci-dessous.
@@ -42,11 +45,10 @@ window.GALA = {
   },
 
   logos: {
-    liongate: "assets/logos/liongate-color.png",        // original, sur fond foncé
-    liongateBlack: "assets/logos/liongate-black.png",   // noir, sur fond clair
+    liongate: "assets/logos/liongate-color.png",          // thème sombre
+    liongateDark: "assets/logos/liongate-color-dark.png", // thème clair (texte foncé)
     liongateEmblem: "assets/logos/liongate-emblem.png",
-    drc: "assets/logos/drc-gold.png",                    // Dorothy Roffat doré, avec la ligne « Dorothy Roffat Cosmetics »
-    drcSignature: "assets/logos/drc-signature-gold.png",
+    drcSignature: "assets/logos/drc-signature.png",       // toujours suivi de DOROTHY ROFFAT COSMETICS en Playfair
   },
 
   steps: [
@@ -56,19 +58,17 @@ window.GALA = {
       line: { fr: "Bienvenue. Installez-vous, la soirée commence bientôt.", en: "Welcome. Please take your seats, the evening starts shortly." },
     },
     {
-      id: "ouverture", kind: "talk", duration: 4,
+      id: "ouverture", kind: "talk", duration: 4, hold: true,
       title: { fr: "Ouverture", en: "Opening" },
       presenter: { name: "M. Ayissi Jean Noël", role: { fr: "", en: "" }, org: "LIONGATE" },   // FONCTION À COMPLÉTER (vide = non affichée)
       sections: [
-        { layout: "logos", logos: ["liongate", "drc"], title: { fr: "LIONGATE reçoit Dorothy Roffat Cosmetics", en: "LIONGATE welcomes Dorothy Roffat Cosmetics" } },
-      ],
-    },
-    {
-      id: "marketing", kind: "talk", duration: 4,
-      title: { fr: "Le département Marketing et Communication", en: "The Marketing and Communications department" },
-      presenter: { name: "M. Désiré Effa", role: { fr: "Responsable Marketing et Communication", en: "Head of Marketing and Communications" }, org: "LIONGATE" },
-      sections: [
-        { layout: "logo-alternate" },
+        { layout: "logos", logos: ["liongate", "drc"], duration: 10 },
+        { layout: "carousel", duration: 220, every: 9,
+          images: [
+            { src: "assets/photos/panoramique.webp" },
+            { pair: ["assets/photos/flying-banner-1.webp", "assets/photos/flying-banner-2.webp"] },
+          ] },
+        { layout: "emblem", duration: 10 },
       ],
     },
     {
@@ -78,7 +78,6 @@ window.GALA = {
       // Source : « Discours final DRc Couloured.docx » (paragraphes en couleur = diapositives)
       sections: [
         { layout: "logos", logos: ["liongate", "drc"], duration: 125,
-          title: { fr: "L'entrée de Dorothy Roffat Cosmetics sur le marché camerounais", en: "Dorothy Roffat Cosmetics enters the Cameroonian market" },
           text: { fr: "Ouvrir des marchés aux marques et les accompagner sur le continent africain. DRC est le premier client du pôle.", en: "Opening markets to brands and supporting them across Africa. DRC is the division's first client." } },
         { layout: "showcase", brand: "drc", duration: 45, every: 7,
           title: { fr: "My Secret Skin", en: "My Secret Skin" },
@@ -110,54 +109,69 @@ window.GALA = {
             { image: "assets/products/inception/dsc-5116-flat.webp", white: true },
             { image: "assets/products/inception/dsc-5113-flat.webp", white: true },
           ] },
-        { layout: "quote", brand: "drc", duration: 55, text: { fr: "Beauty is your nature", en: "Beauty is your nature" }, by: { fr: "La beauté est déjà en vous.", en: "Beauty is already within you." } },
+        { layout: "quote", brand: "drc", duration: 55, text: { fr: "Beauty is your nature", en: "Beauty is your nature" } },
       ],
     },
     {
-      id: "it", kind: "talk", duration: 5,
+      id: "it", kind: "talk", duration: 5, hold: true,
       title: { fr: "IT & Software Outsourcing", en: "IT & Software Outsourcing" },
       presenter: { name: "M. Donald Nguimfack", role: { fr: "Directeur du pôle IT & Software Outsourcing", en: "Director, IT & Software Outsourcing" }, org: "LIONGATE" },
       sections: [
         {
-          layout: "text-image",
+          layout: "text-image", duration: 240, progressive: true,
           title: { fr: "IT & Software Outsourcing", en: "IT & Software Outsourcing" },
           text: { fr: "On gère les systèmes d'information des entreprises, de l'audit à l'exploitation.", en: "We run companies' information systems, from audit to operations." },
           points: { fr: ["Audit", "Développement", "Exploitation"], en: ["Audit", "Build", "Run"] },
           image: "",
         },
+        { layout: "showcase", duration: 60, every: 5, bare: true, dark: true,
+          items: [
+            { image: "assets/photos/rollup-en.webp" },
+            { image: "assets/photos/rollup-fr.webp" },
+          ] },
       ],
     },
     {
       id: "intermede", kind: "open", duration: 3, scene: "ambient",
       title: { fr: "Intermède musical", en: "Musical interlude" },
       line: { fr: "Avec l'orchestre", en: "With the orchestra" },
-      images: ["assets/photos/dsc08156-5.webp", "assets/photos/dsc08022.webp", "assets/photos/dsc09008.webp", "assets/photos/dsc08053.webp", "assets/photos/dsc08127.webp"],
+      lead: 3, leadFor: 60,   // Cycy, Freddy et DSC08156 seules pendant 1 min, puis les autres
+      images: [
+        { src: "assets/photos/cycy.webp", pos: "50% 6%" },
+        { src: "assets/photos/freddy.webp", pos: "50% 30%" },
+        { src: "assets/photos/dsc08156-5.webp", pos: "50% 0%" },
+        { src: "assets/photos/dsc08063.webp", pos: "50% 45%" },
+        { src: "assets/photos/dsc08127.webp", pos: "50% 36%" },
+        { src: "assets/photos/dsc09008.webp", pos: "50% 4%" },
+      ],
     },
     {
-      id: "vision", kind: "talk", duration: 8, brand: "drc",   // sections en Playfair Display + Lato
+      id: "vision", kind: "talk", duration: 8, brand: "drc", hold: true,   // sections en Playfair Display + Lato
       title: { fr: "Vision DRC & Présentation de la marque", en: "DRC vision & brand presentation" },
       presenter: { name: "Mme Dorothy Roffat", role: { fr: "Fondatrice", en: "Founder" }, org: "Dorothy Roffat Cosmetics" },
-      // À COMPLÉTER avec le texte et les indications du propriétaire
       sections: [
-        { layout: "quote", text: { fr: "Beauty is your nature", en: "Beauty is your nature" }, by: "Dorothy Roffat Cosmetics", duration: 45 },
+        { layout: "carousel", duration: 120, every: 10,
+          images: [
+            { src: "assets/photos/dorothy-roffat.webp", pos: "50% 30%" },
+            { src: "assets/photos/dorothy-roffat-2.webp", pos: "50% 30%" },
+            { src: "assets/photos/dorothy-act.webp", pos: "50% 25%" },
+            { src: "assets/photos/drc-pic.webp", pos: "50% 50%" },
+            { src: "assets/photos/showroom-1.webp", pos: "50% 50%" },
+            { src: "assets/photos/showroom-2.webp", pos: "50% 50%" },
+          ] },
         {
-          layout: "timeline", duration: 60,
+          layout: "timeline", duration: 45,
           title: { fr: "Une marque allemande fondée par Dorothy Roffat, née à Mfou", en: "A German brand founded by Dorothy Roffat, born in Mfou" },
           items: [
             { year: "2013", text: { fr: "Création de la marque", en: "Brand founded" } },
-            { year: "2017", text: { fr: "Premières ventes", en: "First sales" } },
+            { year: "2017", text: { fr: "Lancement Inception", en: "Inception launched" } },
             { year: "2021", text: { fr: "Lancement de Secret Skin", en: "Secret Skin launched" } },
             { year: "2026", text: { fr: "Arrivée au Cameroun avec LIONGATE", en: "Arrival in Cameroon with LIONGATE" } },
           ],
         },
         {
-          layout: "carousel", every: 6, duration: 60,
-          title: { fr: "La campagne Dorothy Roffat Cosmetics", en: "The Dorothy Roffat Cosmetics campaign" },
-          images: ["assets/photos/cycy.webp", "assets/photos/dsc08156-5.webp", "assets/photos/freddy.webp", "assets/photos/dsc08017.webp", "assets/photos/dsc08105.webp", "assets/photos/dsc08053.webp", "assets/photos/dsc08063.webp", "assets/photos/dsc09008.webp", "assets/photos/dsc07951.webp", "assets/photos/dsc08127.webp"],
-        },
-        {
-          layout: "products", every: 12, duration: 120,
-          title: { fr: "Secret Skin · le soin, fabriqué en Allemagne", en: "Secret Skin · skincare, made in Germany" },
+          layout: "products", every: 15, duration: 45,
+          title: { fr: "Secret Skin, le soin fabriqué en Allemagne", en: "Secret Skin, skincare made in Germany" },
           items: [
             { name: "Ma Base Secrète Pro Primer", image: "assets/products/my-secret-skin/pro-primer.webp",
               text: { fr: "Un soin actif sous le maquillage. Affine le grain et régule le sébum sans boucher les pores.", en: "An active primer. Refines skin texture and controls shine without clogging pores." },
@@ -170,20 +184,38 @@ window.GALA = {
               actives: { fr: ["Aloe vera", "Acide hyaluronique", "Huile de ricin"], en: ["Aloe vera", "Hyaluronic acid", "Castor oil"] } },
           ],
         },
-        {
-          layout: "carousel", every: 5, duration: 90, fit: "contain",
-          title: { fr: "Inception · le maquillage, fabriqué en Italie", en: "Inception · make-up, made in Italy" },
+        { layout: "showcase", duration: 40, every: 5, bare: true,
+          items: [
+            { image: "assets/products/inception/c040-fluid-foundation.webp" },
+            { image: "assets/products/inception/lidschatten-profi-palette-open.webp" },
+            { image: "assets/products/inception/splash-mascara.webp" },
+            { image: "assets/products/inception/paris-lipgloss.webp" },
+            { image: "assets/products/inception/love-blush-rouche.webp" },
+            { image: "assets/products/inception/liyah-lippenstift.webp" },
+            { image: "assets/products/inception/pool-eyeliner.webp" },
+            { image: "assets/products/inception/lidschatten-duo-palette-open.webp" },
+          ] },
+        { layout: "carousel", duration: 90, every: 6, lead: 3, leadFor: 60,
+          caption: { fr: "Mai 2026, Kribi, Cameroun", en: "May 2026, Kribi, Cameroon" },
           images: [
-            "assets/products/inception/c040-fluid-foundation.webp",
-            "assets/products/inception/lidschatten-profi-palette-open.webp",
-            "assets/products/inception/splash-mascara.webp",
-            "assets/products/inception/paris-lipgloss.webp",
-            "assets/products/inception/love-blush-rouche.webp",
-            "assets/products/inception/liyah-lippenstift.webp",
-            "assets/products/inception/lidschatten-duo-palette-open.webp",
-          ],
-        },
-        { layout: "quote", text: { fr: "L'entretien de la peau d'abord, le maquillage ensuite", en: "Skincare first, make-up second" }, by: "Dorothy Roffat", duration: 30 },
+            { src: "assets/photos/cycy.webp", pos: "50% 6%", name: "Cynthia Yombi" },
+            { src: "assets/photos/freddy.webp", pos: "50% 30%", name: "Freddy Angel" },
+            { src: "assets/photos/dsc08156-5.webp", pos: "50% 0%" },
+            { src: "assets/photos/dsc08063.webp", pos: "50% 45%" },
+            { src: "assets/photos/dsc08127.webp", pos: "50% 36%" },
+            { src: "assets/photos/dsc09008.webp", pos: "50% 4%" },
+          ] },
+        { layout: "clips", duration: 140,   // le tournage de Kribi ; si la MC prolonge, les clips continuent au hasard
+          caption: { fr: "Mai 2026, Kribi, Cameroun", en: "May 2026, Kribi, Cameroon" },
+          clips: [
+            { src: "assets/video/kribi-c2581.mp4", dur: 25 },
+            { src: "assets/video/kribi-c2585.mp4", dur: 16 },
+            { src: "assets/video/kribi-c2598.mp4", dur: 9 },
+            { src: "assets/video/kribi-dji-0255.mp4", dur: 35 },
+            { src: "assets/video/kribi-dji-0262.mp4", dur: 25 },
+            { src: "assets/video/kribi-dji-0265.mp4", dur: 16 },
+            { src: "assets/video/kribi-dji-0268.mp4", dur: 14 },
+          ] },
       ],
       substeps: [
         {
@@ -199,7 +231,7 @@ window.GALA = {
       title: { fr: "Clôture", en: "Closing words" },
       presenter: { name: "M. le Gouverneur de la Région du Littoral", monogram: "", role: { fr: "Gouverneur de la Région du Littoral", en: "Governor of the Littoral Region" }, org: "Région du Littoral" },
       sections: [
-        { layout: "logos", logos: ["liongate", "drc"], title: { fr: "Merci de votre présence", en: "Thank you for being with us" } },
+        { layout: "logos", logos: ["liongate", "drc"], text: { fr: "Merci de votre présence", en: "Thank you for being with us" } },
       ],
     },
     {

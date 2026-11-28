@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0e0d0c">
-<title>Soirée de gala LIONGATE · 28 novembre 2026</title>
+<meta name="theme-color" content="#f6f2ea">
+<title>Soirée de gala LIONGATE, 28 novembre 2026</title>
 <meta name="description" content="Soirée de gala LIONGATE, 28 novembre 2026, Élites Offices, Douala. Le déroulé en direct.">
 <link rel="icon" href="assets/logos/liongate-emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,21 +12,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Colours sampled from the logo files */
-  --black:#0e0d0c; --black-2:#171513; --black-3:#211e1b;
+  /* Colours sampled from the logo files. Light theme by default (projection on a white wall) */
+  --black:#f6f2ea; --black-2:#ffffff; --black-3:#ebe5d9;
   --cream:#f7ebc6; --paper:#f7f3ea; --white:#fbf9f4;
-  --gold:#f2aa1e; --red:#dc3c14; --drc:#ba9654; --drc-ink:#8a6a2f;
-  --text:#f4f0e6; --text-2:#bdb6a8; --text-3:#8f897d;
+  --gold:#f2aa1e; --gold-text:#8f5a00; --red:#dc3c14; --drc:#ba9654; --drc-ink:#8a6a2f;
+  --text:#151311; --text-2:#55504a; --text-3:#6c665d;
   --ink:#151311; --ink-2:#55504a;
-  --line:rgba(247,235,198,.14); --line-ink:rgba(21,19,17,.12);
+  --line:rgba(21,19,17,.13); --line-ink:rgba(21,19,17,.12);
+  --invert-bg:#151311; --invert-fg:#ffffff; --quote:#151311; --overlay:rgba(246,242,234,.9); --letterbox:#e4ddd0;
   --ease:cubic-bezier(.2,.7,.2,1); --fast:160ms; --mid:360ms; --slow:700ms;
   --sans:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
   --drc-serif:"Playfair Display",Georgia,serif; --drc-sans:Lato,system-ui,sans-serif;
   --r:6px;
 }
+:root[data-theme="dark"]{
+  --black:#0e0d0c; --black-2:#171513; --black-3:#211e1b;
+  --gold-text:#f2aa1e;
+  --text:#f4f0e6; --text-2:#bdb6a8; --text-3:#8f897d;
+  --line:rgba(247,235,198,.14);
+  --invert-bg:#f7ebc6; --invert-fg:#151311; --quote:#f7ebc6; --overlay:rgba(14,13,12,.86); --letterbox:#000;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{font-family:var(--sans);background:#000;color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden}
+body{font-family:var(--sans);background:var(--letterbox);color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
@@ -35,7 +43,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none!important}
 .drc-name{font-family:var(--drc-serif);font-weight:500;letter-spacing:0}
 
 /* ===== Stage: 1920×1080 scaled to fit ===== */
-#viewport{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden;background:#000}
+#viewport{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden;background:var(--letterbox)}
 #stage{position:relative;width:1920px;height:1080px;transform-origin:center center;background:var(--black);overflow:hidden;display:flex;flex-direction:column}
 
 /* ===== Header ===== */
@@ -54,7 +62,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none!important}
 .stepinfo{min-width:0;flex:1}
 .stepinfo .l1{display:flex;align-items:baseline;gap:14px;font-size:16px;color:var(--text-2);white-space:nowrap;overflow:hidden}
 .stepinfo .l1 #stepWho{min-width:0;overflow:hidden;text-overflow:ellipsis}
-.stepinfo .l1 b{color:var(--gold);font-weight:700}
+.stepinfo .l1 b{color:var(--gold-text);font-weight:700}
 .stepinfo .ttl{font-weight:700;font-size:28px;letter-spacing:-.01em;line-height:1.12;margin-top:4px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 body.s-before #stepNo,body.s-before .bar,body.s-after .stepinfo,body.s-before .endin{display:none}
 .bar{height:4px;background:var(--line);margin-top:10px;overflow:hidden}
@@ -63,7 +71,7 @@ body.s-before #stepNo,body.s-before .bar,body.s-after .stepinfo,body.s-before .e
 .timer{text-align:right;line-height:1}
 .timer b{display:block;font-size:48px;font-weight:700;letter-spacing:-.02em}
 .timer span{display:block;font-size:15px;color:var(--text-2);margin-top:8px}
-.timer.over b{color:var(--gold)}
+.timer.over b{color:var(--gold-text)}
 .endin{font-size:15px;color:var(--text-2);text-align:right;line-height:1.35;white-space:nowrap}
 .endin b{display:block;color:var(--text);font-size:22px;font-weight:700}
 .tools{display:flex;gap:8px}
@@ -73,8 +81,8 @@ body.s-before #stepNo,body.s-before .bar,body.s-after .stepinfo,body.s-before .e
 .tbtn svg{width:20px;height:20px}
 .lang{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
 .lang button{height:42px;padding:0 13px;font-size:14px;font-weight:700;color:var(--text-2)}
-.lang button[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
-.sound-cta{position:absolute;z-index:25;right:44px;bottom:44px;display:none;align-items:center;gap:12px;height:60px;padding:0 24px;border-radius:4px;background:var(--cream);color:var(--ink);font-size:19px;font-weight:700}
+.lang button[aria-pressed="true"]{background:var(--invert-bg);color:var(--invert-fg)}
+.sound-cta{position:absolute;z-index:25;right:44px;bottom:44px;display:none;align-items:center;gap:12px;height:60px;padding:0 24px;border-radius:4px;background:var(--invert-bg);color:var(--invert-fg);font-size:19px;font-weight:700}
 .sound-cta svg{width:24px;height:24px}
 body.needs-sound .sound-cta{display:inline-flex}
 body.hide-cursor .tools{opacity:0;transition:opacity var(--mid)}
@@ -99,7 +107,7 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .open-copy h1{font-weight:800;font-size:80px;line-height:1;letter-spacing:-.03em;max-width:16ch;animation:rise var(--slow) var(--ease) both}
 .open-copy p{font-size:26px;color:var(--text-2);margin-top:16px;max-width:42ch}
 .upnext{flex:none;min-width:420px;padding:22px 26px;border-left:2px solid var(--gold);background:var(--black-2)}
-.upnext small{display:block;font-size:17px;font-weight:700;color:var(--gold)}
+.upnext small{display:block;font-size:17px;font-weight:700;color:var(--gold-text)}
 .upnext b{display:block;font-weight:700;font-size:32px;line-height:1.15;margin-top:8px;letter-spacing:-.01em}
 .upnext span{display:block;font-size:19px;color:var(--text-2);margin-top:8px}
 .ambient{position:absolute;inset:0;background:var(--black)}
@@ -107,34 +115,36 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .ambient img.on{opacity:1}
 
 /* After */
-.after{position:absolute;inset:0;display:grid;place-items:center;text-align:center;background:rgba(14,13,12,.86)}
+.after{position:absolute;inset:0;display:grid;place-items:center;text-align:center;background:var(--overlay)}
 .after h1{font-weight:800;font-size:110px;line-height:1;letter-spacing:-.03em}
 .after p{font-size:26px;color:var(--text-2);margin-top:20px}
 .after .duo{margin:56px auto 0}
 
 /* ===== Presenter step ===== */
-.talk{position:absolute;left:0;right:0;top:112px;bottom:0;display:grid;grid-template-columns:560px 1fr;gap:32px;padding:32px 40px 32px;background:var(--black)}
+.talk{position:absolute;left:0;right:0;top:112px;bottom:0;display:grid;grid-template-columns:400px 1fr;gap:24px;padding:24px 28px 24px;background:var(--black)}
 .side{display:flex;flex-direction:column;gap:20px;min-height:0}
-.pcard{padding:28px;border:1px solid var(--line);border-top:2px solid var(--gold);background:var(--black-2);animation:rise var(--slow) var(--ease) both}
+.pcard{padding:20px;border:1px solid var(--line);border-top:2px solid var(--gold);background:var(--black-2);animation:rise var(--slow) var(--ease) both}
 .pcard.drc{border-top-color:var(--drc)}
-.pcard .who{display:flex;align-items:center;gap:22px}
-.medal{flex:none;width:104px;height:104px;border-radius:var(--r);display:grid;place-items:center;font-weight:800;font-size:40px;letter-spacing:.02em;color:var(--ink);background:var(--cream)}
+.pcard .who{display:flex;align-items:center;gap:16px}
+.medal{flex:none;width:72px;height:72px;border-radius:var(--r);display:grid;place-items:center;font-weight:800;font-size:28px;letter-spacing:.02em;color:var(--ink);background:var(--cream)}
 .medal img{width:100%;height:100%;border-radius:var(--r);object-fit:cover}
-.pcard .name{font-weight:800;font-size:40px;line-height:1.06;letter-spacing:-.02em}
-.pcard .role{font-size:22px;color:var(--text-2);margin-top:10px;line-height:1.35}
-.org{display:block;margin-top:12px;font-size:19px;font-weight:700;color:var(--gold)}
-.org.drc{color:var(--drc);font-size:22px}
-.pcard .topic{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:17px;color:var(--text-3)}
-.pcard .topic b{display:block;color:var(--text);font-weight:700;font-size:24px;margin-top:4px;line-height:1.2}
+.pcard .name{font-weight:800;font-size:30px;line-height:1.06;letter-spacing:-.02em}
+.pcard .role{font-size:18px;color:var(--text-2);margin-top:10px;line-height:1.35}
+.org{display:block;margin-top:8px;font-size:17px;font-weight:700;color:var(--gold-text)}
+.org.drc{color:var(--drc-ink);font-size:19px}
+.pcard .topic{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:17px;color:var(--text-3)}
+.pcard .topic b{display:block;color:var(--text);font-weight:700;font-size:20px;margin-top:4px;line-height:1.2}
 .runlist{list-style:none;flex:1;min-height:0;overflow:hidden;border-top:1px solid var(--line)}
-.runlist li{display:grid;grid-template-columns:76px 1fr auto;align-items:center;gap:12px;padding:11px 14px;font-size:20px;border-bottom:1px solid var(--line);border-left:2px solid transparent}
+.runlist li{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:10px;padding:10px 10px;font-size:17px;border-bottom:1px solid var(--line);border-left:2px solid transparent}
 .runlist li .t{color:var(--text-2)}
 .runlist li .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.runlist li .s{font-size:15px;font-weight:700;color:var(--gold)}
+.runlist li .s{font-size:13px;font-weight:700;color:var(--gold-text)}
 .runlist li.past .n,.runlist li.past .t{color:var(--text-3)}
 .runlist li.cur{background:var(--black-2);border-left-color:var(--gold)}
-.runlist li.cur .n{color:#fff;font-weight:700}
+.runlist li.cur .n{color:var(--text);font-weight:700}
 .runlist li.sub .n{padding-left:20px}
+body.revue .runlist li,body.revue #drawer li{cursor:pointer}
+body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-3)}
 
 .main{display:flex;flex-direction:column;gap:14px;min-width:0;min-height:0}
 .frame{position:relative;flex:1;border-radius:var(--r);overflow:hidden;background:var(--black-2)}
@@ -151,9 +161,13 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-logos{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;text-align:center;padding:56px 72px;overflow:hidden}
 .s-logos p{font-size:28px;line-height:1.4;color:var(--text-2);max-width:48ch;margin-top:-24px;text-wrap:balance}
 .duo{display:flex;align-items:center;gap:72px}
-.duo img{height:300px;width:auto;object-fit:contain;animation:rise 900ms var(--ease) both}
-.duo img.drc{height:220px;animation-delay:.2s}
-.duo .sep{width:1px;height:240px;background:var(--line)}
+.duo > img{height:190px;width:auto;object-fit:contain;animation:rise 900ms var(--ease) both}
+.drc-lock{display:flex;flex-direction:column;align-items:center;gap:14px;animation:rise 900ms var(--ease) .2s both}
+.drc-lock img{height:120px;width:auto}
+.drc-lock span{font-family:var(--drc-serif);font-size:24px;letter-spacing:.08em;color:var(--drc-ink);white-space:nowrap}
+:root[data-theme="dark"] .drc-lock span{color:var(--drc)}
+
+.duo .sep{width:1px;height:170px;background:var(--line)}
 .s-logos h2{font-weight:700;font-size:46px;line-height:1.12;letter-spacing:-.02em;max-width:22ch;animation:rise 900ms var(--ease) .35s both}
 
 .s-alt{display:grid;place-items:center;background:var(--paper);animation:altbg 12s ease-in-out infinite}
@@ -168,7 +182,7 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 @keyframes altcap{0%,40%{color:var(--ink)}50%,90%{color:var(--text)}100%{color:var(--ink)}}
 
 .s-title{background:var(--black);display:flex;flex-direction:column;justify-content:center;padding:88px;overflow:hidden}
-.s-title small{font-size:22px;font-weight:700;color:var(--gold)}
+.s-title small{font-size:22px;font-weight:700;color:var(--gold-text)}
 .s-title h2{font-weight:800;font-size:72px;line-height:1.02;letter-spacing:-.03em;margin-top:20px;max-width:16ch}
 .s-title p{font-size:28px;color:var(--text-2);margin-top:26px;max-width:44ch;line-height:1.4}
 
@@ -182,8 +196,11 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-ti .img .steps{position:absolute;inset:0;padding:72px 64px;align-content:center}
 .steps li{counter-increment:s;display:flex;align-items:baseline;gap:22px;padding:22px 0;border-bottom:1px solid var(--line);font-size:30px;font-weight:600;color:var(--text);animation:rise 700ms var(--ease) both}
 .steps li:first-child{border-top:1px solid var(--line)}
-.steps li::before{content:counter(s,decimal-leading-zero);flex:none;font-size:22px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.steps li::before{content:counter(s,decimal-leading-zero);flex:none;font-size:22px;font-weight:800;color:var(--gold-text);font-variant-numeric:tabular-nums}
 .s-ti .txt .steps{margin-top:30px}
+.steps.prog li{opacity:.28;transition:opacity .9s var(--ease),transform .9s var(--ease);transform:translateX(-8px)}
+.steps.prog li.lit{opacity:1;transform:none}
+.steps.prog li.now{border-bottom-color:var(--gold)}
 .s-ti .txt .steps li{color:var(--ink);font-size:24px;border-color:var(--line-ink);padding:14px 0}
 .s-ti .txt .steps li::before{color:var(--ink-2)}
 
@@ -191,7 +208,14 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-car img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s var(--ease)}
 .s-car img.on{opacity:1}
 .s-car img.contain{object-fit:contain;padding:64px;background:var(--white)}
-.s-car .cap{position:absolute;left:0;bottom:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 32px 28px}
+.s-car .pair{position:absolute;inset:0;display:flex;justify-content:center;gap:40px;padding:36px;opacity:0;transition:opacity 1s var(--ease);background:var(--black)}
+.s-car .pair.on{opacity:1}
+.s-car .pair img{position:static;opacity:1;width:auto;height:100%;object-fit:contain}
+.s-car .cap{position:absolute;left:0;bottom:0;right:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:24px;padding:0 32px 28px}
+.s-car .cap .who{font-weight:700;font-size:34px;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.6);text-align:center;transition:opacity .6s}
+.s-car .cap .where{font-size:22px;font-weight:600;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.slide.drc .s-car .cap .who{font-family:var(--drc-serif);font-weight:500}
+.s-car .cap .num{justify-self:end}
 .s-car.fit .cap{top:28px;bottom:auto;align-items:flex-start}
 .s-car .cap b{font-weight:700;font-size:32px;line-height:1.15;padding:14px 20px;background:var(--black);color:var(--text);max-width:24ch;border-radius:4px}
 .s-car .cap span{font-size:20px;font-weight:700;padding:8px 14px;background:var(--black);color:var(--text);border-radius:4px}
@@ -215,17 +239,24 @@ body.s-before #scene > .layer,body.s-open #scene > .layer,body.s-after #scene > 
 .s-tl{background:var(--white);color:var(--ink);padding:80px 72px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .s-tl h2{font-family:var(--drc-serif);font-weight:500;font-size:46px;line-height:1.12;max-width:22ch}
 .s-tl .row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:2px solid var(--drc)}
-.s-tl .row div{position:relative;padding:34px 24px 0 0;animation:rise 700ms var(--ease) both}
+.s-tl .row{position:relative}
+.s-tl .row div{position:relative;padding:34px 24px 0 0;opacity:.35;transition:opacity .8s var(--ease)}
+.s-tl .row div.lit{opacity:1}
+.s-tl .dot{position:absolute;top:-11px;left:0;width:20px;height:20px;border-radius:50%;background:var(--drc-ink);box-shadow:0 0 0 6px rgba(186,150,84,.25);transition:left .4s linear;z-index:2}
 .s-tl b{display:block;font-family:var(--drc-serif);font-weight:500;font-size:62px;color:var(--drc-ink);line-height:1}
 .s-tl span{display:block;margin-top:14px;font-size:28px;color:var(--ink-2)}
 
 .s-quote{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px;overflow:hidden}
-.s-quote img{height:120px;width:auto;margin-bottom:48px}
-.s-quote blockquote{font-family:var(--drc-serif);font-style:italic;font-weight:400;font-size:84px;line-height:1.05;color:var(--cream);max-width:16ch}
+.s-quote .drc-lock{margin-bottom:48px}
+.emblem{display:grid;place-items:center;background:var(--black)}
+.emblem img{height:420px;width:auto;animation:rise 900ms var(--ease) both}
+.s-quote blockquote{font-family:var(--drc-serif);font-style:italic;font-weight:400;font-size:84px;line-height:1.05;color:var(--quote);max-width:16ch}
 .s-quote p{font-family:var(--drc-sans);font-size:26px;max-width:40ch;line-height:1.4;color:var(--drc);margin-top:36px}
 
 /* Product showcase: the current product in front, the previous and next at the sides */
 .s-show{background:#f7f6f3;color:var(--ink);transition:background-color .9s var(--ease)}
+.s-show.bare .head,.s-show.bare .name{display:none}
+.s-show.bare .stage{top:56px;bottom:56px}
 .s-show .head{position:absolute;left:56px;right:56px;top:44px;height:150px;overflow:hidden}
 .s-show .head h2{font-weight:800;font-size:46px;line-height:1.08;letter-spacing:-.02em}
 .slide.drc .s-show .head h2{font-family:var(--drc-serif);font-weight:500;letter-spacing:0}
@@ -253,13 +284,18 @@ body.flow .s-show .card{width:62%}
 body.flow .s-show .card.is-l{transform:translate(-112%,-50%) scale(.5)}
 body.flow .s-show .card.is-r{transform:translate(12%,-50%) scale(.5)}
 
+.s-clips{background:#000}
+.s-clips video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.s-clips .where{position:absolute;left:32px;bottom:28px;font-size:22px;font-weight:600;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .s-spot{background:#000}
 .s-spot video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
 .s-spot .vlabel{position:absolute;left:24px;top:24px;padding:8px 14px;background:var(--black);border-radius:4px;font-size:18px;font-weight:600;animation:fadeout 1s ease 4s forwards}
 .s-spot .vctl{position:absolute;right:24px;bottom:24px}
 .s-spot .endcard{position:absolute;inset:0;display:none;place-items:center;background:var(--black)}
 .s-spot.done .endcard{display:grid}
-.s-spot .endcard img{height:260px;width:auto}
+.s-spot .endcard .drc-lock img{height:200px}
+.s-spot .endcard .drc-lock span{font-size:34px;color:var(--drc)}
+.s-spot .vctl{display:flex;gap:8px}
 
 /* ===== Programme drawer ===== */
 #drawer{position:absolute;inset:0;z-index:40;display:none;background:rgba(0,0,0,.6)}
@@ -397,6 +433,7 @@ body.flow .s-quote blockquote{font-size:80px}
           <button class="tbtn" id="progBtn" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span class="lbl" id="progLbl">Programme</span></button>
           <button class="tbtn" id="muteBtn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path id="muteWave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"/></svg></button>
           <div class="lang" role="group" aria-label="Langue / Language"><button type="button" data-lang="fr" aria-pressed="true">FR</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+          <button class="tbtn" id="themeBtn" type="button" aria-label="Thème clair ou sombre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
           <button class="tbtn" id="fsBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="lbl" id="fsLbl">Plein écran</span></button>
         </div>
       </div>
@@ -488,7 +525,11 @@ body.flow .s-quote blockquote{font-size:80px}
   const dur = (ms) => { ms = Math.max(0, ms); const s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60; return h ? `${h}:${pad(m)}:${pad(s % 60)}` : `${pad(m)}:${pad(s % 60)}`; };
   const hours = (ms) => { const m = Math.max(0, Math.round(ms / 6e4)); return m >= 60 ? `${Math.floor(m / 60)} h ${pad(m % 60)}` : `${m} min`; };
   const initials = (n) => n.replace(/^(M\.\s+le|M\.|Mme|Mr|Dr|Pr)\s+/i, "").split(/\s+/).filter(w => w.length > 1 && !/^(de|du|la|le|des)$/i.test(w)).slice(0, 2).map(w => w[0]).join("").toUpperCase();
-  const logoSrc = (k) => G.logos[k] || k;
+  let theme = (qs.get("theme") || store.get("gala-theme")) === "dark" ? "dark" : "light";
+  const logoSrc = (k) => k === "liongate" && theme === "light" ? (G.logos.liongateDark || G.logos.liongate) : (G.logos[k] || k);
+  // Dorothy Roffat logo: always the signature with DOROTHY ROFFAT COSMETICS in Playfair capitals below
+  const drcLock = () => `<div class="drc-lock">${imgTag(G.logos.drcSignature, "Dorothy Roffat Cosmetics")}<span>DOROTHY ROFFAT COSMETICS</span></div>`;
+  const logoHTML = (k) => /^drc/.test(k) ? drcLock() : imgTag(logoSrc(k), k);
   // The Dorothy Roffat brand name is always set in its own face (Playfair Display)
   const brandify = (txt) => esc(txt).replace(/Dorothy Roffat Cosmetics/g, '<span class="drc-name">Dorothy Roffat Cosmetics</span>');
   const isDrc = (u) => !!u && (u.brand === "drc" || (u.parent && u.parent.brand === "drc"));
@@ -536,13 +577,13 @@ body.flow .s-quote blockquote{font-size:80px}
     slideState = null; document.body.classList.remove("spotfull");
     let html = "";
     if (phase === "before") {
-      html = `<div class="layer cover">${teaserVideo()}<div class="cover-foot"><button class="ghost" type="button" data-open-prog>${esc(U().programme)}</button></div></div>`;
+      html = `<div class="layer cover">${teaserVideo()}</div>`;
     } else if (phase === "open") {
       const nx = sch.next >= 0 ? units[sch.next] : null;
-      const bg = cur.scene === "teaser" ? teaserVideo() : `<div class="ambient">${(cur.images || []).map((s, k) => imgTag(s, "", k === 0 ? "on" : "")).join("")}</div>`;
+      const bg = cur.scene === "teaser" ? teaserVideo() : `<div class="ambient">${(cur.images || []).map((s, k) => imgTag(s.src || s, "", k === 0 ? "on" : "", s.pos ? ` style="object-position:${esc(s.pos)}"` : "")).join("")}</div>`;
       html = `<div class="layer openstep">${bg}<div class="shade"></div><div class="open-copy"><div><h1>${esc(L(cur.title))}</h1>${cur.line ? `<p>${esc(L(cur.line))}</p>` : ""}</div>${nx ? `<div class="upnext"><small>${esc(U().next)}</small><b>${esc(L(nx.title))}</b><span class="num" data-upnext></span></div>` : ""}</div></div>`;
     } else if (phase === "after") {
-      html = `<div class="layer afterstep">${teaserVideo()}<div class="after"><div class="in"><h1>${esc(U().done)}</h1><p>${esc(U().doneLine)}</p><div class="duo">${imgTag(logoSrc("liongate"), "LIONGATE")}<span class="sep"></span>${imgTag(logoSrc("drc"), "Dorothy Roffat Cosmetics", "drc")}</div></div></div></div>`;
+      html = `<div class="layer afterstep">${teaserVideo()}<div class="after"><div class="in"><h1>${esc(U().done)}</h1><p>${esc(U().doneLine)}</p><div class="duo">${logoHTML("liongate")}<span class="sep"></span>${drcLock()}</div></div></div></div>`;
     } else {
       html = `<div class="layer talk"><aside class="side">${presenterCard(cur)}<ol class="runlist" id="runlist"></ol></aside><div class="main"><div class="frame" id="frame"><div class="slidebox" id="slidebox"></div></div><div class="foot"><span id="secLabel" class="num"></span><span class="secbar"><i id="secBar"></i></span><span class="dots" id="dots"></span></div></div></div>`;
     }
@@ -558,14 +599,14 @@ body.flow .s-quote blockquote{font-size:80px}
     if (!p) return "";
     const mono = p.monogram === undefined ? initials(p.name) : p.monogram;
     const medal = !mono && !p.photo ? "" : p.photo ? `<span class="medal"><img src="${esc(p.photo)}" alt="" data-m="${esc(mono)}" onerror="this.parentNode.textContent=this.dataset.m"></span>` : `<span class="medal" aria-hidden="true">${esc(mono)}</span>`;
-    const topic = u.sub ? `${L(u.parent.title)} · ${L(u.title)}` : L(u.title);
+    const topic = u.sub ? `${L(u.parent.title)}, ${L(u.title)}` : L(u.title);
     const drc = /Dorothy Roffat/.test(p.org || "");
     return `<section class="pcard${drc ? " drc" : ""}" aria-label="${esc(p.name)}"><div class="who">${medal}<div><div class="name">${esc(p.name)}</div>${L(p.role) ? `<div class="role">${esc(L(p.role))}</div>` : ""}${p.org ? `<span class="org${drc ? " drc" : ""}">${brandify(p.org)}</span>` : ""}</div></div><div class="topic">${esc(U().topic)}<b>${esc(topic)}</b></div></section>`;
   }
 
   function renderRunlist(sch) {
     const el = $("#runlist"); if (!el) return;
-    el.innerHTML = sch.units.map((s, i) => { const u = units[i]; const st = i < sch.current ? "past" : i === sch.current ? "cur" : ""; return `<li class="${st}${u.sub ? " sub" : ""}"><span class="t num">${hm(s.start)}</span><span class="n">${esc(L(u.title))}</span><span class="s">${i === sch.current ? esc(U().now) : i === sch.current + 1 ? esc(U().next) : ""}</span></li>`; }).join("");
+    el.innerHTML = sch.units.map((s, i) => { const u = units[i]; const st = i < sch.current ? "past" : i === sch.current ? "cur" : ""; return `<li data-i="${i}" class="${st}${u.sub ? " sub" : ""}"><span class="t num">${hm(s.start)}</span><span class="n">${esc(L(u.title))}</span><span class="s">${i === sch.current ? esc(U().now) : i === sch.current + 1 ? esc(U().next) : ""}</span></li>`; }).join("");
     const cur = el.querySelector(".cur"); if (cur) { const top = cur.offsetTop - el.clientHeight / 2 + cur.offsetHeight / 2; el.scrollTop = Math.max(0, top); }
   }
 
@@ -613,36 +654,38 @@ body.flow .s-quote blockquote{font-size:80px}
 
   function sectionHTML(s, u) {
     switch (s.layout) {
-      case "logos": return `<div class="slide-in s-logos" data-fit style="position:absolute;inset:0"><div class="duo">${(s.logos || ["liongate", "drc"]).map((k, i) => (i ? `<span class="sep"></span>` : "") + imgTag(logoSrc(k), k, /drc/.test(k) ? "drc" : "")).join("")}</div>${s.title ? `<h2>${brandify(L(s.title))}</h2>` : ""}${s.text ? `<p>${brandify(L(s.text))}</p>` : ""}</div>`;
+      case "emblem": return `<div class="emblem" style="position:absolute;inset:0">${imgTag(G.logos.liongateEmblem, "LIONGATE")}</div>`;
+      case "logos": return `<div class="slide-in s-logos" data-fit style="position:absolute;inset:0"><div class="duo">${(s.logos || ["liongate", "drc"]).map((k, i) => (i ? `<span class="sep"></span>` : "") + logoHTML(k)).join("")}</div>${s.title ? `<h2>${brandify(L(s.title))}</h2>` : ""}${s.text ? `<p>${brandify(L(s.text))}</p>` : ""}</div>`;
       case "logo-alternate": return `<div class="s-alt" style="position:absolute;inset:0"><div class="logo">${imgTag(logoSrc("liongateBlack"), "LIONGATE", "k")}${imgTag(logoSrc("liongate"), "", "c", ' aria-hidden="true"')}</div><div class="cap">${esc(L(s.caption) || L(u.title))}</div></div>`;
       case "title": return `<div class="s-title" data-fit style="position:absolute;inset:0">${s.kicker ? `<small>${esc(L(s.kicker))}</small>` : ""}<h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div>`;
       case "text-image": {
         const pts = L(s.points) || [];
-        const steps = pts.length ? `<ol class="steps">${pts.map(p => `<li>${esc(p)}</li>`).join("")}</ol>` : "";
+        const steps = pts.length ? `<ol class="steps${s.progressive ? " prog" : ""}">${pts.map(p => `<li>${esc(p)}</li>`).join("")}</ol>` : "";
         return `<div class="s-ti" style="position:absolute;inset:0"><div class="txt" data-fit><h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}${s.image ? steps : ""}</div><div class="img">${s.image ? imgTag(s.image, L(s.title)) : steps}</div></div>`;
       }
-      case "carousel": return `<div class="s-car${s.fit === "contain" ? " fit" : ""}" style="position:absolute;inset:0">${(s.images || []).map((src, k) => imgTag(src, "", (k === 0 ? "on" : "") + (s.fit === "contain" ? " contain" : ""))).join("")}<div class="cap">${s.title ? `<b>${esc(L(s.title))}</b>` : "<span></span>"}<span class="num" data-car></span></div></div>`;
+      case "carousel": return `<div class="s-car" style="position:absolute;inset:0">${(s.images || []).map((im, k) => { const o = typeof im === "string" ? { src: im } : im, on = k === 0 ? " on" : ""; return o.pair ? `<div class="pair${on}" data-k="${k}">${o.pair.map(x => imgTag(x, "")).join("")}</div>` : imgTag(o.src, o.name || "", "cimg" + on, ` data-k="${k}"` + (o.pos ? ` style="object-position:${esc(o.pos)}"` : "")); }).join("")}<div class="cap"><span class="where">${esc(L(s.caption) || "")}</span><span class="who" data-who></span><span class="num" data-car></span></div></div>`;
+      case "clips": return `<div class="s-clips" style="position:absolute;inset:0"><video muted playsinline preload="auto"></video>${s.caption ? `<span class="where">${esc(L(s.caption))}</span>` : ""}</div>`;
       case "products": return `<div class="s-prod" style="position:absolute;inset:0"><div class="pv">${(s.items || []).map((p, k) => imgTag(p.image, p.name, k === 0 ? "on" : "")).join("")}</div><div class="pd" data-fit><small>${esc(L(s.title))}</small><div class="swap" data-pd></div><div class="pdots num" data-pc>1 / ${(s.items || []).length}</div></div></div>`;
       case "timeline": return `<div class="s-tl" data-fit style="position:absolute;inset:0"><h2>${esc(L(s.title))}</h2><div class="row num">${(s.items || []).map(t => `<div><b>${esc(t.year)}</b><span>${esc(L(t.text))}</span></div>`).join("")}</div></div>`;
-      case "quote": return `<div class="s-quote" data-fit style="position:absolute;inset:0">${imgTag(logoSrc("drcSignature"), "")}<blockquote>${esc(L(s.text))}</blockquote>${s.by ? `<p>${esc(L(s.by))}</p>` : ""}</div>`;
-      case "showcase": return `<div class="s-show" style="position:absolute;inset:0"><div class="head" data-fit><h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div><div class="stage">${(s.items || []).map((p, k) => `<div class="card" data-k="${k}">${imgTag(p.image, p.name || L(s.title))}</div>`).join("")}</div><div class="name"><b data-sn>${esc((s.items && s.items[0] && s.items[0].name) || "")}</b><span class="num" data-sc>1 / ${(s.items || []).length}</span></div></div>`;
-      case "spots": return `<div class="s-spot" style="position:absolute;inset:0"><video playsinline preload="auto"></video><span class="vlabel" data-vlabel></span><div class="vctl"><button class="tbtn" type="button" data-vplay aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button></div><div class="endcard">${imgTag(logoSrc("drc"), "Dorothy Roffat Cosmetics")}</div></div>`;
+      case "quote": return `<div class="s-quote" data-fit style="position:absolute;inset:0">${drcLock()}<blockquote>${esc(L(s.text))}</blockquote>${s.by ? `<p>${esc(L(s.by))}</p>` : ""}</div>`;
+      case "showcase": return `<div class="s-show${s.bare ? " bare" : ""}" style="position:absolute;inset:0"><div class="head" data-fit><h2>${esc(L(s.title) || "")}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div><div class="stage">${(s.items || []).map((p, k) => `<div class="card" data-k="${k}">${imgTag(p.image, p.name || L(s.title))}</div>`).join("")}</div><div class="name"><b data-sn>${esc((s.items && s.items[0] && s.items[0].name) || "")}</b><span class="num" data-sc>1 / ${(s.items || []).length}</span></div></div>`;
+      case "spots": return `<div class="s-spot" style="position:absolute;inset:0"><video playsinline preload="auto"></video><span class="vlabel" data-vlabel></span><div class="vctl"><button class="tbtn" type="button" data-vfs aria-label="Plein écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="tbtn" type="button" data-vplay aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button></div><div class="endcard">${drcLock()}</div></div>`;
       default: return `<div class="s-title" style="position:absolute;inset:0"><h2>${esc(L(s.title) || L(u.title))}</h2></div>`;
     }
   }
 
   function spotList() {
     const all = (G.media.spots || []).filter(x => x && x.src);
-    if (SCREEN || isFs()) return all;                          // room screen (?ecran=1 or full screen): VF then VE
-    const mine = all.filter(x => x.lang === lang); return mine.length ? mine : all.slice(0, 1);
+    return all;                                                // VF then VE, straight away, on every screen
   }
   function wireSpots(root) {
     const v = root.querySelector("video"), list = spotList(), lab = root.querySelector("[data-vlabel]"), btn = root.querySelector("[data-vplay]");
     let k = 0;
-    const load = () => { const x = list[k]; v.src = x.src; if (x.poster) v.poster = x.poster; lab.textContent = `${U().spotOf} · ${x.label || x.lang.toUpperCase()}`; playVideo(v); };
+    const load = () => { const x = list[k]; v.src = x.src; if (x.poster) v.poster = x.poster; lab.textContent = x.label || x.lang.toUpperCase(); playVideo(v); };
     v.addEventListener("ended", () => { k++; if (k < list.length) load(); else root.querySelector(".s-spot").classList.add("done"); });
     const icon = () => btn.innerHTML = v.paused ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>' : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>';
     v.addEventListener("play", icon); v.addEventListener("pause", icon);
+    const fsb = root.querySelector("[data-vfs]"); if (fsb) fsb.addEventListener("click", () => { const r = v.requestFullscreen || v.webkitRequestFullscreen || v.webkitEnterFullscreen; if (r) { const p = r.call(v); if (p && p.catch) p.catch(() => {}); } if (!soundOn) setSound(true); });
     btn.addEventListener("click", () => { if (v.paused) { if (root.querySelector(".s-spot").classList.contains("done")) { root.querySelector(".s-spot").classList.remove("done"); k = 0; load(); } else playVideo(v); } else v.pause(); });
     if (list.length) load();
   }
@@ -652,9 +695,35 @@ body.flow .s-quote blockquote{font-size:80px}
     if (!slideState) return;
     const s = sec.s, every = (s.every || 6) * 1000, el = slideState.el;
     if (s.layout === "carousel") {
-      const imgs = el.querySelectorAll(".s-car img"); if (!imgs.length) return;
-      const k = Math.floor(sec.el / every) % imgs.length;
-      if (k !== slideState.k) { imgs.forEach((im, i) => im.classList.toggle("on", i === k)); slideState.k = k; const c = el.querySelector("[data-car]"); if (c) c.textContent = `${k + 1} / ${imgs.length}`; }
+      const frames = [...el.querySelectorAll(".s-car [data-k]")], n = frames.length; if (!n) return;
+      const k = pickIndex(sec.el, n, every, s.lead, (s.leadFor || 60) * 1000);
+      if (k !== slideState.k) {
+        frames.forEach((f, i) => f.classList.toggle("on", i === k)); slideState.k = k;
+        const c = el.querySelector("[data-car]"); if (c) c.textContent = `${k + 1} / ${n}`;
+        const w = el.querySelector("[data-who]"); if (w) w.textContent = ((s.images || [])[k] || {}).name || "";
+      }
+    }
+    if (s.layout === "text-image" && s.progressive) {
+      const li = [...el.querySelectorAll(".steps.prog li")], n = li.length; if (!n) return;
+      const k = Math.min(n - 1, Math.floor(sec.el / (sec.dur / n)));
+      if (k !== slideState.k) { slideState.k = k; li.forEach((x, i) => { x.classList.toggle("lit", i <= k); x.classList.toggle("now", i === k); }); }
+    }
+    if (s.layout === "timeline") {
+      const cols = [...el.querySelectorAll(".s-tl .row > div")], n = cols.length; if (!n) return;
+      let dot = el.querySelector(".s-tl .dot"); if (!dot) { dot = document.createElement("i"); dot.className = "dot"; el.querySelector(".s-tl .row").appendChild(dot); }
+      const pct = Math.min(1, sec.el / Math.max(1, sec.dur - 6000)) * (n - 1);
+      dot.style.left = `calc(${(pct / n) * 100}% - 4px)`;
+      cols.forEach((c, i) => c.classList.toggle("lit", i <= pct + 0.02));
+    }
+    if (s.layout === "clips" && !slideState.clips) {
+      slideState.clips = true;
+      const v = el.querySelector(".s-clips video"), list = s.clips || []; if (!v || !list.length) return;
+      // start on the clip that matches the time already spent in this section, so the sequence ends with the countdown
+      let off = sec.el / 1000, k = 0; while (k < list.length && off >= list[k].dur) { off -= list[k].dur; k++; }
+      const play = (i, at) => { v.src = list[i].src; v.muted = true; v.addEventListener("loadedmetadata", () => { if (at > 0 && at < v.duration) v.currentTime = at; }, { once: true }); v.play().catch(() => {}); };
+      v.addEventListener("ended", () => { k = k + 1 < list.length ? k + 1 : Math.floor(Math.random() * list.length); play(k, 0); });
+      if (k >= list.length) { k = Math.floor(Math.random() * list.length); off = 0; }
+      play(k, off);
     }
     if (s.layout === "showcase") {
       const cards = [...el.querySelectorAll(".s-show .card")], n = cards.length; if (!n) return;
@@ -720,6 +789,14 @@ body.flow .s-quote blockquote{font-size:80px}
     } catch (e) { return { bg: "", white: true }; }
   }
 
+  // Photo order: the first `lead` images loop alone for `leadFor` ms, then the others, then all
+  function pickIndex(el, n, every, lead, leadFor) {
+    if (!(lead > 0 && lead < n)) return Math.floor(el / every) % n;
+    if (el < leadFor) return Math.floor(el / every) % lead;
+    const c = Math.floor((el - leadFor) / every), rest = n - lead;
+    return c < rest ? lead + c : (c - rest) % n;
+  }
+
   function fitSlide() {
     const f = $("#frame"), b = $("#slidebox"); if (!f || !b) return;
     const W = b.offsetWidth, H = b.offsetHeight, s = Math.min(f.clientWidth / W, f.clientHeight / H);
@@ -732,7 +809,7 @@ body.flow .s-quote blockquote{font-size:80px}
     const badge = $("#badge"), held = cs && cs.paused;
     badge.className = "badge num" + (sch.phase === "live" ? (held ? " hold" : " live") : "");
     $("#badgeText").textContent = sch.phase === "live" ? (held ? u.hold : u.live) : sch.phase === "before" ? u.before : u.after;
-    $("#brandSub").textContent = `${L(G.event.dateLabel)} · ${L(G.event.place)}`;
+    $("#brandSub").textContent = `${L(G.event.dateLabel)}, ${L(G.event.place)}`;
     const timer = $("#timer"); timer.className = "timer num";
     const bar = $("#bar i");
     if (sch.phase === "before") {
@@ -750,7 +827,7 @@ body.flow .s-quote blockquote{font-size:80px}
       $("#stepTime").textContent = `${hm(cs.start)} – ${hm(cs.end)}`;
       $("#stepWho").textContent = p ? p.name : "";
       $("#stepTitle").textContent = L(cur.title);
-      if (cur.sub) $("#stepWho").textContent = L(cur.parent.title) + (p ? " · " + p.name : "");
+      if (cur.sub) $("#stepWho").textContent = L(cur.parent.title) + (p ? ", " + p.name : "");
       const planned = cs.duration, el = t - cs.start;
       $("#timerVal").textContent = dur(cs.end - t);
       $("#timerLbl").textContent = held ? u.paused : u.left;
@@ -764,14 +841,14 @@ body.flow .s-quote blockquote{font-size:80px}
       $("#endin").innerHTML = "";
     }
     const up = document.querySelector("[data-upnext]");
-    if (up && sch.next >= 0) up.textContent = `${hm(sch.units[sch.next].start)} · ${u.in} ${dur(sch.units[sch.next].start - t)}`;
+    if (up && sch.next >= 0) up.textContent = `${hm(sch.units[sch.next].start)}, ${u.in} ${dur(sch.units[sch.next].start - t)}`;
   }
 
   // ---------- Drawer (programme) ----------
   function renderDrawer(sch) {
     $("#drawerTitle").textContent = U().programme;
-    $("#drawerMeta").textContent = `${L(G.event.dateLabel)} · ${L(G.event.place)}`;
-    $("#drawerList").innerHTML = sch.units.map((s, i) => { const u = units[i], p = u.presenter; return `<li class="${i < sch.current ? "past" : i === sch.current ? "cur" : ""}${u.sub ? " sub" : ""}"><span class="t num">${hm(s.start)}</span><span>${esc(L(u.title))}${p ? `<small>${esc(p.name)}</small>` : ""}</span></li>`; }).join("");
+    $("#drawerMeta").textContent = `${L(G.event.dateLabel)}, ${L(G.event.place)}`;
+    $("#drawerList").innerHTML = sch.units.map((s, i) => { const u = units[i], p = u.presenter; return `<li data-i="${i}" class="${i < sch.current ? "past" : i === sch.current ? "cur" : ""}${u.sub ? " sub" : ""}"><span class="t num">${hm(s.start)}</span><span>${esc(L(u.title))}${p ? `<small>${esc(p.name)}</small>` : ""}</span></li>`; }).join("");
     $("#drawerNote").textContent = G.liveUrl && liveOk ? U().note : U().noteOffline;
     $("#drawerClose").setAttribute("aria-label", U().close);
   }
@@ -780,6 +857,18 @@ body.flow .s-quote blockquote{font-size:80px}
   function openDrawer() { lastFocus = document.activeElement; renderDrawer(schedule()); $("#drawer").classList.add("open"); setInert(true); $("#drawerClose").focus(); }
   function closeDrawer() { $("#drawer").classList.remove("open"); setInert(false); if (lastFocus) lastFocus.focus(); }
   $("#progBtn").addEventListener("click", openDrawer);
+  // Review mode (?revue): click a step in the programme to jump to it
+  const REVUE = qs.has("revue");
+  if (REVUE) {
+    document.body.classList.add("revue");
+    const jump = (e) => { const li = e.target.closest("li[data-i]"); if (!li) return; const sch = schedule(), u = sch.units[+li.dataset.i]; if (!u) return;
+      simOffset += (u.start + 1500) - now(); manual = { id: null, k: null, at: 0 }; sceneKey = ""; secKey = ""; if ($("#drawer").classList.contains("open")) closeDrawer(); tick(); if (!document.body.classList.contains("flow")) { $("#viewport").scrollTop = 0; $("#stage").scrollTop = 0; } };
+    $("#scene").addEventListener("click", jump); $("#drawerList").addEventListener("click", jump);
+  }
+  // Light / dark theme
+  function applyTheme() { document.documentElement.dataset.theme = theme; const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = theme === "dark" ? "#0e0d0c" : "#f6f2ea"; }
+  applyTheme();
+  $("#themeBtn").addEventListener("click", () => { theme = theme === "dark" ? "light" : "dark"; store.set("gala-theme", theme); applyTheme(); sceneKey = ""; secKey = ""; tick(); });
   $("#drawerClose").addEventListener("click", closeDrawer);
   $("#drawer").addEventListener("click", e => { if (e.target.id === "drawer") closeDrawer(); });
 
@@ -803,7 +892,7 @@ body.flow .s-quote blockquote{font-size:80px}
       }
     }
     if (phase === "open" && cur && cur.scene !== "teaser") {
-      const imgs = document.querySelectorAll(".ambient img"); if (imgs.length > 1) { const k = Math.floor((T - sch.units[sch.current].start) / 8000) % imgs.length; imgs.forEach((im, i) => { if (im.classList.contains("on") !== (i === k)) im.classList.toggle("on", i === k); }); }
+      const imgs = document.querySelectorAll(".ambient img"); if (imgs.length > 1) { const k = pickIndex(T - sch.units[sch.current].start, imgs.length, 8000, cur.lead, (cur.leadFor || 60) * 1000); imgs.forEach((im, i) => { if (im.classList.contains("on") !== (i === k)) im.classList.toggle("on", i === k); }); }
     }
     if ($("#drawer").classList.contains("open")) renderDrawer(sch);
   }
@@ -822,7 +911,7 @@ body.flow .s-quote blockquote{font-size:80px}
   function setLang(l) {
     lang = l; store.set("gala-lang", l); document.documentElement.lang = l;
     document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
-    document.title = l === "fr" ? "Soirée de gala LIONGATE · 28 novembre 2026" : "LIONGATE gala evening · 28 November 2026";
+    document.title = l === "fr" ? "Soirée de gala LIONGATE, 28 novembre 2026" : "LIONGATE gala evening, 28 November 2026";
     $("#progLbl").textContent = U().programme; $("#progBtn").setAttribute("aria-label", U().programme); $("#soundLbl").textContent = U().sound; fsLabel();
     sceneKey = ""; secKey = ""; tick();
   }
