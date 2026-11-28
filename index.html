@@ -905,7 +905,8 @@ body.flow .s-quote blockquote{font-size:80px}
 
   // ---------- Layout: scaled stage vs flow ----------
   function layout() {
-    const w = innerWidth, h = innerHeight, flow = !SCREEN && (w < 900 || w / h < 1.15);
+    // Phones and portrait screens always get the phone layout, even with ?ecran=1 (projectors are wide)
+    const w = innerWidth, h = innerHeight, flow = w < 900 || (!SCREEN && w / h < 1.15);
     document.body.classList.toggle("flow", flow);
     const st = $("#stage");
     st.style.transform = flow ? "" : `scale(${Math.min(w / 1920, h / 1080)})`;
