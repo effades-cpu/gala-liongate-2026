@@ -124,10 +124,10 @@ window.GALA = {
           points: { fr: ["Audit", "Développement", "Exploitation"], en: ["Audit", "Build", "Run"] },
           image: "",
         },
-        { layout: "showcase", duration: 60, every: 5, bare: true, dark: true,
-          items: [
-            { image: "assets/photos/rollup-en.webp" },
-            { image: "assets/photos/rollup-fr.webp" },
+        { layout: "carousel", duration: 60, every: 5,   // roll-ups ENG et FR côte à côte, qui échangent leur place toutes les 5 s
+          images: [
+            { pair: ["assets/photos/rollup-en.webp", "assets/photos/rollup-fr.webp"] },
+            { pair: ["assets/photos/rollup-fr.webp", "assets/photos/rollup-en.webp"] },
           ] },
       ],
     },

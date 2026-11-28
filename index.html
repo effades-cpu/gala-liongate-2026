@@ -57,7 +57,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none!important}
 .badge .dot{width:10px;height:10px;border-radius:50%;background:var(--text-3)}
 .badge.live{background:var(--red);border-color:var(--red);color:#fff}
 .badge.live .dot{background:#fff}
-.badge.hold{border-color:var(--gold);color:var(--gold)}
+.badge.hold{border-color:var(--gold);color:var(--gold-text)}
 .badge.hold .dot{background:var(--gold)}
 .stepinfo{min-width:0;flex:1}
 .stepinfo .l1{display:flex;align-items:baseline;gap:14px;font-size:16px;color:var(--text-2);white-space:nowrap;overflow:hidden}
@@ -198,7 +198,7 @@ body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-
 .steps li:first-child{border-top:1px solid var(--line)}
 .steps li::before{content:counter(s,decimal-leading-zero);flex:none;font-size:22px;font-weight:800;color:var(--gold-text);font-variant-numeric:tabular-nums}
 .s-ti .txt .steps{margin-top:30px}
-.steps.prog li{opacity:.28;transition:opacity .9s var(--ease),transform .9s var(--ease);transform:translateX(-8px)}
+.steps.prog li{opacity:.45;transition:opacity .9s var(--ease),transform .9s var(--ease);transform:translateX(-8px)}
 .steps.prog li.lit{opacity:1;transform:none}
 .steps.prog li.now{border-bottom-color:var(--gold)}
 .s-ti .txt .steps li{color:var(--ink);font-size:24px;border-color:var(--line-ink);padding:14px 0}
@@ -216,6 +216,9 @@ body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-
 .s-car .cap .where{font-size:22px;font-weight:600;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .slide.drc .s-car .cap .who{font-family:var(--drc-serif);font-weight:500}
 .s-car .cap .num{justify-self:end}
+.s-car .cap .where,.s-car .cap .who{background:rgba(0,0,0,.5);color:#fff;padding:8px 14px;border-radius:4px;justify-self:start}
+.s-car .cap .who{justify-self:center}
+.s-car .cap .where:empty,.s-car .cap .who:empty{visibility:hidden}
 .s-car.fit .cap{top:28px;bottom:auto;align-items:flex-start}
 .s-car .cap b{font-weight:700;font-size:32px;line-height:1.15;padding:14px 20px;background:var(--black);color:var(--text);max-width:24ch;border-radius:4px}
 .s-car .cap span{font-size:20px;font-weight:700;padding:8px 14px;background:var(--black);color:var(--text);border-radius:4px}
@@ -238,9 +241,9 @@ body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-
 
 .s-tl{background:var(--white);color:var(--ink);padding:80px 72px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .s-tl h2{font-family:var(--drc-serif);font-weight:500;font-size:46px;line-height:1.12;max-width:22ch}
-.s-tl .row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:2px solid var(--drc)}
+.s-tl .row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:3px solid var(--drc-ink)}
 .s-tl .row{position:relative}
-.s-tl .row div{position:relative;padding:34px 24px 0 0;opacity:.35;transition:opacity .8s var(--ease)}
+.s-tl .row div{position:relative;padding:34px 24px 0 0;opacity:.45;transition:opacity .8s var(--ease)}
 .s-tl .row div.lit{opacity:1}
 .s-tl .dot{position:absolute;top:-11px;left:0;width:20px;height:20px;border-radius:50%;background:var(--drc-ink);box-shadow:0 0 0 6px rgba(186,150,84,.25);transition:left .4s linear;z-index:2}
 .s-tl b{display:block;font-family:var(--drc-serif);font-weight:500;font-size:62px;color:var(--drc-ink);line-height:1}
@@ -294,7 +297,8 @@ body.flow .s-show .card.is-r{transform:translate(12%,-50%) scale(.5)}
 .s-spot .endcard{position:absolute;inset:0;display:none;place-items:center;background:var(--black)}
 .s-spot.done .endcard{display:grid}
 .s-spot .endcard .drc-lock img{height:200px}
-.s-spot .endcard .drc-lock span{font-size:34px;color:var(--drc)}
+.s-spot .endcard .drc-lock span{font-size:34px}
+.s-spot .vctl .tbtn{background:rgba(0,0,0,.6);color:#fff;border-color:rgba(255,255,255,.35)}
 .s-spot .vctl{display:flex;gap:8px}
 
 /* ===== Programme drawer ===== */
@@ -721,7 +725,7 @@ body.flow .s-quote blockquote{font-size:80px}
       // start on the clip that matches the time already spent in this section, so the sequence ends with the countdown
       let off = sec.el / 1000, k = 0; while (k < list.length && off >= list[k].dur) { off -= list[k].dur; k++; }
       const play = (i, at) => { v.src = list[i].src; v.muted = true; v.addEventListener("loadedmetadata", () => { if (at > 0 && at < v.duration) v.currentTime = at; }, { once: true }); v.play().catch(() => {}); };
-      v.addEventListener("ended", () => { k = k + 1 < list.length ? k + 1 : Math.floor(Math.random() * list.length); play(k, 0); });
+      let firstPass = true; v.addEventListener("ended", () => { if (firstPass && k + 1 < list.length) k++; else { firstPass = false; let r = Math.floor(Math.random() * list.length); if (list.length > 1 && r === k) r = (r + 1) % list.length; k = r; } play(k, 0); });
       if (k >= list.length) { k = Math.floor(Math.random() * list.length); off = 0; }
       play(k, off);
     }
@@ -799,6 +803,8 @@ body.flow .s-quote blockquote{font-size:80px}
 
   function fitSlide() {
     const f = $("#frame"), b = $("#slidebox"); if (!f || !b) return;
+    const free = !document.body.classList.contains("flow") && !document.body.classList.contains("spotfull");
+    b.style.width = free && f.clientHeight ? Math.round(856 * f.clientWidth / f.clientHeight) + "px" : "";
     const W = b.offsetWidth, H = b.offsetHeight, s = Math.min(f.clientWidth / W, f.clientHeight / H);
     b.style.transform = `translate(${(f.clientWidth - W * s) / 2}px,${(f.clientHeight - H * s) / 2}px) scale(${s})`;
   }
