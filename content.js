@@ -25,7 +25,7 @@
 */
 window.GALA = {
   // Lien /exec du Google Apps Script (voir DEPLOIEMENT-APPS-SCRIPT.md). Vide = horaires du plan ci-dessous.
-  liveUrl: "",
+  liveUrl: "https://script.google.com/macros/s/AKfycbwQnEQIMd4wXhjzR_DhySQ95gSGgqO9804qzS53LfkIF18-vdrLpZZIeHyZ4em9uDTYKw/exec",
   pollSeconds: 10,
 
   event: {
