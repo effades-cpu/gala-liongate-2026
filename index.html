@@ -159,7 +159,7 @@ body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-
 
 /* ---- Sections (designed at 1264×856) ---- */
 .s-logos{background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;text-align:center;padding:56px 72px;overflow:hidden}
-.s-logos p{font-size:28px;line-height:1.4;color:var(--text-2);max-width:48ch;margin-top:-24px;text-wrap:balance}
+.s-logos p{font-size:28px;line-height:1.4;color:var(--text-2);max-width:48ch;margin-top:40px;text-wrap:balance}
 .duo{display:flex;align-items:center;gap:72px}
 .duo > img{height:190px;width:auto;object-fit:contain;animation:rise 900ms var(--ease) both}
 .drc-lock{display:flex;flex-direction:column;align-items:center;gap:14px;animation:rise 900ms var(--ease) .2s both}
@@ -168,7 +168,7 @@ body.revue .runlist li:hover,body.revue #drawer li:hover{background:var(--black-
 :root[data-theme="dark"] .drc-lock span{color:var(--drc)}
 
 .duo .sep{width:1px;height:170px;background:var(--line)}
-.s-logos h2{font-weight:700;font-size:46px;line-height:1.12;letter-spacing:-.02em;max-width:22ch;animation:rise 900ms var(--ease) .35s both}
+.s-logos h2{margin-top:40px;font-weight:700;font-size:46px;line-height:1.12;letter-spacing:-.02em;max-width:22ch;animation:rise 900ms var(--ease) .35s both}
 
 .s-alt{display:grid;place-items:center;background:var(--paper);animation:altbg 12s ease-in-out infinite}
 @keyframes altbg{0%,40%{background:var(--paper)}50%,90%{background:var(--black)}100%{background:var(--paper)}}
@@ -295,7 +295,9 @@ body.flow .s-show .card.is-r{transform:translate(12%,-50%) scale(.5)}
 .s-spot .vlabel{position:absolute;left:24px;top:24px;padding:8px 14px;background:var(--black);border-radius:4px;font-size:18px;font-weight:600;animation:fadeout 1s ease 4s forwards}
 .s-spot .vctl{position:absolute;right:24px;bottom:24px}
 .s-spot .endcard{position:absolute;inset:0;display:none;place-items:center;background:var(--black)}
-.s-spot.done .endcard{display:grid}
+.s-spot.done .endcard,.s-spot.intro .endcard{display:grid}
+.s-spot.intro .endcard{transition:opacity 1.6s var(--ease)}
+.s-spot.intro.fading .endcard{opacity:0}
 .s-spot .endcard .drc-lock img{height:200px}
 .s-spot .endcard .drc-lock span{font-size:34px}
 .s-spot .vctl .tbtn{background:rgba(0,0,0,.6);color:#fff;border-color:rgba(255,255,255,.35)}
@@ -598,7 +600,7 @@ body.flow .s-quote blockquote{font-size:80px}
       html = `<div class="layer cover">${teaserVideo()}</div>`;
     } else if (phase === "open") {
       const nx = sch.next >= 0 ? units[sch.next] : null;
-      const bg = cur.scene === "teaser" ? teaserVideo() : `<div class="ambient">${(cur.images || []).map((s, k) => imgTag(s.src || s, "", k === 0 ? "on" : "", s.pos ? ` style="object-position:${esc(s.pos)}"` : "")).join("")}</div>`;
+      const bg = cur.scene === "teaser" ? teaserVideo() : cur.clips ? `<div class="ambient"><video class="bgvideo" data-clips muted playsinline preload="auto"></video></div>` : `<div class="ambient">${(cur.images || []).map((s, k) => imgTag(s.src || s, "", k === 0 ? "on" : "", s.pos ? ` style="object-position:${esc(s.pos)}"` : "")).join("")}</div>`;
       html = `<div class="layer openstep">${bg}<div class="shade"></div><div class="open-copy"><div><h1>${esc(L(cur.title))}</h1>${cur.line ? `<p>${esc(L(cur.line))}</p>` : ""}</div>${nx ? `<div class="upnext"><small>${esc(U().next)}</small><b>${esc(L(nx.title))}</b><span class="num" data-upnext></span></div>` : ""}</div></div>`;
     } else if (phase === "after") {
       html = `<div class="layer afterstep">${teaserVideo()}<div class="after"><div class="in"><h1>${esc(U().done)}</h1><p>${esc(U().doneLine)}</p><div class="duo">${logoHTML("liongate")}<span class="sep"></span>${drcLock()}</div></div></div></div>`;
@@ -607,6 +609,8 @@ body.flow .s-quote blockquote{font-size:80px}
     }
     sc.innerHTML = html;
     wireTeaser(sc);
+    const cv = phase === "open" && cur.clips ? sc.querySelector("video[data-clips]") : null;
+    if (cv) runClips(cv, cur.clips, Math.max(0, now() - sch.units[sch.current].start) / 1000, true);
     sc.querySelectorAll("[data-open-prog]").forEach(b => b.addEventListener("click", openDrawer));
     if (phase === "talk") { fitSlide(); secKey = ""; renderRunlist(sch); }
     applySound();
@@ -681,13 +685,13 @@ body.flow .s-quote blockquote{font-size:80px}
         const steps = pts.length ? `<ol class="steps${s.progressive ? " prog" : ""}">${pts.map(p => `<li>${esc(p)}</li>`).join("")}</ol>` : "";
         return `<div class="s-ti" style="position:absolute;inset:0"><div class="txt" data-fit><h2>${esc(L(s.title))}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}${s.image ? steps : ""}</div><div class="img">${s.image ? imgTag(s.image, L(s.title)) : steps}</div></div>`;
       }
-      case "carousel": return `<div class="s-car" style="position:absolute;inset:0">${(s.images || []).map((im, k) => { const o = typeof im === "string" ? { src: im } : im, on = k === 0 ? " on" : ""; return o.pair ? `<div class="pair${on}" data-k="${k}">${o.pair.map(x => imgTag(x, "")).join("")}</div>` : imgTag(o.src, o.name || "", "cimg" + on, ` data-k="${k}"` + (o.pos ? ` style="object-position:${esc(o.pos)}"` : "")); }).join("")}<div class="cap"><span class="where">${esc(L(s.caption) || "")}</span><span class="who" data-who></span><span class="num" data-car></span></div></div>`;
+      case "carousel": return `<div class="s-car" style="position:absolute;inset:0">${(s.images || []).map((im, k) => { const o = typeof im === "string" ? { src: im } : im, on = k === 0 ? " on" : ""; return o.pair ? `<div class="pair${on}" data-k="${k}">${o.pair.map(x => imgTag(x, "")).join("")}</div>` : imgTag(o.src, o.name || "", "cimg" + on, ` data-k="${k}"` + (o.pos ? ` style="object-position:${esc(o.pos)}"` : "")); }).join("")}<div class="cap"><span class="where">${esc(L(s.caption) || "")}</span><span class="who" data-who></span><span></span></div></div>`;
       case "clips": return `<div class="s-clips" style="position:absolute;inset:0"><video muted playsinline preload="auto"></video>${s.caption ? `<span class="where">${esc(L(s.caption))}</span>` : ""}</div>`;
       case "products": return `<div class="s-prod" style="position:absolute;inset:0"><div class="pv">${(s.items || []).map((p, k) => imgTag(p.image, p.name, k === 0 ? "on" : "")).join("")}</div><div class="pd" data-fit><small>${esc(L(s.title))}</small><div class="swap" data-pd></div><div class="pdots num" data-pc>1 / ${(s.items || []).length}</div></div></div>`;
       case "timeline": return `<div class="s-tl" data-fit style="position:absolute;inset:0"><h2>${esc(L(s.title))}</h2><div class="row num">${(s.items || []).map(t => `<div><b>${esc(t.year)}</b><span>${esc(L(t.text))}</span></div>`).join("")}</div></div>`;
       case "quote": return `<div class="s-quote" data-fit style="position:absolute;inset:0">${drcLock()}<blockquote>${esc(L(s.text))}</blockquote>${s.by ? `<p>${esc(L(s.by))}</p>` : ""}</div>`;
       case "showcase": return `<div class="s-show${s.bare ? " bare" : ""}" style="position:absolute;inset:0"><div class="head" data-fit><h2>${esc(L(s.title) || "")}</h2>${s.text ? `<p>${esc(L(s.text))}</p>` : ""}</div><div class="stage">${(s.items || []).map((p, k) => `<div class="card" data-k="${k}">${imgTag(p.image, p.name || L(s.title))}</div>`).join("")}</div><div class="name"><b data-sn>${esc((s.items && s.items[0] && s.items[0].name) || "")}</b><span class="num" data-sc>1 / ${(s.items || []).length}</span></div></div>`;
-      case "spots": return `<div class="s-spot" style="position:absolute;inset:0"><video playsinline preload="auto"></video><span class="vlabel" data-vlabel></span><div class="vctl"><button class="tbtn" type="button" data-vfs aria-label="Plein écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="tbtn" type="button" data-vplay aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button></div><div class="endcard">${drcLock()}</div></div>`;
+      case "spots": return `<div class="s-spot" style="position:absolute;inset:0"><video playsinline preload="auto"></video><span class="vlabel" data-vlabel></span><div class="vctl"><button class="tbtn" type="button" data-vfs aria-label="Plein écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="tbtn" type="button" data-vplay aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button></div><div class="endcard"><div class="s-quote" style="position:absolute;inset:0">${drcLock()}<blockquote>Beauty is your nature</blockquote></div></div></div>`;
       default: return `<div class="s-title" style="position:absolute;inset:0"><h2>${esc(L(s.title) || L(u.title))}</h2></div>`;
     }
   }
@@ -705,7 +709,19 @@ body.flow .s-quote blockquote{font-size:80px}
     v.addEventListener("play", icon); v.addEventListener("pause", icon);
     const fsb = root.querySelector("[data-vfs]"); if (fsb) fsb.addEventListener("click", () => { const r = v.requestFullscreen || v.webkitRequestFullscreen || v.webkitEnterFullscreen; if (r) { const p = r.call(v); if (p && p.catch) p.catch(() => {}); } if (!soundOn) setSound(true); });
     btn.addEventListener("click", () => { if (v.paused) { if (root.querySelector(".s-spot").classList.contains("done")) { root.querySelector(".s-spot").classList.remove("done"); k = 0; load(); } else playVideo(v); } else v.pause(); });
-    if (list.length) load();
+    const box = root.querySelector(".s-spot");
+    if (list.length) { box.classList.add("intro"); setTimeout(() => { box.classList.add("fading"); load(); }, 1500); setTimeout(() => box.classList.remove("intro", "fading"), 3300); }
+  }
+
+  // Plays clips in order from an offset (s). loop: start over at the end; otherwise one pass, then random (if the MC extends)
+  function runClips(v, list, offset, loop) {
+    const total = list.reduce((a, c) => a + (c.dur || 0), 0) || 1;
+    let off = loop ? offset % total : offset, k = 0; while (k < list.length && off >= list[k].dur) { off -= list[k].dur; k++; }
+    const play = (i, at) => { v.src = vsrc(list[i].src); v.muted = true; v.addEventListener("loadedmetadata", () => { if (at > 0 && at < v.duration) v.currentTime = at; }, { once: true }); v.play().catch(() => {}); };
+    let firstPass = true;
+    v.addEventListener("ended", () => { if (loop) k = (k + 1) % list.length; else if (firstPass && k + 1 < list.length) k++; else { firstPass = false; let r = Math.floor(Math.random() * list.length); if (list.length > 1 && r === k) r = (r + 1) % list.length; k = r; } play(k, 0); });
+    if (k >= list.length) { k = Math.floor(Math.random() * list.length); off = 0; }
+    play(k, off);
   }
 
   // Inner animation of the current section (carousels, product cards), driven by the shared clock
@@ -717,8 +733,7 @@ body.flow .s-quote blockquote{font-size:80px}
       const k = pickIndex(sec.el, n, every, s.lead, (s.leadFor || 60) * 1000);
       if (k !== slideState.k) {
         frames.forEach((f, i) => f.classList.toggle("on", i === k)); slideState.k = k;
-        const c = el.querySelector("[data-car]"); if (c) c.textContent = `${k + 1} / ${n}`;
-        const w = el.querySelector("[data-who]"); if (w) w.textContent = ((s.images || [])[k] || {}).name || "";
+                const w = el.querySelector("[data-who]"); if (w) w.textContent = ((s.images || [])[k] || {}).name || "";
       }
     }
     if (s.layout === "text-image" && s.progressive) {
@@ -736,12 +751,7 @@ body.flow .s-quote blockquote{font-size:80px}
     if (s.layout === "clips" && !slideState.clips) {
       slideState.clips = true;
       const v = el.querySelector(".s-clips video"), list = s.clips || []; if (!v || !list.length) return;
-      // start on the clip that matches the time already spent in this section, so the sequence ends with the countdown
-      let off = sec.el / 1000, k = 0; while (k < list.length && off >= list[k].dur) { off -= list[k].dur; k++; }
-      const play = (i, at) => { v.src = vsrc(list[i].src); v.muted = true; v.addEventListener("loadedmetadata", () => { if (at > 0 && at < v.duration) v.currentTime = at; }, { once: true }); v.play().catch(() => {}); };
-      let firstPass = true; v.addEventListener("ended", () => { if (firstPass && k + 1 < list.length) k++; else { firstPass = false; let r = Math.floor(Math.random() * list.length); if (list.length > 1 && r === k) r = (r + 1) % list.length; k = r; } play(k, 0); });
-      if (k >= list.length) { k = Math.floor(Math.random() * list.length); off = 0; }
-      play(k, off);
+      runClips(v, list, sec.el / 1000, !!s.loop);   // starts on the clip matching the time already spent, so the sequence follows the countdown
     }
     if (s.layout === "showcase") {
       const cards = [...el.querySelectorAll(".s-show .card")], n = cards.length; if (!n) return;

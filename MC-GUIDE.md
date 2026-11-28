@@ -36,7 +36,7 @@ Le site ignore de toute façon les « début réel » et la « pause en cours »
 ## Cas concrets
 
 **La soirée commence en retard.** Prévu à 17:30, l'Accueil commence réellement à 18:00.
-- À **18:00**, appuyez sur **« Commence maintenant »** sur **Accueil et photocall** : l'Accueil dure ses 30 min, l'Ouverture passe à 18:30, et tout le reste suit.
+- À **18:00**, appuyez sur **« Commence maintenant »** sur **Accueil** : l'Accueil dure ses 30 min, l'Ouverture passe à 18:30, et tout le reste suit.
 - **ou**, si l'accueil a déjà eu lieu et que les discours commencent à 18:00 : appuyez sur **« Commence maintenant »** sur **Ouverture** à 18:00. Le reste se recalcule à partir de 18:00.
 
 **Un intervenant dépasse son temps.**
